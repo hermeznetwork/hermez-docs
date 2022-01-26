@@ -1,0 +1,66 @@
+site_name: Polygon Hermez Documentation
+site_url: https://hermez.io/
+theme:
+  name: material
+  palette:
+    primary: deep purple
+  logo: logo-white.svg
+  favicon: logo192.png
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.tracking
+repo_url: https://github.com/hermeznetwork/zkevmdoc-public
+markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+extra:
+  social:
+    - icon: fontawesome/brands/telegram
+      link: https://t.me/polygonhermez
+    - icon: fontawesome/brands/github
+      link: https://github.com/hermeznetwork/zkevmdoc-public
+    - icon: octicons/browser-24
+      link: https://hermez.io/
+
+nav:
+  - Hermez 2.0 (zkEVM):
+    - Architecture:
+      - Introduction: "zkEVM/architecture/introduction.md"
+      - Simple State Machine: "zkEVM/architecture/simple-state-machine.md"  
+      - Modular Design: "zkEVM/architecture/modular-design.md"
+  - Hermez 1.0:
+    - About:
+      - Ethereum Scalability and zk-Rollups: "Hermez_1.0/about/scalability.md"
+      - Hermez Value Proposition: "Hermez_1.0/about/value-proposition.md"
+      - Hermez Network Model: "Hermez_1.0/about/model.md"
+      - Security: "Hermez_1.0/about/security.md"
+    - Users:
+      - Hermez Wallet: "Hermez_1.0/users/hermez-wallet.md"
+      - Hermez Mainnet: "Hermez_1.0/users/mainnet.md"
+      - Hermez Testnet: "Hermez_1.0/users/testnet.md"
+      - Exchanges: "Hermez_1.0/users/exchanges.md"
+    - Developers:
+      - Developer Guide: "Hermez_1.0/developers/dev-guide.md"
+      - Protocol:
+        - Hermez zkRollup protocol:
+          - Core protocol: "Hermez_1.0/developers/protocol/hermez-protocol/protocol.md"
+          - Smart contracts: "Hermez_1.0/developers/protocol/hermez-protocol/contracts/contracts.md"
+          - Circuits: "Hermez_1.0/developers/protocol/hermez-protocol/circuits/circuits.md"
+        - Forging consensus protocol: "Hermez_1.0/developers/protocol/consensus/consensus.md"
+        - Withdrawal delayer protocol: "Hermez_1.0/developers/protocol/withdrawal-delayer/withdrawal-delayer.md"
+      - Examples/SDK: "Hermez_1.0/developers/sdk.md"
+      - API: "Hermez_1.0/developers/api.md"
+      - Batch Explorer: "Hermez_1.0/developers/batch-explorer.md"
+      - Hermez NodePrice Updater: "Hermez_1.0/developers/price-updater.md"
+      - Glossary: "Hermez_1.0/developers/glossary.md"
+    - FAQ:
+      - End-Users: "Hermez_1.0/faq/end-users.md"
+      - Integrators: "Hermez_1.0/faq/integrators.md"
+      - Coordinators: "Hermez_1.0/faq/coordinators.md"
+      - Proof of Donation: "Hermez_1.0/faq/pod.md"
+      - Other: "Hermez_1.0/faq/other.md"
