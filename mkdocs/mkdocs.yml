@@ -1,5 +1,5 @@
 site_name: Polygon Hermez Documentation
-site_url: https://hermez.io/
+site_url: https://docs.hermez.io/
 theme:
   name: material
   palette:
@@ -10,7 +10,7 @@ theme:
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.tracking
-repo_url: https://github.com/hermeznetwork/zkevmdoc-public
+repo_url: https://github.com/hermeznetwork/hermez-docs
 markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
@@ -23,7 +23,7 @@ extra:
     - icon: fontawesome/brands/telegram
       link: https://t.me/polygonhermez
     - icon: fontawesome/brands/github
-      link: https://github.com/hermeznetwork/zkevmdoc-public
+      link: https://github.com/hermeznetwork/hermez-docs
     - icon: octicons/browser-24
       link: https://hermez.io/
 
