@@ -94,7 +94,7 @@ $$[arith \cdot A , arith \cdot B , arith \cdot C , arith \cdot D, arith \cdot op
 
 Notice that we use **op** because it contains the value of the E registry in the current tick.
 
-As we can see in the next figure, we use Plockup as a bus to connect our main state machine to the other specific state machines: 
+As we can see in the next figure, we use Plookup as a bus to connect our main state machine to the other specific state machines: 
 
 ![image](figures/microVM-architecture.pdf.png)
 

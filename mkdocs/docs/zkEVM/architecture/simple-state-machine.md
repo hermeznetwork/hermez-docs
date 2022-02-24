@@ -305,7 +305,7 @@ The four bit codification is shown next:
 $$\begin{array}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
 -8 & -7 & -6 & ... & -2 & -1 & 0 & 1 & 2 & ... & 6 & 7 & 8 \\ \hline
-1000 & 1001 & 0110 & ... & 1110 & 1111 & 0000 & 0001 & 0010 & ... & 0110 & 0111 & 1000 \\ \hline
+1000 & 1001 & 1010 & ... & 1110 & 1111 & 0000 & 0001 & 0010 & ... & 0110 & 0111 & 1000 \\ \hline
 \end{array}$$
 
 Notice that with this arithmetic $8=-8$, which is a weird case that we discard, using only values from -7 to 7.
@@ -526,8 +526,8 @@ $$\begin{aligned}
 Finally, it should be checked that the whole set of selectors are, in fact, binary:
 
 $$\begin{aligned}
-&\mathsf{inA}(x) \cdot (\mathsf{setA}(x) - 1) = 0, \quad \mathsf{setA}(x) \cdot (\mathsf{setA}(x) - 1) = 0, \quad\\
-&\mathsf{inB}(x) \cdot (\mathsf{setB}(x)- 1) = 0, \quad \mathsf{setB}(x) \cdot (\mathsf{setB}(x) - 1) = 0, \quad\\
+&\mathsf{inA}(x) \cdot (\mathsf{inA}(x) - 1) = 0, \quad \mathsf{setA}(x) \cdot (\mathsf{setA}(x) - 1) = 0, \quad\\
+&\mathsf{inB}(x) \cdot (\mathsf{inB}(x)- 1) = 0, \quad \mathsf{setB}(x) \cdot (\mathsf{setB}(x) - 1) = 0, \quad\\
 &\mathsf{inFreeIn}(x) \cdot (\mathsf{inFreeIn}(x) - 1) = 0, \quad \mathsf{selJMPIZ}(x) \cdot (\mathsf{selJMPIZ}(x) - 1) = 0.
 \end{aligned}$$
 
