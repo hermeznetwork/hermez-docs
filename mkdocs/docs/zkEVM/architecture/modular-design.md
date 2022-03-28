@@ -68,11 +68,11 @@ Therefore, the polynomial identities that define the arithmetic state machine ar
 the following: 
 
 $$\begin{aligned}
-\mathcal{A'} &= \mathbf{sel}\mathcal{A}\cdot(\mathbf{freeIn}-\mathcal{A}) + \mathcal{A} \\
-\mathcal{B'} &= \mathbf{sel}\mathcal{B}\cdot(\mathbf{freeIn}-\mathcal{B}) + \mathcal{B} \\
-\mathcal{C'} &= \mathbf{sel}\mathcal{C}\cdot(\mathbf{freeIn}-\mathcal{C}) + \mathcal{C} \\
-\mathcal{D'} &= \mathbf{sel}\mathcal{D}\cdot(\mathbf{freeIn}-\mathcal{D}) + \mathcal{D} \\
-\mathcal{E'} &= \mathbf{sel}\mathcal{E}\cdot(\mathbf{freeIn}-\mathcal{E}) + \mathcal{E} \\
+\mathcal{A'} &= \mathbf{set}\mathcal{A}\cdot(\mathbf{freeIn}-\mathcal{A}) + \mathcal{A} \\
+\mathcal{B'} &= \mathbf{set}\mathcal{B}\cdot(\mathbf{freeIn}-\mathcal{B}) + \mathcal{B} \\
+\mathcal{C'} &= \mathbf{set}\mathcal{C}\cdot(\mathbf{freeIn}-\mathcal{C}) + \mathcal{C} \\
+\mathcal{D'} &= \mathbf{set}\mathcal{D}\cdot(\mathbf{freeIn}-\mathcal{D}) + \mathcal{D} \\
+\mathcal{E'} &= \mathbf{set}\mathcal{E}\cdot(\mathbf{freeIn}-\mathcal{E}) + \mathcal{E} \\
 0 &= [ \mathcal{A} \cdot \mathcal{B} + \mathcal{C} - (2^{32} \mathcal{D} + \mathcal{E}) ] \cdot \mathbf{latch} \\
 \mathbf{freeIn} &\subset byte4\end{aligned}$$
 
