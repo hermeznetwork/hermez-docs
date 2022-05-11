@@ -37,6 +37,7 @@ The major components of Hermez 2.0 are:
 - Aggregators //(who are the participants requisite in reaching network consensus)
 - Active users of the Hermez 2.0 network who create transactions.
 
+
 The skeletal architecture of Hermez 2.0 is therefore as follows.
 
 ! [Hermez Architecture] (/Users/anuradha/Desktop/Anthony/IMAGES)
