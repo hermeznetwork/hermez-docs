@@ -166,71 +166,59 @@ Hermez 2.0 employs the state-of-the-art zero-knowledge technology. It uses a zer
 
 
 
-In a nutshell, the zkEVM expresses state changes in polynomial form. Therefore, the constraints that each proposed batch must satisfy are in fact polynomial constraints or polynomial identities. That is, all valid batches must satisfy certain polynomial constraints.
+In a nutshell, the zkEVM expresses state changes in polynomial form. Therefore, the constraints that each proposed batch must satisfy are, in fact, polynomial constraints or polynomial identities. That is, all the valid batches must satisfy certain polynomial constraints.
+
+#### zkProver Architecture
 
 
+The zkNode Architecture is composed of:
 
-#### The Main State Machine Executor
+1. **Main State Machine Executor**: The Main Executor handles the execution of the zkEVM. This is where EVM Bytecodes are interpreted using a new **zero-knowledge Assembly language** (or zkASM), specially developed by the team. The executor also sets up the polynomial constraints that every valid batch of transactions must satisfy. Another new language, also a specially developed language by the team, called the **Polynomial Identity Language** (or PIL) is used to encode all the polynomial constraints.
 
-The Main Executor handles the execution of the zkEVM. This is where EVM Bytecodes are interpreted using a new zero-knowledge Assembly language (zkASM), specially developed by the team. The executor also sets up the polynomial constraints that every valid batch of transactions must satisfy. Another new language, also a specially developed language by the team, called the Polynomial Identity Language (or PIL) is used to encode all the polynomial constraints.
+2. **Secondary State Machines**: Every computation required in proving correctness of transactions is represented in the zkEVM as a state machine. The zkProver, being the most complex part of the whole project, consists of several state machines; from those carrying out bitwise functionalities (e.g., XORing, padding, etc.) to those performing hashing (e.g., Keccak, Poseidon), even to verifying signatures (e.g., ECDSA).
 
+The collection of the secondary state machines, therefore, refers to a collection of all state machines in the zkProver. It is not a subcomponent per se, but a collection of various executors for individual secondary state machines. The set of state machines are: 
 
+- Binary SM
+- Memory SM
+- Storage SM 
+- Poseidon SM
+- Keccak SM 
+- Arithmetic SM
 
-#### A Collection of Secondary State Machines
+See **Figure 5** below for dependencies among these SMs.
 
-Every computation required in proving correctness of transactions is represented in the zkEVM as a state machine. The zkProver, being the most complex part of the whole project, consists of several state machines; from those carrying out bitwise functionalities (e.g., XORing, padding, etc.) to those performing hashing (e.g., Keccak, Poseidon), even to verifying signatures (e.g., ECDSA).
-
-The collection of secondary State Machines therefore refers to a collection of all state machines in the zkProver. It is not a subcomponent per se, but a collection of various executors for individual secondary state machines. These are; the Binary SM, the Memory SM, the Storage SM, the Poseidon SM, the Keccak SM and the Arithmetic SM. See Figure 5 below for dependencies among these SMs.
-
-Depending on the specific operations each SM is responsible for, some use both zkASM and PIL, while others use only one.
-
-
+Depending on the specific operations each SM is responsible for, some use both zkASM and PIL, while others rely only on one of these languages.
 
 <p align="center"><img src="IMAGES/fig5-col-sm-zkprov.png" width="800" /></p>
 <div align="center"><b> Figure 5: Hermez 2.0 State Machines </b></div>
 
 
-
-
-
-### STARK-proof Builder
-
-STARK, which is short for Scalable Transparent ARgument of Knowledge, is a proof system that enables provers to produce verifiable proofs, without the need for a trusted setup. 
-
-STARK-proof Builder refers to the subcomponent used to produce zero-knowledge STARK-proofs, which are zk-proofs attesting to the fact that all the polynomial constraints are satisfied.
+3. **STARK Proof Builder**: STARK, which stands for "Scalable Transparent Argument of Knowledge", is a proof system that enables provers to produce verifiable proofs, without the need for a trusted setup. A STARK-proof Builder refers to the subcomponent used to produce zero-knowledge STARK-proofs, which are zk-proofs attesting to the fact that all the polynomial constraints are satisfied.
 
 State machines generate polynomial constraints, and zk-STARKs are used to prove that batches satisfy these constraints. In particular, zkProver utilises Fast Reed-Solomon Interactive Oracle Proofs of Proximity (RS-IOPP), colloquially called [FRI](https://drops.dagstuhl.de/opus/volltexte/2018/9018/pdf/LIPIcs-ICALP-2018-14.pdf), to facilitate fast zk-STARK proving.
 
 
+4. **SNARK Proof Builder**: SNARK, which stands for "Succinct Non-interactive Argument of Knowledge", is a proof system that produces verifiable proofs. Since STARK proofs are bigger than SNARK proofs, Hermez 2.0 zkProver uses SNARK proofs to prove the correctness of these STARK proofs. Consequently, the SNARK proofs, which are much cheaper to verify on L1, are published as the validity proofs.
 
-### SNARK-proof Builder
-
-SNARK, which is similarly short for Succinct Non-interactive ARgument of Knowledge, is a proof system that produces verifiable proofs.
-
-Since STARK-proofs are way larger than SNARK-proofs, Hermez 2.0 zkProver uses SNARK-proofs to prove the correctness of these STARK-proofs. Consequently, the SNARK-proofs, which are much cheaper to verify on L1, are published as the validity proofs.
-
-The aim is to generate a [CIRCOM](https://www.techrxiv.org/articles/preprint/CIRCOM_A_Robust_and_Scalable_Language_for_Building_Complex_Zero-Knowledge_Circuits/19374986/1) circuit which can be used to generate or verify a SNARK proof. As to whether a PLONK or a GROTH16 SNARK proof will be used, is yet to be decided on.
-
+The aim is to generate a [CIRCOM](https://www.techrxiv.org/articles/preprint/CIRCOM_A_Robust_and_Scalable_Language_for_Building_Complex_Zero-Knowledge_Circuits/19374986/1) circuit which can be used to generate or verify a SNARK proof. As to whether a PLONK or a GROTH16 SNARK proof will be used for Hermez 2.0, is a question that needs to be discussed. 
 
 
 ### The LX-to-LY Bridge
 
-A typical Bridge smart contract is a combination of two smart contracts, one deployed on the first chain and the other on the second.
+An LX-LY bridge is a smart contract that lets users transfer their assets between two layers, LX and LY. The L1-L2 in Hermez 2.0 is a decentralised bridgefor secure deposits and withdrawal of assets; it is a combination of two smart contracts, one deployed on one chain and the second on the other.
 
-The L2-to-L1 Bridge smart contract for Hermez 2.0 is also composed of two smart contracts; the Bridge L1 Contract and the Bridge L2 Contract. The two contracts are practically identical except for where each is deployed. **Bridge L1 Contract** is on the Ethereum mainnet in order to manage asset transfers between rollups, while **Bridge L2 Contract** is on a specific rollup and it is responsible for asset transfers between mainnet and the rollup (or rollups).
+ The L1 and L2 contracts in Hermez 2.0 are identical except for where each is deployed. **Bridge L1 Contract** is on the Ethereum mainnet in order to manage asset transfers between rollups, while **Bridge L2 Contract** is on a specific rollup and it is responsible for asset transfers between mainnet and the rollup (or rollups). Layer 2 Interoperability allows a native mechanism to migrate assets between different L2 networks. This solution is embedded in the Bridge Smart Contract.
 
 
 
-#### The Bridge L1 Contract
+#### Bridge L1 Contract
 
-Firstly, **Bridge L1 Contract** carries out two operations, `bridge` and `claim`. The `bridge` operation transfers assets from one rollup to another, while the `claim` operation applies when the contract makes a claim from any rollup.
+Bridge L1 Contract carries out two operations: `bridge` and `claim`. The `bridge` operation transfers assets from one rollup to another, while the `claim` operation applies when the contract makes a claim from any rollup.
 
-Bridge L1 Contract requires two Merkle trees in order to perform the above operations; `globalExitTree` and `mainnet exit tree`. The `globalExitTree` contains all the information of exit trees of all rollups, whereas the `mainnet exit tree` has information of transactions made by users who interact with the mainnet. 
-
-A contract named the **global exit root manager L1** is responsible for managing exit roots across multiple networks. 
+Bridge L1 Contract requires two Merkle trees in order to perform the above operations: `globalExitTree` and `mainnet exit tree`. The `globalExitTree` contains all the information of exit trees of all rollups, whereas the `mainnet exit tree` has information of transactions made by users who interact with the mainnet. A contract named the **global exit root manager L1** is responsible for managing exit roots across multiple networks. 
 
 The exit tree structure is depicted in Figure 6, below.
-
 
 
 <p align="center"><img src="IMAGES/fig6-exit-tr-strct.png" width="700" /></p>
