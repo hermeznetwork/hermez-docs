@@ -134,8 +134,8 @@ An Aggregator receives all the transaction information from the Sequencer and se
 
 
 
-<p align="center"><img src="fig2-simple-poe.png" width="650" /></p>
-<div align="center"><b> Figure 2 : Simplified Proof of Efficiency </b></div>
+<p align="center"><img src="IMAGES/fig2-simple-poe.png" width="650" /></p>
+<div align="center"><b> Figure 2: Simplified Proof of Efficiency </b></div>
 
 
 
@@ -151,7 +151,7 @@ The **Synchronizer** is therefore responsible for reading events from the Ethere
 
 
 
-<p align="center"><img src="fig3-zkNode-arch.png" width="600" /></p>
+<p align="center"><img src="IMAGES/fig3-zkNode-arch.png" width="600" /></p>
 <div align="center"><b> Figure 3 : Hermez 2.0 zkNode Diagram </b></div>
 
 
