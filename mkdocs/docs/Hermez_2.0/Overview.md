@@ -148,6 +148,7 @@ The Synchronizer is responsible for reading the events from the Ethereum blockch
 <div align="center"><b> Figure 3 : Hermez 2.0 zkNode Diagram </b></div>
 
 
+
 The architecture of zkNode is modular and implements a set of functions as depicted in Figure 3 above.
 
  3. **RPC**: (Remote Procedure Calls) is a JSON RPC interface compatible with Ethereum. For a software application to interact with the Ethereum blockchain (by reading blockchain data and/or sending transactions to the network), it must connect to an Ethereum node. RPC enables integration of the zkEVM with existing tools, such as Metamask, Etherscan and Infura. It adds transactions to the **Pool** and interacts with the **State** using read-only methods. 
@@ -163,6 +164,7 @@ Hermez 2.0 employs the state-of-the-art zero-knowledge technology. It uses a zer
 
 <p align="center"><img src="IMAGES/fig4-zkProv-arch.png" width="650" /></p>
 <div align="center"><b> Figure 4: A Simplified zkProver Diagram </b></div>
+
 
 
 
