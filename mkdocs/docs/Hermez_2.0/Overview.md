@@ -226,74 +226,59 @@ The exit tree structure is depicted in Figure 6, below.
 
 
 
-#### The Bridge L2 Contract
+#### Bridge L2 Contract
 
-Secondly, **Bridge L2 Contract** will be deployed on L2 with Ether on it. The Ether will be set on the genesis in order to enable mint/burn of native Ether.
+Bridge L2 Contract is deployed on Layer L2 with ether on it. The ether will be set on the genesis in order to enable minting/burning of the native ether.
 
-Bridge L2 Contract also requires all the information of exit trees of all rollups contained in the `globalExitTree` Merkle tree. In this case, a smart contract named the **global exit root manager L2** is responsible for managing exit roots across multiple networks.
+Bridge L2 Contract also requires all the information of exit trees of all rollups contained in the `globalExitTree` Merkle tree. In this case, a smart contract named the **global exit root manager L2** is responsible for managing the exit roots across multiple networks.
 
-Note that when a batch is verified in the PoE smart contract in L1, the rollup exit root is updated in the global exit root manager L1. Bridge L2 Contract handles the rollup side of the `bridge` and the `claim` operations, as well as interacting with the `globalExitTree` and the `rollup exit tree`, mainly to update exit roots.
-
-
-
-#### Concluding the LX-to-LY Bridge
-
-Typically, a Bridge smart contract is an L2-to-L1 Bridge, but the Hermez 2.0 Bridge is more flexible and interoperable. It can function as a bridge between any two arbitrary Layer 2 chains, L2_A and L2_B , or between any Layer 2, L2_X and L1, the Ethereum blockchain. It consequently allows asset transfers among multiple rollups. Hence the term "LX-to-LY Bridge".
+> Note: When a batch is verified in the PoE smart contract in L1, the rollup exit root is updated in the global exit root manager L1. Bridge L2 Contract handles the rollup side of the `bridge` and the `claim` operations, as well as interacting with the `globalExitTree` and the `rollup exit tree`, mainly to update exit roots.
 
 
+#### LX-to-LY Bridge
+
+Typically, a bridge smart contract is an L2-to-L1 Bridge, but the Hermez 2.0 Bridge is more flexible and interoperable. It can function as a bridge between any two arbitrary Layer 2 chains, L2_A and L2_B , or between any Layer 2 (say L2_X) and L1 (Ethereum blockchain). It consequently allows asset transfers among multiple rollups. Hence the term "LX-to-LY Bridge".
 
 
 
 ## Hermez 2.0 Design Ideals 
 
 
-
-The decisions described above about engineering and implementation will help Hermez 2.0 attain its design ideals. That is, a network which is; permissionless, decentralized, secure, efficient and with verifiable block data.
+The architectural details (for engineering and implementation) described in the sections above will help Hermez 2.0 attain its design ideals. That would mean a network which is: permissionless, decentralized, secure, efficient and comes with verifiable block data.
 
 Development efforts aim at **permissionless-ness**, that is, allowing anyone with the Hermez 2.0 software to participate in the network. For instance, the consensus algorithm will give everyone the opportunity to be a Sequencer or an Aggregator.
 
-Data availability is most crucial for **decentralization**, where every user has sufficient data needed to rebuild the full state of a rollup. As discussed above, the team still has to decide on the best configuration of the data availability. The aim is to ensure that there is no censorship and no one party can control the network.
+Data availability is most crucial for **decentralization**, where every user has sufficient data needed to rebuild the full state of a rollup. As discussed above, the team still has to decide on the best configuration for data availability. The aim is to ensure that there is no censorship and no one party can control the network.
 
-Hermez 2.0 was designed with **security** in mind. As a L2 solution, most of the security is inherited from Ethereum. Smart contracts will warrant that anyone who executes state changes must; firstly, do it correctly; secondly, create a proof that attests to the validity of a state change; and thirdly, avail validity proofs on-chain for verification.
-
-
-
-### Efficiency and the Overall Strategy
-
-Efficiency is key to network performance. Hermez 2.0 therefore applies several implementation strategies to guarantee efficiency.
-
-The first strategy is to deploy PoE, which incentivizes the most efficient aggregators to participate in the proof generation process.
-
-The second strategy is to carry out all computations off-chain while keeping only the necessary data and zk-proofs on-chain.
-
-Various other strategies are implemented within specific components of the Hermez 2.0 system. For instance;
-
-1. The way in which the Bridge smart contract is implemented, such as settling accounts in an UTXO manner, by only using the Exit Tree Roots.
-
-2. Utilisation of specialised cryptographic primitives within the zkProver in order to speed up computations and minimise proof sizes, seen in;
-
-   (a) Running a special zero-knowledge Assembly language (zkASM) for interpretation of byte codes,
-
-   (b) Using zero-knowledge tools such as zk-STARKs for proving purposes, which are[ very fast, though yielding hefty proofs](https://docs.google.com/presentation/d/1gfB6WZMvM9mmDKofFibIgsyYShdf0RV_Y8TLz3k1Ls0/edit#slide=id.p). 
-
-   So instead of publishing the sizable zk-STARK proofs as validity proofs, a zk-SNARK is used to attest to the correctness of the zk-STARK proofs. 
-
-   These zk-SNARKs are in turn published as the validity proofs to state changes. The gas costs reduce from 5M to 350K.
+Hermez 2.0 was designed with **security** in mind. As a L2 solution, most of the security is inherited from Ethereum. Smart contracts will warrant that anyone who executes state changes must, firstly, do it correctly; secondly, create a proof that attests to the validity of a state change; and thirdly, avail validity proofs on-chain for verification.
 
 
+### Efficiency and Overall Strategy
 
+Efficiency is key to network performance. Hermez 2.0, therefore, applies several implementation strategies to guarantee efficiency. A few of them are listed below:
+
+1. The first strategy is to deploy PoE, which incentivizes the most efficient aggregators to participate in the proof generation process.
+
+2. The second strategy is to carry out all computations off-chain while keeping only the necessary data and zk-proofs on-chain.
+
+Other strategies that are implemented within specific components of the Hermez 2.0 system. For instance:
+
+1. The way in which the bridge smart contract is implemented, such as settling accounts in an UTXO manner, by only using the Exit Tree Roots.
+
+2. Utilisation of specialised cryptographic primitives within the zkProver in order to speed up computations and minimise proof sizes, as seen in:
+
+   (a) Running a special zero-knowledge Assembly language (zkASM) for interpretation of byte codes
+
+   (b) Using zero-knowledge tools such as zk-STARKs for proving purposes, which are[very fast, though yielding hefty proofs](https://docs.google.com/presentation/d/1gfB6WZMvM9mmDKofFibIgsyYShdf0RV_Y8TLz3k1Ls0/edit#slide=id.p). 
+
+   So, instead of publishing the sizeable zk-STARK proofs as validity proofs, a zk-SNARK is used to attest to the correctness of the zk-STARK proofs. These zk-SNARKs are in turn published as the validity proofs to state changes. The gas costs reduce from 5M to 350K.
 
 
 ## Conclusion 
 
 
+Given the EVM OPCODE compatibility, Hermez 2.0 is designed to process smart contracts seamlessly and verify state changes efficiently. It is promising not only to be secure and efficient, but also to accomplish competitive decentralization. In an effort to achieve high-speed proving and succinct proofs for quick verification, the team is focused on the optimization of the zkProver.
 
-Given the EVM OPCODE-Compatibility, Hermez 2.0 is designed to seamlessly process smart contracts and efficiently verify state changes. It is promising not only to be secure and efficient, but also to accomplish competitive decentralization.
-
-In the effort to achieve high-speed proving and succinct proofs for quick verification, the team is focused on the optimization of the zkProver.
-
-The team also leverages the synergies among the different Polygon teams that are also looking into zk-rollups solutions for achieving Ethereum scalability.
-
-Although development is still underway, it was important for this document to be released in keeping with the transparency of open-source projects, as well as keeping the Polygon community of developers and users of Hermez 1.0 updated.
+The team also leverages the synergies among the different Polygon teams that are also looking into zk-rollups solutions for achieving Ethereum scalability. Although development is still underway, it was important for this document to be released early so as to align with the goal of transparency set by open-source projects, as well as keep the Polygon community of developers and users of Hermez 1.0 updated with the upcoming changes.
 
 The next step is to prepare for a public testnet. Although it is difficult to set a definitive date, the plan is to launch the testnet in mid-2022.
