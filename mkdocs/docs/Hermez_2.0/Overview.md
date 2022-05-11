@@ -108,7 +108,7 @@ The underlying protocol in Hermez 2.0 ensures that the state transitions are val
 
 The PoE smart contract therefore makes two basic calls; A call to receive batches from Sequencers, and another call to Aggregators, requesting batches to be validated. See **Figure 2** below.
 
-<p align="center"><img src="IMAGES/fig1-simple-poe.png" width="600" /></p>
+<p align="center"><img src="IMAGES/fig2-simple-poe.png" width="600" /></p>
 <div align="center"><b> Figure 2 : Skeletal Overview Hermez 2.0 </b></div>
 
 
