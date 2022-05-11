@@ -141,26 +141,28 @@ An Aggregator receives all the transaction information from the Sequencer and se
 
 ### zkNode
 
-A zkNode is the software needed to run a Hermez 2.0 node. It is a client that the network requires to implement the synchronization and cover the roles of participants as Sequencers or Aggregators. 
+A zkNode is the software needed to run a Hermez 2.0 node. It is a client that the network requires to implement the synchronization and governs the roles of participants (Sequencers or Aggregators). 
 
-Polygon Hermez 2.0 participants will choose how they participate; either as simply a node, to know the state of the network; or participate in the process of batch production in any of the two roles, as a **Sequencer** or an **Aggregator**. An Aggregator will be running the zkNode but also performs validation using the core part of the zkEVM, called the zkProver (this is labelled Prover in Figure 3 below.)
+#### zkNode Architecture
 
-Other than the sequencing and the validating processes, the zkNode also enables synchronisation of batches and their validity proofs, which happens only after these have been added to L1. It uses a subcomponent called the Synchronizer. The Synchronizer is in charge of getting all the data from smart contracts, which includes the data posted by the sequencers (i.e. transactions) and the data posted by the coordinators (which is the validity proof).
+The zkNode Architecture is composed of:
 
-The **Synchronizer** is therefore responsible for reading events from the Ethereum blockchain, including new batches, in order to keep the state fully synced. The information read from these events must be stored in the database. Synchronizer also handles possible reorgs, which will be detected by checking if last `ethBlockNum` and last `ethBlockHash` are synced.
+1. **Sequencers and Aggregators**: Polygon Hermez 2.0 participants will choose how they participate; either as simply a node, to know the state of the network; or as a participant in the process of batch production in any of the two roles: Sequencer or Aggregator. An Aggregator will be running the zkNode but also performs validation using the core part of the zkEVM, called the zkProver (this is labelled **Prover** in Figure 3 below.)
 
+2. **Synchronizer**: Other than the sequencing and the validating processes, the zkNode also enables synchronisation of batches and their validity proofs, which happens only after these have been added to L1. It uses a subcomponent called the Synchronizer. A Synchronizer is in charge of getting all the data from smart contracts, which includes the data posted by the sequencers (transactions) and the data posted by the coordinators (which is the validity proof). All this data is stored in a huge database and served to third parties through a service called "JSON-RPC".
+
+The Synchronizer is responsible for reading the events from the Ethereum blockchain, including new batches to keep the state fully synced. The information read from these events must be stored in the database. The Synchronizer also handles possible reorgs, which will be detected by checking if last `ethBlockNum` and last `ethBlockHash` are synced.
 
 
 <p align="center"><img src="IMAGES/fig3-zkNode-arch.png" width="600" /></p>
 <div align="center"><b> Figure 3 : Hermez 2.0 zkNode Diagram </b></div>
 
 
-
 The architecture of zkNode is modular and implements a set of functions as depicted in Figure 3 above.
 
-The **RPC** (remote procedure calls) interface is a JSON RPC interface which is Ethereum compatible. It is implemented to enable integration of the zkEVM with existing tooling, such as Metamask, Etherscan and Infura. RPC adds transactions to the **Pool** and interacts with the **State** using read-only methods. 
+ 3. **RPC**: (Remote Procedure Calls) is a JSON RPC interface compatible with Ethereum. For a software application to interact with the Ethereum blockchain (by reading blockchain data and/or sending transactions to the network), it must connect to an Ethereum node. RPC enables integration of the zkEVM with existing tools, such as Metamask, Etherscan and Infura. It adds transactions to the **Pool** and interacts with the **State** using read-only methods. 
 
-The **State** subcomponent implements the Merkle Tree and connects to the DB backend. It checks integrity at block level (i.e., information related to; gas, block size, etc.) and some transaction-related information (e.g., signatures, sufficient balance, etc.). State also stores smart contract (SC) code into the Merkle tree and processes transactions using the EVM.
+4. **State**: subcomponent implements the Merkle Tree and connects to the DB backend. It checks integrity at block level (i.e., information related to; gas, block size, etc.) and some transaction-related information (e.g., signatures, sufficient balance, etc.). State also stores smart contract (SC) code into the Merkle tree and processes transactions using the EVM.
 
 //Software that is in charge of collecting all the data from the smart contract, storing it in the database, and then serving the user applications through RPC JSON call methods to provide them with all the information regarding zkEVM. The Hermez node is equivalent to the “geth” used in Ethereum. (Geth(Go Ethereum)) is a command-line interface for running Ethereum node implemented in Go Language. Using Geth you can join the Ethereum network, transfer ether between accounts, or even mine ethers. 
 
@@ -175,8 +177,8 @@ The **State** subcomponent implements the Merkle Tree and connects to the DB bac
 
 Hermez 2.0 employs state-of-the-art zero-knowledge technology. It will use a zero-knowledge prover, dubbed zkProver, which is intended to run on any server and is being engineered to be compatible with most consumer hardware.Every Aggregator will use the zkProver to validate batches and provide validity proofs. zkProver has its own detailed architecture which is outlined below. It will consist mainly of the Main State Machine Executor, a collection of secondary State Machines each with its own executor, the STARK-proof builder, and the SNARK-proof builder. See **Figure 4** below for a simplified diagram of the Hermez 2.0 zkProver.
 
-<p align="center"><img src="fig4-zkProv-arch.png" width="650" /></p>
-<div align="center"><b> Figure 4 : A Simplified zkProver Diagram </b></div>
+<p align="center"><img src="IMAGESfig4-zkProv-arch.png" width="650" /></p>
+<div align="center"><b> Figure 4: A Simplified zkProver Diagram </b></div>
 
 
 
