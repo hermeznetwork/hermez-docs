@@ -29,7 +29,7 @@ Over and above what its predecessor was designed to do, the main functionality o
 
 The major components of Hermez 2.0 are:
 
-- Proof of Efficiency Algorithm 
+- Proof of Efficiency Consensus Mechanism
 - zkNode Software
 - zkProver
 - LX-to-LY Bridge
@@ -102,39 +102,49 @@ Unless, among other things, the proving module can be highly accelerated to miti
 
 The underlying protocol in Hermez 2.0 ensures that the state transitions are valid by employing  a validity proof. To ensure that a set of pre-determined rules have been followed for allowing transitioning of the state, smart contract is employed. The verification of the validity proofs by a smart contract  checks if each transition is done correctly. This is achieved by using zk-SNARK circuits. Such a mechanism entail two processes: batching of transactions and validation of the batched transactions. Hermez 2.0 uses two types of particiapnts to carry out these processes: Sequencers and Aggregators. Under this two-layer model, 
 
-1.  Sequencers propose  transaction batches to the network, i.e. they roll-up the transaction-requests to batches and add them to the PoE smart contract.
+- Sequencers propose transaction batches to the network, i.e. they roll-up the transaction-requests to batches and add them to the PoE smart contract.
 
-2. Aggregators check the validity of the transaction batches and provide validity proofs. Any permissionless Aggregator can submit the proof to demonstrate the correctness of the state transition computation.
+- Aggregators check the validity of the transaction batches and provide validity proofs. Any permissionless Aggregator can submit the proof to demonstrate the correctness of the state transition computation.
 
 The PoE smart contract therefore makes two basic calls; A call to receive batches from Sequencers, and another call to Aggregators, requesting batches to be validated. See **Figure 2** below.
 
 <p align="center"><img src="IMAGES/fig2-simple-poe.png" width="600" /></p>
-<div align="center"><b> Figure 2 : Skeletal Overview Hermez 2.0 </b></div>
+<div align="center"><b> Figure 2: Sequencers and Aggregators </b></div>
 
 
 
-#### Proof of Efficiency Tokenomics
+
+//Sequencer: Software that mainly waits for users to send transactions to it. The sequencer has a model inside which there is a transaction pool that is similar to the transaction pool in Ethereum, which selects the most profitable transaction for you. Sequencer selects the most profitable ones and then those transactions will be sent to the POE smart contract.
+
+//Aggregator: It just gets all the info that the sequencer pulled into the smart contract and with that information, the aggregator builds the input for the prover. Once the aggregator has this data, it sends it to the prover and the prover starts to fill all the polynomial computations. And in the very end, the prover generates a small zk proof. And then the aggregator needs to interact with the smart contract and the smart contract then validates this proof for its correctness. If everything is correct, it is considered true. The aggregator asks the prover for the validity proof (the prover takes some time since it has some heavy computation there) and then sends that proof to the smart contract, which will verify the validity proof with the "verifier.sol". Therefore, an aggregator needs a prover but the prover only computes the validity proof. The aggregator collects the data, sends it to the prover, gets the output from the prover and sends the smart contact call.
+
+
+### Proof of Efficiency Tokenomics: Sequencers and Aggregators
 
 The PoE smart contract imposes a few requirements on Sequencers and Aggregators.
 
-**Sequencers' Constraints**;
+**Sequencers**
 
-- Anyone running the zkNode, which is the software necessary for running a Hermez 2.0 node, can be a Sequencer. 
-- Every Sequencer must pay a fee in $Matic in order to earn the right to create and propose batches. 
-- A Sequencer who proposes valid batches, which consist of valid transactions, is incentivised with fees paid by transaction-requestors, the users of the network. 
-- Specifically, a Sequencer collects L2 transactions from users, preprocesses them as a new L2 batch, then proposes the batch as a valid L2 transaction to the PoE smart contract.
+A Sequencer receives L2 transactions from the users, preprocesses them as a new L2 batch, and then proposes the batch to the PoE smart contract as a valid L2 transaction.
 
-**Aggregators' Constraints**;
-
-- An Aggregator's task is to produce validity proofs for the L2 transactions proposed by Sequencers.
-- In addition to running Hermez 2.0's zkNode software, Aggregators need to have specialised hardware for creating the zero-knowledge validity proofs. We herein call it the zkProver.
-- The Aggregator who is the first to submit a validity proof for a given batch or batches, earns the Matic fees paid by the Sequencer(s) of the batch(es).
-- The Aggregators need only indicate their intention to validate transactions and then run the race, to produce validity proofs, based on their own strategy.
+- Anyone with the software necessary for running a Hermez 2.0 node can be a Sequencer. 
+- Every Sequencer must pay a fee in $Matic to earn the right to create and propose batches. 
+- A Sequencer that proposes valid batches (which consist of valid transactions), is incentivised with fees paid by transaction-requestors or the users of the network. 
 
 
+**Aggregators**
 
-<p align="center"><img src="fig2-simple-poe.png" width="650" /></p>
-<div align="center"><b> Figure 2 : Simplified Proof of Efficiency </b></div>
+An Aggregator receives all the transaction information from the Sequencer and sends it to the prover which provides a small zk proof after complex polynolima comoutations. The smart contract validates this proof. This way, an aggregator collects the data, sends it to the prover, receives its output and finally, sends the information to the smart contract to check that the validity proof from the prover is correct. 
+
+- An Aggregator's task is to provide validity proofs for the L2 transactions proposed by Sequencers.
+- In addition to running Hermez 2.0's zkNode software, Aggregators need to have specialised hardware for creating the zero-knowledge validity proofs. We herein call it the zkProver (You will read about it in the later sections).
+- For a given batch or batches, an Aggregator that submits a validity proof first earns the Matic fee (which is being paid by the Sequencer(s) of the batch(es)).
+- The Aggregators need to indicate their intention to validate transactions and then they compete to produce the validity proofs based on their own strategy.
+
+
+
+<p align="center"><img src="fig3-zkNode-arch.png" width="650" /></p>
+<div align="center"><b> Figure 3 : Simplified Proof of Efficiency </b></div>
 
 
 
