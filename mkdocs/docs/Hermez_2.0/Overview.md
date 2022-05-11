@@ -1,10 +1,7 @@
-[ToC]
-
-
-
 # About Polygon Hermez
 
 Intergrated seamlessly with the Ethereum ecosystem, Polygon Hermez is a powerful, decentralized technology that provides Layer 2 scalability solutions to blockchain users. With the tremendous increase in the number of transactions taking place on-chain (i.e. base layer Ethereum), Layer 1 solution is already facing throughput, scalability, and speed issues. It is where Polygon Hermez steps in. 
+
 By providing zk-rollups (zero knowedge rollups) that sit on the top of Ethereum Maninnet, the scalability and the transactions per second (TPS) can be dramatically improved. To prpve that the off-chain computations are correct, Polygon Hermez employs zero-knowldege proofs that can be easily verified. The Layer 2 zero knowldege proofs are based on the complex polynomial computations that help in leveraging Ethereum scaling and provide fast finality to the off-chain transactions.
 
 ## What is Polygon Hermez 2.0? 
@@ -148,7 +145,6 @@ The Synchronizer is responsible for reading the events from the Ethereum blockch
 <div align="center"><b> Figure 3 : Hermez 2.0 zkNode Diagram </b></div>
 
 
-
 The architecture of zkNode is modular and implements a set of functions as depicted in Figure 3 above.
 
  3. **RPC**: (Remote Procedure Calls) is a JSON RPC interface compatible with Ethereum. For a software application to interact with the Ethereum blockchain (by reading blockchain data and/or sending transactions to the network), it must connect to an Ethereum node. RPC enables integration of the zkEVM with existing tools, such as Metamask, Etherscan and Infura. It adds transactions to the **Pool** and interacts with the **State** using read-only methods. 
@@ -164,7 +160,6 @@ Hermez 2.0 employs the state-of-the-art zero-knowledge technology. It uses a zer
 
 <p align="center"><img src="IMAGES/fig4-zkProv-arch.png" width="650" /></p>
 <div align="center"><b> Figure 4: A Simplified zkProver Diagram </b></div>
-
 
 
 
