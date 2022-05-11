@@ -177,7 +177,7 @@ The architecture of zkNode is modular and implements a set of functions as depic
 
 Hermez 2.0 employs state-of-the-art zero-knowledge technology. It will use a zero-knowledge prover, dubbed zkProver, which is intended to run on any server and is being engineered to be compatible with most consumer hardware.Every Aggregator will use the zkProver to validate batches and provide validity proofs. zkProver has its own detailed architecture which is outlined below. It will consist mainly of the Main State Machine Executor, a collection of secondary State Machines each with its own executor, the STARK-proof builder, and the SNARK-proof builder. See **Figure 4** below for a simplified diagram of the Hermez 2.0 zkProver.
 
-<p align="center"><img src="IMAGESfig4-zkProv-arch.png" width="650" /></p>
+<p align="center"><img src="IMAGES/fig4-zkProv-arch.png" width="650" /></p>
 <div align="center"><b> Figure 4: A Simplified zkProver Diagram </b></div>
 
 
