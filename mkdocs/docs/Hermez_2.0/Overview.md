@@ -74,7 +74,7 @@ A strategic implementation of PoE promises to ensure that the network:
 
 > Note: Possibilities of coupling PoE with a PoS (Proof of Stake) are being explored.
 
-A detailed description of Hermez 2.0's PoE is found[here](https://ethresear.ch/t/proof-of-efficiency-a-new-consensus-mechanism-for-zk-rollups/11988).
+A detailed description of Hermez 2.0's PoE is found [here](https://ethresear.ch/t/proof-of-efficiency-a-new-consensus-mechanism-for-zk-rollups/11988).
 
 
 #### Hybrid Mode for On-Chain Data Availability
