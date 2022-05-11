@@ -4,7 +4,8 @@
 
 # About Polygon Hermez
 
-Intergrated seamlessly with the Ethereum ecosystem, Polygon Hermez is a powerful, decentralized technology that provides Layer 2 scalability solutions to blockchain users. With the tremendous increase in the number of transactions taking place on-chain (i.e. base layer Ethereum), Layer 1 solution is already facing throughput, scalability, and speed issues. It is where Polygon Hermez steps in. By providing zk-rollups (zero knowedge rollups) that sit on the top of Ethereum Maninnet, the scalability and the transactions per second (TPS) can be dramatically improved. To prpve that the off-chain computations are correct, Polygon Hermez employs zero-knowldege proofs that can be easily verified. The Layer 2 zero knowldege proofs are based on the complex polynomial computations that help in leveraging Ethereum scaling and provide fast finality to the off-chain transactions.
+Intergrated seamlessly with the Ethereum ecosystem, Polygon Hermez is a powerful, decentralized technology that provides Layer 2 scalability solutions to blockchain users. With the tremendous increase in the number of transactions taking place on-chain (i.e. base layer Ethereum), Layer 1 solution is already facing throughput, scalability, and speed issues. It is where Polygon Hermez steps in. 
+By providing zk-rollups (zero knowedge rollups) that sit on the top of Ethereum Maninnet, the scalability and the transactions per second (TPS) can be dramatically improved. To prpve that the off-chain computations are correct, Polygon Hermez employs zero-knowldege proofs that can be easily verified. The Layer 2 zero knowldege proofs are based on the complex polynomial computations that help in leveraging Ethereum scaling and provide fast finality to the off-chain transactions.
 
 ## What is Polygon Hermez 2.0? 
 
@@ -13,13 +14,6 @@ Polygon Hermez 1.0 version was launched in March 2021. The main focus of Polygon
 Polygon Hermez 2.0, henceforth called Hermez 2.0,has been developed to emulate Ethereum Virtual Machine(EVM),a machine that executes Ethereum transactions with zero-knowledge prrof validations. This has been accompalished by developing zero knowledge EVM  which has been designed to recreate all the existing EVM opcodes so that these can be deployed as smart contracts. Although taking on this revolutionary design approach was a hard decision to make, the objective is to minimise the users and dApps friction when using the solution. It is an approach that requires recreation of all EVM opcodes for transparent deployment of existing Ethereum smart contracts. For this purpose a new set of technologies and tools are being created and engineered.
 
 This document presents a high-level description of the upcoming Polygon Hermez 2.0 solution, which includes its main components and design. It also seeks to highlight how Polygon Hermez 2.0 departs from the original design of Hermez 1.0.
-
-
-//The team has been working on the development of Hermez 2.0 as a zero-knowledge Ethereum Virtual Machine (zkEVM), a virtual machine that executes Ethereum transactions in a transparent way, including smart contracts with zero-knowledge-proof validations. 
-
-//is a decentralized Ethereum Layer 2 scalability solution utilising cryptographic zero-knowledge technology to provide validation and fast finality of off-chain transaction computations.
-
-//Hermez 1.0, which has been live since March 2021, is decentralized, permissionless and scales up to 2000 /////transactions per second (tps). It has therefore successfully accomplished the purpose it was designed for, //which was scaling payments and transfers of ERC-20 tokens.
 
 
 ## Architecture
@@ -51,7 +45,7 @@ The skeletal architecture of Hermez 2.0 is therefore as follows.
 Our earlier version, Hermez 1.0, is based on the Proof of Donation(PoD) consensus mechanism. This model decides who would be the next batch creator. PoD is a decentralised auction that is conducted automatically and the participants (coordinators) bid a number of tokens so that they have the chance to create the next batch.
 
 However, for the implementation of the current 2.0, PoD needed to be replaced with a much simpler Proof of Effieciency(PoE) model. Let us see why PoE is preferrable to PoD
-////The begging question is "What consensus algorithm does Hermez 2.0 use?" That is, how do Hermez 2.0 nodes agree on which block to be added to the chain.
+
 
 
 #### Why is PoD not the Best Option?
@@ -68,10 +62,6 @@ The PoD model fell out of our favour for the reasons listed below:
 #### Why is PoE a Better Model?
 
 The Proof of Efficiency (PoE) model leverages the existing Proof of Donation mechanism and supports the permissionless participation of multiple coordinators to produce batches in Layer L2. These batches are created created from the rolled-up transactions of Layer 1. As compared to PoD, PoE emplys a much simpler mechanism and is preffered owing to iots better effieciency to solve the problems inherentin PoD.   
-
-
- //preferred mainly due to its simplicity. It solves many of the challenges experienced with the PoD model, ////such as attacks by design, as discussed above. 
-//It leverages the experience of the existing Proof-of-Donation which was used in v1.0. POE was designed to ////build the first decentralized zk-rollup and 
 
 
 A strategic implementation of PoE promises to ensure that the network: 
@@ -162,20 +152,14 @@ The architecture of zkNode is modular and implements a set of functions as depic
 
  3. **RPC**: (Remote Procedure Calls) is a JSON RPC interface compatible with Ethereum. For a software application to interact with the Ethereum blockchain (by reading blockchain data and/or sending transactions to the network), it must connect to an Ethereum node. RPC enables integration of the zkEVM with existing tools, such as Metamask, Etherscan and Infura. It adds transactions to the **Pool** and interacts with the **State** using read-only methods. 
 
-4. **State**: subcomponent implements the Merkle Tree and connects to the DB backend. It checks integrity at block level (i.e., information related to; gas, block size, etc.) and some transaction-related information (e.g., signatures, sufficient balance, etc.). State also stores smart contract (SC) code into the Merkle tree and processes transactions using the EVM.
+4. **State**: A subcomponent that implements the Merkle Tree and connects to the DB backend. It checks integrity at block level (i.e., information related to; gas, block size, etc.) and some transaction-related information (e.g., signatures, sufficient balance, etc.). State also stores smart contract (SC) code into the Merkle tree and processes transactions using the EVM.
 
-//Software that is in charge of collecting all the data from the smart contract, storing it in the database, and then serving the user applications through RPC JSON call methods to provide them with all the information regarding zkEVM. The Hermez node is equivalent to the “geth” used in Ethereum. (Geth(Go Ethereum)) is a command-line interface for running Ethereum node implemented in Go Language. Using Geth you can join the Ethereum network, transfer ether between accounts, or even mine ethers. 
-
-//You can run the Hermez node in different types. In the first type, you can collect all the data and synchronize it, and then provide the information to the users. In the second type, you can serve the protocol (zkEVM 1.5), which runs the geth in the miner mode. It collects data from the smart contract and interacts with the protocol (which is the smart contract and the prover). It will collect all the transactions from the users, will send those transactions to the smart contract, and later on, it will verify all transactions in this smart contract. And the verification includes a call to the zkprover to perform this complex computation. 
-
-//Synchronizer: Takes data from a smart contract and this data can be provided to any application. For example, this data can be used by Metamask. If you interact with the Metamask, it means Metamask is asking the Hermez Node about what is the nonce, what is the gas limit, the gas price, etc. Synchronizer is in charge of getting all the data from smart contracts, which includes the data posted by the sequencers (which is the transactions) and the data posted by the coordinators (which is the validity proof). All this data is stored in a huge database and served to third parties through a service called JSON-RPC.
-
-//Note from Google: JSON-RPC is a remote procedure call protocol encoded in JSON. For a software application to interact with the Ethereum blockchain (by reading blockchain data and/or sending transactions to the network), it must connect to an Ethereum node.
+5. **zkProver**: All the rules a transaction must follow to be valid are implemented and enforced in the zkProver. A zkProver performs complex mathematical computations in the form of polynomials and Assebly langaue, which are then verified on Smart Contract. Those rules could be seen as constraints that a transaction must accomplish in order to be able to modify the state tree or the exit tree. The zkProver is the most complex module. It was necessary to develop two new programming languages to implement the needed elements. Read below to know more about zkProver. 
 
 
-### The zkProver
+### zkProver
 
-Hermez 2.0 employs state-of-the-art zero-knowledge technology. It will use a zero-knowledge prover, dubbed zkProver, which is intended to run on any server and is being engineered to be compatible with most consumer hardware.Every Aggregator will use the zkProver to validate batches and provide validity proofs. zkProver has its own detailed architecture which is outlined below. It will consist mainly of the Main State Machine Executor, a collection of secondary State Machines each with its own executor, the STARK-proof builder, and the SNARK-proof builder. See **Figure 4** below for a simplified diagram of the Hermez 2.0 zkProver.
+Hermez 2.0 employs the state-of-the-art zero-knowledge technology. It uses a zero-knowledge prover, dubbed zkProver, which is intended to run on any server and is being engineered to be compatible with most consumer hardware. Every Aggregator will use the zkProver to validate batches and provide validity proofs. zkProver has its own detailed architecture which is outlined below. It will consist mainly of the Main State Machine Executor, a collection of secondary State Machines, each with its own executor, the STARK-proof builder, and the SNARK-proof builder. See **Figure 4** below for a simplified diagram of the Hermez 2.0 zkProver.
 
 <p align="center"><img src="IMAGES/fig4-zkProv-arch.png" width="650" /></p>
 <div align="center"><b> Figure 4: A Simplified zkProver Diagram </b></div>
@@ -202,8 +186,8 @@ Depending on the specific operations each SM is responsible for, some use both z
 
 
 
-<p align="center"><img src="fig5-col-sm-zkprov.png" width="800" /></p>
-<div align="center"><b> Figure 5 : Hermez 2.0 State Machines </b></div>
+<p align="center"><img src="IMAGES/fig5-col-sm-zkprov.png" width="800" /></p>
+<div align="center"><b> Figure 5: Hermez 2.0 State Machines </b></div>
 
 
 
@@ -249,8 +233,8 @@ The exit tree structure is depicted in Figure 6, below.
 
 
 
-<p align="center"><img src="fig6-exit-tr-strct.png" width="700" /></p>
-<div align="center"><b> Figure 6 : The Exit Tree Structure </b></div>
+<p align="center"><img src="IMAGES/fig6-exit-tr-strct.png" width="700" /></p>
+<div align="center"><b> Figure 6: The Exit Tree Structure </b></div>
 
 
 
