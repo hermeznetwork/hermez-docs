@@ -8,9 +8,9 @@ Intergrated seamlessly with the Ethereum ecosystem, Polygon Hermez is a powerful
 
 ## What is Polygon Hermez 2.0? 
 
-Polygon Hermez 1.0 version was launched in March 2021. The main focus of Polygon Hermez 1.0 was to sacle payments and transfer ERC-20 tokens. It focussed mainly on decongesting Ethereum main chian by taking transactions off from the main chain and executimng them off-chain; this resulted in considerable increase in number of trandactions to be executed per second to 2000, which was a big improvemnet over layer 1 Ethereum. See https://ethtps.info/Network/Ethereum for viewing Ethereum's live TPS. 
+Polygon Hermez 1.0 version was launched in March 2021. The main focus of Polygon Hermez 1.0 was to sacle payments and transfer ERC-20 tokens. It focussed mainly on decongesting Ethereum main chian by taking transactions off from the main chain and executimng them off-chain; this resulted in considerable increase in number of trandactions to be executed per second to 2000, which was a big improvemnet over layer 1 Ethereum. See [Ethereum Live TPS](https://ethtps.info/Network/Ethereum) for viewing Ethereum's live TPS. 
 
-Polygon Hermez 2.0, henceforth called Hermez 2.0,has been developed to emulate Ethereum Virtual Machine(EVM),a machine that executes Ethereum transactions with zero-knowledge prrof validations. . This has been accompalished by developing zero knowledge EVM  which has been designed to recreate all the existing EVM opcodes so that these can be deployed as smart contracts. Although taking on this revolutionary design approach was a hard decision to make, the objective is to minimise the users and dApps friction when using the solution. It is an approach that requires recreation of all EVM opcodes for transparent deployment of existing Ethereum smart contracts. For this purpose a new set of technologies and tools are being created and engineered.
+Polygon Hermez 2.0, henceforth called Hermez 2.0,has been developed to emulate Ethereum Virtual Machine(EVM),a machine that executes Ethereum transactions with zero-knowledge prrof validations. This has been accompalished by developing zero knowledge EVM  which has been designed to recreate all the existing EVM opcodes so that these can be deployed as smart contracts. Although taking on this revolutionary design approach was a hard decision to make, the objective is to minimise the users and dApps friction when using the solution. It is an approach that requires recreation of all EVM opcodes for transparent deployment of existing Ethereum smart contracts. For this purpose a new set of technologies and tools are being created and engineered.
 
 This document presents a high-level description of the upcoming Polygon Hermez 2.0 solution, which includes its main components and design. It also seeks to highlight how Polygon Hermez 2.0 departs from the original design of Hermez 1.0.
 
@@ -46,67 +46,70 @@ The skeletal architecture of Hermez 2.0 is therefore as follows.
 
 
 
+### Consensus Algorithm: Proof of Efficiency
+
+Our earlier version, Hermez 1.0, is based on the Proof of Donation(PoD) consensus mechanism. This model decides who would be the next batch creator. PoD is a decentralised auction that is conducted automatically and the participants (coordinators) bid a number of tokens so that they have the chance to create the next batch.
+
+However, for the implementation of the current 2.0, PoD needed to be replaced with a much simpler Proof of Effieciency(PoE) model. Let us see why PoE is preferrable to PoD
+////The begging question is "What consensus algorithm does Hermez 2.0 use?" That is, how do Hermez 2.0 nodes agree on which block to be added to the chain.
 
 
-### The Consensus Algorithm
+#### Why is PoD not the Best Option?
 
-The begging question is "What consensus algorithm does Hermez 2.0 use?" That is, how do Hermez 2.0 nodes agree on which block to be added to the chain.
+The PoD model fell out of our favour for the reasons listed below:
 
-Like its earlier version, which uses Proof-of-Donation (PoD), Hermez 2.0 is designed to be decentralized. However, the old Proof-of-Donation gives way to a newer consensus algorithm called Proof of Efficiency.
-
-A detailed description of Hermez 2.0's PoE is found[ here](https://ethresear.ch/t/proof-of-efficiency-a-new-consensus-mechanism-for-zk-rollups/11988).
-
-
-
-#### Why the need to replace PoD?
-
-The PoD model fell out of favour for several reasons.
-
-Firstly, the PoD model with the complexity of its auction protocol, is vulnerable to attacks, especially at the bootstrapping phases. Also, since at any given point in time, the network is controlled by any permissionless participant, there is a risk for the network to suffer service level delays should such a third party turn malicious or experience operational issues.
-
-Secondly, the auction protocol has proved to be not only complex for coordinators and validators but also costly. More so considering that not every competing validator gets rewarded but only the most effective.
-
-Thirdly, the efficacy of selecting “the best” operator amounts to a winner-takes-all model, which turns out to be unfair to competitors with slightly less performance. Consequently, only a few select operators validate batches more often than others, defeating the very ideal of network decentralization.
+- The PoD, being an auction model, has proved to be quite complex for both the coordinators and the validators. Besides, it has also proven to be less viable economically. More so considering that not every competing validator gets rewarded but only the most effective.
+- This consensus mechanism is vulnerable to attacks, especially during the bootstrapping phases. At any given point in time, the network is controlled by a permissionless participant. This raises the risk for the network to suffer service level delays should such a third party turn malicious or experience operational issues.
+- PoD assigns the right to produce batches in a specific timeframe and validators need to be very competitive if they are to gain any economic incentives are set up. 
+- The efficacy of selecting “the best” operator amounts to a winner-takes-all model, which turns out to be unfair to competitors with slightly less performance. Consequently, only a few select operators validate batches more often than others, defeating the concept of network decentralization.
+- Another drawback is that the auction protocol is very costly and complex for validators, while at the same time only the most effective will be rewarded. The auction requires bidding some time in advance.
 
 
+#### Why is PoE a Better Model?
 
-#### Why the preference for PoE? 
-
-The Proof of Efficiency (PoE) model is preferred mainly due to its simplicity. It solves many of the challenges experienced with the PoD model, such as attacks by design, as discussed above. 
-
-A strategic implementation of PoE promises to ensure that the network, 
-
-- maintains permissionless opportunity to produce L2 batches, 
-- is efficient, which is key for overall network performance, 
-- attains an acceptable degree of decentralization, 
-- is secure from malicious attacks, especially by validators, and 
-- keeps proportionate balance between the overall validation effort and the value in the network.Possibilities of coupling PoE with a PoS are being explored.
+The Proof of Efficiency (PoE) model leverages the existing Proof of Donation mechanism and supports the permissionless participation of multiple coordinators to produce batches in Layer L2. These batches are created created from the rolled-up transactions of Layer 1. As compared to PoD, PoE emplys a much simpler mechanism and is preffered owing to iots better effieciency to solve the problems inherentin PoD.   
 
 
+ //preferred mainly due to its simplicity. It solves many of the challenges experienced with the PoD model, ////such as attacks by design, as discussed above. 
+//It leverages the experience of the existing Proof-of-Donation which was used in v1.0. POE was designed to ////build the first decentralized zk-rollup and 
 
-#### Data Availability
 
-A typical zk-rollup schema requires that both the data (which is required by users to reconstruct the full state) and the validity proofs be published on-chain.
+A strategic implementation of PoE promises to ensure that the network: 
 
-However, given the Ethereum setting, publishing data on-chain means incurring gas fees. This leads to a hard choice between full zk-rollup configuration and an affordable network.
+- Maintains its "permissionless" feature to produce L2 batches 
+- Is efficient, a criteria which is key for the overall network performance
+- Attains an acceptable degree of decentralization
+- Is protected from malicious attacks, especially by validators
+- Keeps proportionate balance between the overall validation effort and the value in the network.
 
-Unless, among other things, the proving module can be highly accelerated to mitigate costs for the validators, a hybrid schema remains inevitable.
+> Note: Possibilities of coupling PoE with a PoS (Proof of Stake) are being explored.
 
-Although the team is yet to finalise the best consensus configuration, the obvious options are;
+A detailed description of Hermez 2.0's PoE is found[here](https://ethresear.ch/t/proof-of-efficiency-a-new-consensus-mechanism-for-zk-rollups/11988).
 
-- Validium option: the proofs remain on-chain but the data is stored somewhere else,
 
-- Volition option: full zk-rollup for some transactions, with both data and proofs on-chain, while for other transactions only the proofs go on-chain.
+#### Hybrid Scheme for On-Chain Data Availability
 
+A full zk-rollup schema requires that both the data (which is required by users to reconstruct the full state) and the validity proofs (zero knowledge proofs) be published on-chain. However, given the Ethereum setting, publishing data on-chain incurs gas fees, an already-exising problem with Layer 1. This makes it difficult to choose between a full zk-rollup configuration and hybrid one. 
+
+Under a hybrid schema, either of the following is possible:
+ - Validium: Data is stored off-chain and only the validity proofs are published on chain.
+ - Volition: For some transactions, both the data and the validity proofs remain on-chain while for the remaining ones, only proofs go on-chain.
+
+Unless, among other things, the proving module can be highly accelerated to mitigate costs for the validators, a hybrid schema remains viable. The team is yet to finalise the best consensus configuration.
 
 
 ### The PoE Smart Contract 
 
-Rollups entail two processes, batching of transactions and validation of the batched transactions. Hermez 2.0 will use Sequencers and Aggregators to respectively carry out the two processes, batching and validation of transactions.
+The underlying protocol in Hermez 2.0 ensures that the state transitions are valid by employing  a validity proof. To ensure that a set of pre-determined rules have been followed for allowing transitioning of the state, smart contract is employed. The verification of the validity proofs by a smart contract  checks if each transition is done correctly. This is achieved by using zk-SNARK circuits. Such a mechanism entail two processes: batching of transactions and validation of the batched transactions. Hermez 2.0 uses two types of particiapnts to carry out these processes: Sequencers and Aggregators. Under this two-layer model, 
 
-That is, Sequencers will collect transaction-requests into batches and add them to the PoE smart contract, while Aggregators will check validity of transaction batches and provide validity proofs.
+1.  Sequencers propose  transaction batches to the network, i.e. they roll-up the transaction-requests to batches and add them to the PoE smart contract.
+
+2. Aggregators check the validity of the transaction batches and provide validity proofs. Any permissionless Aggregator can submit the proof to demonstrate the correctness of the state transition computation.
 
 The PoE smart contract therefore makes two basic calls; A call to receive batches from Sequencers, and another call to Aggregators, requesting batches to be validated. See **Figure 2** below.
+
+<p align="center"><img src="IMAGES/fig1-simple-poe.png" width="600" /></p>
+<div align="center"><b> Figure 2 : Skeletal Overview Hermez 2.0 </b></div>
 
 
 
