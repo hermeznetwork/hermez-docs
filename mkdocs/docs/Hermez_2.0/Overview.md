@@ -87,7 +87,7 @@ A strategic implementation of PoE promises to ensure that the network:
 A detailed description of Hermez 2.0's PoE is found[here](https://ethresear.ch/t/proof-of-efficiency-a-new-consensus-mechanism-for-zk-rollups/11988).
 
 
-#### Hybrid Scheme for On-Chain Data Availability
+#### Hybrid Mode for On-Chain Data Availability
 
 A full zk-rollup schema requires that both the data (which is required by users to reconstruct the full state) and the validity proofs (zero knowledge proofs) be published on-chain. However, given the Ethereum setting, publishing data on-chain incurs gas fees, an already-exising problem with Layer 1. This makes it difficult to choose between a full zk-rollup configuration and hybrid one. 
 
@@ -108,15 +108,6 @@ The underlying protocol in Hermez 2.0 ensures that the state transitions are val
 
 The PoE smart contract therefore makes two basic calls; A call to receive batches from Sequencers, and another call to Aggregators, requesting batches to be validated. See **Figure 2** below.
 
-<p align="center"><img src="IMAGES/fig2-simple-poe.png" width="600" /></p>
-<div align="center"><b> Figure 2: Sequencers and Aggregators </b></div>
-
-
-
-
-//Sequencer: Software that mainly waits for users to send transactions to it. The sequencer has a model inside which there is a transaction pool that is similar to the transaction pool in Ethereum, which selects the most profitable transaction for you. Sequencer selects the most profitable ones and then those transactions will be sent to the POE smart contract.
-
-//Aggregator: It just gets all the info that the sequencer pulled into the smart contract and with that information, the aggregator builds the input for the prover. Once the aggregator has this data, it sends it to the prover and the prover starts to fill all the polynomial computations. And in the very end, the prover generates a small zk proof. And then the aggregator needs to interact with the smart contract and the smart contract then validates this proof for its correctness. If everything is correct, it is considered true. The aggregator asks the prover for the validity proof (the prover takes some time since it has some heavy computation there) and then sends that proof to the smart contract, which will verify the validity proof with the "verifier.sol". Therefore, an aggregator needs a prover but the prover only computes the validity proof. The aggregator collects the data, sends it to the prover, gets the output from the prover and sends the smart contact call.
 
 
 ### Proof of Efficiency Tokenomics: Sequencers and Aggregators
@@ -143,20 +134,18 @@ An Aggregator receives all the transaction information from the Sequencer and se
 
 
 
-<p align="center"><img src="fig3-zkNode-arch.png" width="650" /></p>
-<div align="center"><b> Figure 3 : Simplified Proof of Efficiency </b></div>
+<p align="center"><img src="fig2-simple-poe.png" width="650" /></p>
+<div align="center"><b> Figure 2 : Simplified Proof of Efficiency </b></div>
 
 
 
+### zkNode
 
-
-### The zkNode
-
-The network requires the release of the client that implements the synchronization and covers the roles of participants as Sequencers or Aggregators. zkNode is such a client. It is the software needed to run a Hermez 2.0 node.
+A zkNode is the software needed to run a Hermez 2.0 node. It is a client that the network requires to implement the synchronization and cover the roles of participants as Sequencers or Aggregators. 
 
 Polygon Hermez 2.0 participants will choose how they participate; either as simply a node, to know the state of the network; or participate in the process of batch production in any of the two roles, as a **Sequencer** or an **Aggregator**. An Aggregator will be running the zkNode but also performs validation using the core part of the zkEVM, called the zkProver (this is labelled Prover in Figure 3 below.)
 
-Other than the sequencing and the validating processes, the zkNode also enables synchronisation of batches and their validity proofs, which happens only after these have been added to L1. It uses a subcomponent called the Synchronizer.
+Other than the sequencing and the validating processes, the zkNode also enables synchronisation of batches and their validity proofs, which happens only after these have been added to L1. It uses a subcomponent called the Synchronizer. The Synchronizer is in charge of getting all the data from smart contracts, which includes the data posted by the sequencers (i.e. transactions) and the data posted by the coordinators (which is the validity proof).
 
 The **Synchronizer** is therefore responsible for reading events from the Ethereum blockchain, including new batches, in order to keep the state fully synced. The information read from these events must be stored in the database. Synchronizer also handles possible reorgs, which will be detected by checking if last `ethBlockNum` and last `ethBlockHash` are synced.
 
@@ -173,6 +162,13 @@ The **RPC** (remote procedure calls) interface is a JSON RPC interface which is 
 
 The **State** subcomponent implements the Merkle Tree and connects to the DB backend. It checks integrity at block level (i.e., information related to; gas, block size, etc.) and some transaction-related information (e.g., signatures, sufficient balance, etc.). State also stores smart contract (SC) code into the Merkle tree and processes transactions using the EVM.
 
+//Software that is in charge of collecting all the data from the smart contract, storing it in the database, and then serving the user applications through RPC JSON call methods to provide them with all the information regarding zkEVM. The Hermez node is equivalent to the “geth” used in Ethereum. (Geth(Go Ethereum)) is a command-line interface for running Ethereum node implemented in Go Language. Using Geth you can join the Ethereum network, transfer ether between accounts, or even mine ethers. 
+
+//You can run the Hermez node in different types. In the first type, you can collect all the data and synchronize it, and then provide the information to the users. In the second type, you can serve the protocol (zkEVM 1.5), which runs the geth in the miner mode. It collects data from the smart contract and interacts with the protocol (which is the smart contract and the prover). It will collect all the transactions from the users, will send those transactions to the smart contract, and later on, it will verify all transactions in this smart contract. And the verification includes a call to the zkprover to perform this complex computation. 
+
+//Synchronizer: Takes data from a smart contract and this data can be provided to any application. For example, this data can be used by Metamask. If you interact with the Metamask, it means Metamask is asking the Hermez Node about what is the nonce, what is the gas limit, the gas price, etc. Synchronizer is in charge of getting all the data from smart contracts, which includes the data posted by the sequencers (which is the transactions) and the data posted by the coordinators (which is the validity proof). All this data is stored in a huge database and served to third parties through a service called JSON-RPC.
+
+//Note from Google: JSON-RPC is a remote procedure call protocol encoded in JSON. For a software application to interact with the Ethereum blockchain (by reading blockchain data and/or sending transactions to the network), it must connect to an Ethereum node.
 
 
 ### The zkProver
