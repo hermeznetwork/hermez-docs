@@ -41,7 +41,7 @@ The major components of Hermez 2.0 are:
 The skeletal architecture of Hermez 2.0 is therefore as follows.
 
 ![Hermez Architecture](/IMAGES/fig1-simpl-arch.png)
-<p align="center"><img src="fig1-simpl-arch.png" width="600" /></p>
+<p align="center"><img src="IMAGES/fig1-simpl-arch.png" width="600" /></p>
 <div align="center"><b> Figure 1 : Skeletal Overview Hermez 2.0 </b></div>
 
 
