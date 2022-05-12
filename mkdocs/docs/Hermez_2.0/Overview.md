@@ -142,7 +142,7 @@ The zkNode Architecture is composed of:
 
 
 <p align="center"><img src="IMAGES/fig3-zkNode-arch.png" width="600" /></p>
-<div align="center"><b> Figure 3 : Hermez 2.0 zkNode Diagram </b></div>
+<div align="center"><b> Figure 3: Hermez 2.0 zkNode Diagram </b></div>
 
 <br>
 
