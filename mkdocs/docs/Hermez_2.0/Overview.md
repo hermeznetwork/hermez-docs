@@ -196,7 +196,7 @@ State machines generate polynomial constraints, and zk-STARKs are used to prove 
 
 
 4. **SNARK Proof Builder**: SNARK, which stands for "Succinct Non-interactive Argument of Knowledge", is a proof system that produces verifiable proofs. Since STARK proofs are bigger than SNARK proofs, Hermez 2.0 zkProver uses SNARK proofs to prove the correctness of these STARK proofs. Consequently, the SNARK proofs, which are much cheaper to verify on L1, are published as validity proofs.
-<p>&nbsp</p> 
+<p>&nbsp  </p> 
 The aim is to generate a [CIRCOM](https://www.techrxiv.org/articles/preprint/CIRCOM_A_Robust_and_Scalable_Language_for_Building_Complex_Zero-Knowledge_Circuits/19374986/1) circuit which can be used to generate or verify a SNARK proof. As to whether a PLONK or a GROTH16 SNARK proof will be used for Hermez 2.0, is a question that needs to be discussed. 
 
 
