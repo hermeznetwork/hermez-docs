@@ -92,7 +92,10 @@ The underlying protocol in Hermez 2.0 ensures that the state transitions are cor
 
 - Aggregators check the validity of the transaction batches and provide validity proofs. Any permissionless Aggregator can submit the proof to demonstrate the correctness of the state transition computation.
 
-The PoE smart contract, therefore, makes two basic calls: A call to receive batches from Sequencers, and another call to Aggregators, requesting batches to be validated. See **Figure 2** below.
+The PoE smart contract, therefore, makes two basic calls: A call to receive batches from Sequencers, and another call to Aggregators, requesting batches to be validated. See **Figure 2** below:
+
+<p align="center"><img src="IMAGES/fig2-simple-poe.png" width="650" /></p>
+<div align="center"><b> Figure 2: Simplified Proof of Efficiency </b></div>
 
 
 
@@ -120,8 +123,7 @@ An Aggregator receives all the transaction information from the Sequencer and se
 
 
 
-<p align="center"><img src="IMAGES/fig2-simple-poe.png" width="650" /></p>
-<div align="center"><b> Figure 2: Simplified Proof of Efficiency </b></div>
+
 
 
 
@@ -133,7 +135,7 @@ A zkNode is the software needed to run a Hermez 2.0 node. It is a client that th
 
 The zkNode Architecture is composed of:
 
-1. **Sequencers and Aggregators**: Polygon Hermez 2.0 participants will choose how they participate; either as simply a node, to know the state of the network; or as a participant in the process of batch production in any of the two roles: Sequencer or Aggregator. An Aggregator will be running the zkNode but also performs validation using the core part of the zkEVM, called the zkProver (this is labelled **Prover** in Figure 3 below.)
+1. **Sequencers and Aggregators**: Polygon Hermez 2.0 participants will choose how they participate; either as simply a node, to know the state of the network; or as a participant in the process of batch production in any of the two roles: Sequencer or Aggregator. An Aggregator will be running the zkNode but also performs validation using the core part of the zkEVM, called the zkProver (this is labelled **Prover** in **Figure 3** below.)
 
 2. **Synchronizer**: Other than the sequencing and the validating processes, the zkNode also enables synchronisation of batches and their validity proofs, which happens only after these have been added to L1. It uses a subcomponent called the Synchronizer. A Synchronizer is in charge of getting all the data from smart contracts, which includes the data posted by the sequencers (transactions) and the data posted by the coordinators (which is the validity proof). All this data is stored in a huge database and served to third parties through a service called "JSON-RPC".
 <br><br>The Synchronizer is responsible for reading the events from the Ethereum blockchain, including new batches to keep the state fully synced. The information read from these events must be stored in the database. The Synchronizer also handles possible reorgs, which will be detected by checking if the last `ethBlockNum` and the last `ethBlockHash` are synced.</br></br>
