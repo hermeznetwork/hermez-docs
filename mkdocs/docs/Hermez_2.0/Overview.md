@@ -159,9 +159,9 @@ Hermez 2.0 employs advanced zero-knowledge technology to create validity proofs.
 <p align="center"><img src="IMAGES/fig4-zkProv-arch.png" width="650" /></p>
 <div align="center"><b> Figure 4: A Simplified zkProver Diagram </b></div>
 
+<br>
 
-
-In a nutshell, the zkEVM expresses state changes in polynomial form. Therefore, the constraints that each proposed batch must satisfy are, in fact, polynomial constraints or polynomial identities. That is, all the valid batches must satisfy certain polynomial constraints.
+In a nutshell, the zkEVM expresses state changes in polynomial form. Therefore, the constraints that each proposed batch must satisfy are, in fact, polynomial constraints or polynomial identities. That is, all the valid batches must satisfy certain polynomial constraints.</br>
 
 #### zkProver Architecture
 
