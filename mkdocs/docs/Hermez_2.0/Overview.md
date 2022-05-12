@@ -142,8 +142,9 @@ The zkNode Architecture is composed of:
 <p align="center"><img src="IMAGES/fig3-zkNode-arch.png" width="600" /></p>
 <div align="center"><b> Figure 3 : Hermez 2.0 zkNode Diagram </b></div>
 
+<br>
 
-The architecture of zkNode is modular and implements a set of functions as depicted in Figure 3 above.
+The architecture of zkNode is modular and implements a set of functions as depicted in Figure 3 above.</br>
 
  3. **RPC**: (Remote Procedure Calls) is a JSON RPC interface compatible with Ethereum. For a software application to interact with the Ethereum blockchain (by reading blockchain data and/or sending transactions to the network), it must connect to an Ethereum node. RPC enables integration of the zkEVM with existing tools, such as Metamask, Etherscan and Infura. It adds transactions to the **Pool** and interacts with the **State** using read-only methods. 
 
@@ -154,7 +155,7 @@ The architecture of zkNode is modular and implements a set of functions as depic
 
 ### zkProver
 
-Hermez 2.0 employs advanced zero-knowledge technology to create validity proofs. It uses a zero-knowledge prover (zkProver), which is intended to run on any server and is being engineered to be compatible with most consumer hardware. Every Aggregator will use this zkProver to validate batches and provide validity proofs. zkProver has its own detailed architecture which is outlined below. It consists of a Main State Machine Executor, a collection of secondary State Machines, each with its own executor, a STARK-proof builder, and a SNARK-proof builder. See **Figure 4** below for a simplified diagram of the Hermez 2.0 zkProver.
+Hermez 2.0 employs advanced zero-knowledge technology to create validity proofs. It uses a zero-knowledge prover (zkProver), which is intended to run on any server and is being engineered to be compatible with most consumer hardware. Every Aggregator will use this zkProver to validate batches and provide validity proofs. zkProver has its own detailed architecture which is outlined below. It consists of a Main State Machine Executor, a collection of secondary State Machines, each with its own executor, a STARK-proof builder, and a SNARK-proof builder. See **Figure 4** below for a simplified diagram of the Hermez 2.0 zkProver:
 
 <p align="center"><img src="IMAGES/fig4-zkProv-arch.png" width="650" /></p>
 <div align="center"><b> Figure 4: A Simplified zkProver Diagram </b></div>
