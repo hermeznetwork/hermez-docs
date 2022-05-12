@@ -1,14 +1,14 @@
 # About Polygon Hermez
 
-Intergrated seamlessly with the Ethereum ecosystem, Polygon Hermez is a powerful, decentralized technology that provides Layer 2 scalability solutions to blockchain users. With the tremendous increase in the number of transactions taking place on-chain (i.e. base layer Ethereum), Layer 1 solution is already facing throughput, scalability, and speed issues. It is where Polygon Hermez steps in. 
+Integrated seamlessly with the Ethereum ecosystem, Polygon Hermez is a powerful, decentralized technology that provides Layer 2 scalability solutions to blockchain users. With the tremendous increase in the number of transactions taking place on-chain (i.e. base layer Ethereum), the Layer 1 solution is already facing throughput, scalability, and speed issues. It is where Polygon Hermez steps in. 
 
-By providing zk-rollups (zero knowedge rollups) that sit on the top of Ethereum Maninnet, the scalability and the transactions per second (TPS) can be dramatically improved. To prpve that the off-chain computations are correct, Polygon Hermez employs zero-knowldege proofs that can be easily verified. The Layer 2 zero knowldege proofs are based on the complex polynomial computations that help in leveraging Ethereum scaling and provide fast finality to the off-chain transactions.
+By providing zk-rollups (zero knowledge rollups) that sit on the top of Ethereum Maninnet, the scalability and the transactions per second (TPS) can be dramatically improved. To prove that the off-chain computations are correct, Polygon Hermez employs zero-knowledge proofs that can be easily verified. The Layer 2 zero knowledge proofs are based on the complex polynomial computations that help in leveraging Ethereum scaling and provide fast finality to the off-chain transactions.
 
 ## What is Polygon Hermez 2.0? 
 
-Polygon Hermez 1.0 version was launched in March 2021. The main focus of Polygon Hermez 1.0 was to sacle payments and transfer ERC-20 tokens. It focussed mainly on decongesting Ethereum main chian by taking transactions off from the main chain and executimng them off-chain; this resulted in considerable increase in number of trandactions to be executed per second to 2000, which was a big improvemnet over layer 1 Ethereum. See [Ethereum Live TPS](https://ethtps.info/Network/Ethereum) for viewing Ethereum's live TPS. 
+Polygon Hermez 1.0 version was launched in March 2021. The main focus of Polygon Hermez 1.0 was to scale payments and transfer ERC-20 tokens. It focussed mainly on decongesting Ethereum main chain by taking transactions off from the main chain and executing them off-chain; this resulted in considerable increase in number of transactions to be executed per second to 2000, which was a big improvement over Layer 1 Ethereum. See [Ethereum Live TPS](https://ethtps.info/Network/Ethereum) for viewing Ethereum's live TPS. 
 
-Polygon Hermez 2.0, henceforth called Hermez 2.0,has been developed to emulate Ethereum Virtual Machine(EVM),a machine that executes Ethereum transactions with zero-knowledge prrof validations. This has been accompalished by developing zero knowledge EVM  which has been designed to recreate all the existing EVM opcodes so that these can be deployed as smart contracts. Although taking on this revolutionary design approach was a hard decision to make, the objective is to minimise the users and dApps friction when using the solution. It is an approach that requires recreation of all EVM opcodes for transparent deployment of existing Ethereum smart contracts. For this purpose a new set of technologies and tools are being created and engineered.
+Polygon Hermez 2.0, henceforth called Hermez 2.0, has been developed to emulate Ethereum Virtual Machine(EVM), a machine that executes Ethereum transactions with zero-knowledge proof validations. This has been accomplished by developing zero knowledge EVM, which has been designed to recreate all the existing EVM opcodes so that these can be deployed as smart contracts. Although taking on this revolutionary design approach was a hard decision to make, the objective is to minimise the users and dApps friction when using the solution. It is an approach that requires the recreation of all EVM opcodes for the transparent deployment of existing Ethereum smart contracts. For this purpose, a new set of technologies and tools are being created and engineered.
 
 This document presents a high-level description of the upcoming Polygon Hermez 2.0 solution, which includes its main components and design. It also seeks to highlight how Polygon Hermez 2.0 departs from the original design of Hermez 1.0.
 
@@ -16,7 +16,7 @@ This document presents a high-level description of the upcoming Polygon Hermez 2
 ## Architecture
 
 
-Over and above what its predecessor was designed to do, the main functionality of Hermez 2.0 is to provide smart contract support. It performs the task of state transtioning resulting from the  Ethereum Layer 2 transaction executions (transactions that users send to the network). Subsequently, by employing zero-knowledge functionality, it generates validity proofs that attest to the correctness of these state change computations carried out off-chain.
+Over and above what its predecessor was designed to do, the main functionality of Hermez 2.0 is to provide smart contract support. It performs the task of state-transition resulting from the Ethereum Layer 2 transaction executions (transactions that users send to the network). Subsequently, by employing zero-knowledge functionality, it generates validity proofs that attest to the correctness of these state change computations carried out off-chain.
 
 The major components of Hermez 2.0 are:
 
@@ -25,9 +25,8 @@ The major components of Hermez 2.0 are:
 - zkProver
 - LX-to-LY Bridge
 - Sequencers
-- Aggregators //(who are the participants requisite in reaching network consensus)
+- Aggregators 
 - Active users of the Hermez 2.0 network who create transactions.
-
 
 The skeletal architecture of Hermez 2.0 is therefore as follows.
 
@@ -41,13 +40,13 @@ The skeletal architecture of Hermez 2.0 is therefore as follows.
 
 Our earlier version, Hermez 1.0, is based on the Proof of Donation(PoD) consensus mechanism. This model decides who would be the next batch creator. PoD is a decentralised auction that is conducted automatically and the participants (coordinators) bid a number of tokens so that they have the chance to create the next batch.
 
-However, for the implementation of the current 2.0, PoD needed to be replaced with a much simpler Proof of Effieciency(PoE) model. Let us see why PoE is preferrable to PoD
+However, for the implementation of the current 2.0, PoD needed to be replaced with a much simpler Proof of Efficiency (PoE) model. Let us see why PoE is preferable to PoD.
 
 
 
 #### Why is PoD not the Best Option?
 
-The PoD model fell out of our favour for the reasons listed below:
+The PoD model fell out of our preferable options for the reasons listed below:
 
 - The PoD, being an auction model, has proved to be quite complex for both the coordinators and the validators. Besides, it has also proven to be less viable economically. More so considering that not every competing validator gets rewarded but only the most effective.
 - This consensus mechanism is vulnerable to attacks, especially during the bootstrapping phases. At any given point in time, the network is controlled by a permissionless participant. This raises the risk for the network to suffer service level delays should such a third party turn malicious or experience operational issues.
