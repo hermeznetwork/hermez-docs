@@ -33,6 +33,6 @@ After the launch of Hermez 1.0 in March 2021 designed to support Ethereum token 
 
 The team is designing and implementing a revolutionary approach that will recreate all the EVM opcodes for transparent deployment of existing Ethereum smart contracts. For this purpose a new set of technologies and tools are being created and engineered.
 
-#### <b>Start [here](zkEVM/architecture/introduction.md) for Hermez 2.0 documentation (work in progress)</b>
+#### <b>Start [here](Hermez_2.0/overview.md) for Hermez 2.0 documentation (work in progress)</b>
 
 #### <b>Start [here](Hermez_1.0/about/scalability.md) for Hermez 1.0 documentation</b>
