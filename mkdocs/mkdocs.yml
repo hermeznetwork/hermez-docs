@@ -31,9 +31,9 @@ nav:
   - Hermez 2.0 (zkEVM):
     - Overview: "Hermez_2.0/overview.md"
     - Architecture:
-      - Introduction: "Hermez_2.0/zkEVM/architecture/introduction.md"
-      - Simple State Machine: "Hermez_2.0/zkEVM/architecture/simple-state-machine.md"  
-      - Modular Design: "Hermez_2.0/zkEVM/architecture/modular-design.md"
+      - Introduction: "zkEVM/architecture/introduction.md"
+      - Simple State Machine: "zkEVM/architecture/simple-state-machine.md"  
+      - Modular Design: "zkEVM/architecture/modular-design.md"
   - Hermez 1.0:
     - About:
       - Ethereum Scalability and zk-Rollups: "Hermez_1.0/about/scalability.md"
