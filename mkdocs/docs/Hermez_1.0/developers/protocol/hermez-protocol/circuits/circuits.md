@@ -12,17 +12,19 @@ All of the rules a transaction must follow in order to be valid are designed and
 Circuits are built from the bottom up. Hence, small circuits are first introduced and are referenced in advanced ones for the sake of clarity.
 
 Circuits would be split into three modules:
+
 - library: basic Hermez circuits and structs commonly used across the rest of the circuits
 - withdraw: specific circuit to allow a user to withdraw funds from Hermez contract
 - rollup-main: main circuit that contains all the logic described in [ZK-Rollup protocol](../../protocol)
 
 > withdraw: user could perform a withdrawal by submitting a ZK Proof or a Merkle tree proof. Both methods are equivalent in terms of functionality.
 
-- Global variables:
-  - `nTx`: absolute maximum of L1 or L2 transactions allowed
-  - `nLevels`: Merkle tree depth
-  - `maxL1Tx`: absolute maximum of L1 transaction allowed
-  - `maxFeeTx`: absolute maximum of fee transactions allowed
+Global variables:
+
+- `nTx`: absolute maximum of L1 or L2 transactions allowed
+- `nLevels`: Merkle tree depth
+- `maxL1Tx`: absolute maximum of L1 transaction allowed
+- `maxFeeTx`: absolute maximum of fee transactions allowed
 
 ### Circuits Organization
 - Library:
@@ -41,7 +43,7 @@ Circuits would be split into three modules:
     - [rollup-tx-states](#rollup-tx-states)
     - [rollup-tx](#rollup-tx)
     - [rollup-main](#rollup-main)
-- [withdraw](#withdraw)
+    - [withdraw](#withdraw)
 
 #### Dependencies
 ![center](circuit-dependencies.png)
@@ -49,6 +51,7 @@ Circuits would be split into three modules:
 ## Assumptions
 ### L1 Transactions
 Some assumptions must be taken into account in L1 transactions. They are performed by users which interact with the smart contract. Hence, the smart contract performs checks and forces some parameters that are assumed in the circuit implementation:
+
 - `tokenID` must exist
 - `loadAmount` < 2^128
 - `amount` < 2^192
@@ -57,6 +60,7 @@ Some assumptions must be taken into account in L1 transactions. They are perform
 - if `fromIdx > INITIAL_IDX` then `fromBjj-compressed == 0`
 
 A summary is shown in the next table with all the L1 transactions assumptions:
+
 - `UP`: user parameter
 - `ME`: must exist
 
@@ -76,6 +80,7 @@ A summary is shown in the next table with all the L1 transactions assumptions:
 ![center](legend.png)
 
 It should be note that `public` and `private` signals will be highlighted only in top layer circuits:
+
 - [withdraw](#withdraw)
 - [rollup-main](#rollup-main)
 
@@ -149,9 +154,9 @@ Multiplexer with 256 inputs
 Implements two functionalities to be used for further circuits:
 
 - BitsCompressed2AySign
-  - gets the `bjjCompressed[256]` in bits and retrieve `ay` and `sign` to be inserted into the account state
+    - gets the `bjjCompressed[256]` in bits and retrieve `ay` and `sign` to be inserted into the account state
 - AySign2Ax
-  - gets the `ay` and `sign` and computes de `ax` coordinate
+    - gets the `ay` and `sign` and computes de `ax` coordinate
 
 #### Schematic
 ![center](utils-bjj.png)
@@ -192,21 +197,21 @@ Implements two functionalities to be used for further circuits:
 Takes the transaction data, decodes it and builds data structures to be used in further circuits. Additionally, it performs checks on transactions fields. Listed below is all the built data and all the checks that this circuit performs.
 
 - Decoders/Build
-  - decodes `txCompressedData` as specified [here](../../protocol#l2)
-  - builds `txCompressedDataV2` as specified [here](../../protocol#l2)
-  - builds L1-L2 data availability `L1L2TxData` as specificied [here](../../protocol#l1-l2-transactions)
-  - builds message to sign by L2 transactions `sigL2Hash` as specified [here](../../protocol#l2)
-  - build L1 full data `L1TxFullData` as specified [here](../../protocol#l1-user-transactions)
+    - decodes `txCompressedData` as specified [here](../../protocol#l2)
+    - builds `txCompressedDataV2` as specified [here](../../protocol#l2)
+    - builds L1-L2 data availability `L1L2TxData` as specificied [here](../../protocol#l1-l2-transactions)
+    - builds message to sign by L2 transactions `sigL2Hash` as specified [here](../../protocol#l2)
+    - build L1 full data `L1TxFullData` as specified [here](../../protocol#l1-user-transactions)
 - Checks
-  - L1 transactions must be processed before L2 transactions
-    - only switching from L1 to L2 is allowed
-  - checks `newAccount` is set to true only when it is an L1 transaction and `fromIdx` is 0
-  - `idx` to be assigned to a new account creation is incremented and checked only if the transaction involves an account creation
-  - checks `chainID` transaction field matches `globalChainID` forced by the smart contract
-  - checks `signatureConstant` transaction field matches the hardcoded value `CONST_SIG` set in the circuit
-  - checks `maxNumBatch` signed in the transaction is greater or equal to `currentNumBatch` only if `maxNumBatch != 0`
+    - L1 transactions must be processed before L2 transactions
+      - only switching from L1 to L2 is allowed
+    - checks `newAccount` is set to true only when it is an L1 transaction and `fromIdx` is 0
+    - `idx` to be assigned to a new account creation is incremented and checked only if the transaction involves an account creation
+    - checks `chainID` transaction field matches `globalChainID` forced by the smart contract
+    - checks `signatureConstant` transaction field matches the hardcoded value `CONST_SIG` set in the circuit
+    - checks `maxNumBatch` signed in the transaction is greater or equal to `currentNumBatch` only if `maxNumBatch != 0`
 - Global variables:
-  - `nLevels`
+    - `nLevels`
 
 #### Schematic
 ![center](decode-tx.png)
@@ -255,19 +260,19 @@ Takes the transaction data, decodes it and builds data structures to be used in 
 Updates the fees accumulated by each transaction given its fee.
 
 - Definitions:
-  - `tokenID`: token to update
-  - `feePlanTokenID[numTokens]`: array of all the tokenID that fees will be accumulated
-  - `accFeeIn[numTokens]`: initial array of all fees accumulated
-  - `fee2Charge`: effective fee charged in a transaction
-  - `accFeeOut[numTokens]`: final array of all fees accumulated
+    - `tokenID`: token to update
+    - `feePlanTokenID[numTokens]`: array of all the tokenID that fees will be accumulated
+    - `accFeeIn[numTokens]`: initial array of all fees accumulated
+    - `fee2Charge`: effective fee charged in a transaction
+    - `accFeeOut[numTokens]`: final array of all fees accumulated
 - Steps:
-  - find the position on the array `feePlanTokenID[numTokens]` where its element matches the current transaction `tokenID`
-    - if no match found, no fee would be accumulated and `accFeeIn[0..numTokens] == accFeeOut[0..numTokens]`
-  - if a match is found:
-    - accumulate the fee `fee2Charge` inside its position `i` on `accFeeOut[i]`
-    - avoid accumulate fees once the match is found
+    - find the position on the array `feePlanTokenID[numTokens]` where its element matches the current transaction `tokenID`
+        - if no match found, no fee would be accumulated and `accFeeIn[0..numTokens] == accFeeOut[0..numTokens]`
+    - if a match is found:
+        - accumulate the fee `fee2Charge` inside its position `i` on `accFeeOut[i]`
+        - avoid accumulate fees once the match is found
 - Global variables:
-  - `maxFeeTx`
+    - `maxFeeTx`
 
 #### Schematic
 ![center](fee-accumulator.png)
@@ -307,9 +312,9 @@ Data to be signed in order to link transactions can be found [here](../../protoc
 > Note that setting `rqTxOffset` to 0 means that no transaction is linked
 
 - Steps:
-  - get data of future/past transactions
-  - get relative index and current required data
-  - check required data matched the future/past transaction
+    - get data of future/past transactions
+    - get relative index and current required data
+    - check required data matched the future/past transaction
 
 #### Schematic
 ![center](rq-tx-verifier.png)
@@ -342,10 +347,10 @@ Note that this single input will be built by the smart contract. Therefore, proo
 Specification for computing `hashInputs` can be found [here](../../protocol#forging)
 
 - Global variables:
-  - `nLevels`
-  - `nTx`
-  - `maxL1Tx`
-  - `maxFeeTx`
+    - `nLevels`
+    - `nTx`
+    - `maxL1Tx`
+    - `maxFeeTx`
 
 #### Schematic
 ![center](hash-inputs.png)
@@ -378,15 +383,15 @@ This circuit handles each fee transaction. Fee transaction takes the accumulate 
 Besides, if coordinator does not fulfill all the possible recipient to receive fees, fee transaction could be a NOP transaction by setting the recipient to the null index (`IDX 0`)
 
 - Steps:
-  - check if `idxFee` is zero
-  - `NOP` transaction if `idxFee` is zero. Otherwise:
-    - check match `planTokenID` and `tokenID` for updating the state
-    - compute merkle tree processor function (`UPDATE` or `NOP`)
-    - compute old state value (old account balance)
-    - compute new state value (old account balance + accumulate fee)
-    - merkle tree processor to compute account update and get new state root
+    - check if `idxFee` is zero
+    - `NOP` transaction if `idxFee` is zero. Otherwise:
+        - check match `planTokenID` and `tokenID` for updating the state
+        - compute merkle tree processor function (`UPDATE` or `NOP`)
+        - compute old state value (old account balance)
+        - compute new state value (old account balance + accumulate fee)
+        - merkle tree processor to compute account update and get new state root
 - Global variables:
-  - `nLevels`
+    - `nLevels`
 
 #### Schematic
 ![center](fee-tx.png)
@@ -416,11 +421,11 @@ Besides, if coordinator does not fulfill all the possible recipient to receive f
 Computes the final amount of fee to apply given the fee selector
 
 - Steps:
-  - selects fee factor, `feeOut`, to apply given `feeSel` and `applyFee`
-  - compute `feeOutNotShifted = amount * feeOut` and convert it into bits in `feeOutBits[253]`
-  - compute `applyShift` to decide if shift has to be applied to `feeOutNotShifted`
-  - select bits on `feeOutBits[253]` depending on `applyShift` flag
-  - assert `feeOut` is $< 2^{128}$
+    - selects fee factor, `feeOut`, to apply given `feeSel` and `applyFee`
+    - compute `feeOutNotShifted = amount * feeOut` and convert it into bits in `feeOutBits[253]`
+    - compute `applyShift` to decide if shift has to be applied to `feeOutNotShifted`
+    - select bits on `feeOutBits[253]` depending on `applyShift` flag
+    - assert `feeOut` is $< 2^{128}$
 
 > It should be noted that `feeShiftTable[x]` are values hardcoded in the circuit that will match the [fee factor shifted](../../fee-table#feefactor-left-shifted)
 
@@ -452,16 +457,16 @@ It should be noted that in L1 tx, no errors are allowed but the circuit needs to
 In case of an L2 tx, the protocol does not allow to do a transaction if there is not enough balance in the sender account.
 
 - The following assumptions have been taken:
-  - smart contract filters `loadAmount` above 2^128
-  - smart contract filters `amount` above 2^192
-  - circuit reserves 192 bits for the balance of an account
-  - overflow applies only if more than 2^64 transactions are done
-  - assume overflow is not feasible
+    - smart contract filters `loadAmount` above 2^128
+    - smart contract filters `amount` above 2^192
+    - circuit reserves 192 bits for the balance of an account
+    - overflow applies only if more than 2^64 transactions are done
+    - assume overflow is not feasible
 - Steps:
-  - compute fee to be applied(`fee2Charge`)
-  - compute effective amount (`effectiveAmount1` and `effectiveAmount2`)
-  - check underflow (`txOk`)
-  - compute new balances from sender and receiver (`newStBalanceSender` and `newStBalanceReceiver`)
+    - compute fee to be applied(`fee2Charge`)
+    - compute effective amount (`effectiveAmount1` and `effectiveAmount2`)
+    - check underflow (`txOk`)
+    - compute new balances from sender and receiver (`newStBalanceSender` and `newStBalanceReceiver`)
 
 #### Schematic
 ![center](balance-updater.png)
@@ -497,6 +502,7 @@ Transaction states are computed depending on transaction's type. All transaction
 > Note that L1 coordinator transactions are treated as L1 user `createAccountDeposit` inside the circuit. Circuit does not differentiate transactions taking into account its source, either launched by user or by coordinator.
 
 Sender and receiver accounts have their own Merkle tree processors inside the circuit in order to perform actions on their leaves:
+  
   - sender: processor 1
   - receiver: processor 2
 
@@ -510,6 +516,7 @@ The following table summarizes all the processor actions:
 |    1    |    1    |  DELETE  |
 
 Therefore, given the transaction type, it is needed to specify certain signals that would be used in `rollup-tx` circuit:
+  
   - `isP1Insert`: determines if processor 1 performs an INSERT function (sender)
   - `isP2Insert`: determines if processor 2 performs an INSERT function (receiver)
   - `key1`: set key to be used in processor 1
@@ -601,12 +608,14 @@ Next table sets when to apply `nullifyLoadAmount` \ `nullifyAmount` depending L1
 ### rollup-tx
 #### Description
 This circuit includes all the rules given a transaction. Hence, `rollup-tx` includes the previous specified circuits:
+
 - `rollup-tx-states`
 - `rq-tx-verifier`
 - `balance-updater`
 - `fee-accumulator`
 
 For the sake of clarity, this circuit could be split internally into phases:
+
 - A: compute transaction states
 - B: check request transaction
 - C: checks state fields
@@ -620,7 +629,8 @@ For the sake of clarity, this circuit could be split internally into phases:
 - K: select output roots
 
 
-- Global variables:
+Global variables:
+
   - `nLevels`
   - `maxFeeTx`
 
@@ -705,12 +715,13 @@ All signals prefixed with `im` are intermediary signals. Note that in circuit ph
 Note that there is only one public input, `hashGlobalInputs`, which is a sha256 hash of all the intended public inputs of the circuit. This is done in order to save gas in the contract by just passing one public input.
 
 - Global variables:
-  - `nTx`
-  - `nLevels`
-  - `maxL1Tx`
-  - `maxFeeTx`
+    - `nTx`
+    - `nLevels`
+    - `maxL1Tx`
+    - `maxFeeTx`
 
 Main circuit could be split in the following phases:
+
 - A: decode transactions
 - B: check binary signals
 - C: check integrity decode intermediary signals
@@ -796,20 +807,20 @@ In section H, only bits associated to `amountF` in `L1L2TxsData` are multiplied 
 |:----------------:|:-----:|:-----------------------------------:|
 | hashGlobalInputs | field | hash of all intended input signals |
 
-## withdraw
+### withdraw
 #### Description
 This circuit is used to prove that a leaf exist on the exit tree. If its existence is proved, user will be able to withdraw funds from the Hermez contract.
 All intended public inputs are hashed together as described [here](../../protocol#hermezwithdraw).
 
 - Steps:
-  - compute hash-state
-  - verify state exist in the exit tree root given the siblings
-  - compute `hashGlobalInputs`
+    - compute hash-state
+    - verify state exist in the exit tree root given the siblings
+    - compute `hashGlobalInputs`
 
 > It should be noted that this circuit is heavily attached to the [hermez smart contract](../../contracts/contracts#hermez-smart-contracts)
 
 - Global variables
-  - `nLevels`
+    - `nLevels`
 
 #### Schematic
 ![center](withdraw.png)

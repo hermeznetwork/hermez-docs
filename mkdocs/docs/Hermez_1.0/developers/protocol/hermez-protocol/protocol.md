@@ -15,6 +15,7 @@ A sparse-Merkle-tree is used to keep the state data where all accounts and balan
 This collection of transactions are made public on L1 in order to provide data-availability to the protocol, meaning that anyone can re-build the L2 state just depending on L1 data. Hence, there is no need to rely on third parties to provide or store this data.
 
 The system is composed of L1 and L2 transactions:
+
 - L1 transactions are the ones that are executed through the smart contract and affect the L2 state tree
 - L2 transactions are the ones that are executed exclusively on L2 and affect the L2 state tree
 
@@ -35,17 +36,17 @@ contract to update its own state and perform consensus actions if necessary.
 
 ## Assumptions
 - L1 (Ethereum):
-  - integrity and immutability of data
+    - integrity and immutability of data
 - Hashes
-  - `Poseidon` is unbreakable and collision-resistant
-  - `SHA256` is unbreakable and collision-resistant
+    - `Poseidon` is unbreakable and collision-resistant
+    - `SHA256` is unbreakable and collision-resistant
 - Elliptic curves:
-  - L1:
-    - `secp256k1`
-    - signature scheme is `ecdsa`
-  - L2:
-    - `BabyJubjub`
-    - signature scheme is `eddsa`
+    - L1:
+        - `secp256k1`
+        - signature scheme is `ecdsa`
+    - L2:
+        - `BabyJubjub`
+        - signature scheme is `eddsa`
 - State tree transitions are always valid
 - L1 transactions are forced to be processed
 
@@ -93,22 +94,22 @@ dataBuffer: [48 bits] fromIdx
 
 ### Circuit
 - `MAX_NLEVELS`: absolute maximum of Merkle tree depth (48 bits)
-  - determines the maximum number of accounts that can exist in the ZK-Rollup: $MAX\_ACCOUNTS=2^{MAX\_NLEVELS}$
+    - determines the maximum number of accounts that can exist in the ZK-Rollup: $MAX\_ACCOUNTS=2^{MAX\_NLEVELS}$
 - `MAX_TX`: absolute maximum L1 or L2 transactions allowed to process in one batch
 - `MAX_L1_TXS`: absolute maximum of L1 transactions allowed to process in one batch
 - `MAX_FEE_TX`: maximum number of tokens that the coordinator is able to collect fees from in a batch from the included transactions
 - `NLevels`: Merkle tree depth
-  - It should be noted that `NLevels` is always a multiple of 8
+    - It should be noted that `NLevels` is always a multiple of 8
 
 ### Contracts
 - `MAX_L1_USER_TXS`: absolute maximum of L1 user transactions allowed to be queued for a batch
 - `MAX_AMOUNT_DEPOSIT`: maximum amount of tokens that can be added when creating a new account
 - `INITIAL_IDX`: first Merkle tree index to populate if a new account is created
-  - Some indexes are reserved in order to specify special transactions
-    - `IDX 0`: null index
-    - `IDX 1`: exit
-    - `2 <= IDX < 256`: reserved Idx values for future uses
-    - `256 <= IDX < 2^MAX_NLEVELS`: available Idx values for rollup accounts
+    - Some indexes are reserved in order to specify special transactions
+        - `IDX 0`: null index
+        - `IDX 1`: exit
+        - `2 <= IDX < 256`: reserved Idx values for future uses
+        - `256 <= IDX < 2^MAX_NLEVELS`: available Idx values for rollup accounts
 - `MAX_TOKENS`: maximum amount of tokens allowed to be registered in the ZK-Rollup
 
 ## Data Types
@@ -122,6 +123,7 @@ Formula is as follows:
 $v = m \times 10^e$
 
 where:
+
 - `v`: large integer value to encode
 - `m`: mantissa (35 bits)
 - `e`: exponent (5 bits)
@@ -143,7 +145,7 @@ bit position:
 
 ### Transaction Fields
 All transactions fields are required to build the ZK-SNARK proof but depending on the transaction type not all of them are used.
-Detailed transaction types can be seen in [transaction type section](#Transaction-Types)
+Detailed transaction types can be seen in [transaction type section](#transaction-types)
 Below is a summary of each transaction field and its explaination:
 
 - `signature_constant`: hardcoded transaction constant that indicates that the user is signing a Hermez rollup transaction. Used to avoid transaction replay in case other rollup are deployed (32 bits)
@@ -174,6 +176,7 @@ signature_constant = sha256("I authorize this hermez rollup transaction")[:32/8]
 - `rqToBjjAy`: requested `toBjj`
 
 Fields to perform atomic transactions:
+
 - `rqTxCompressedDataV2`
 - `rqToEthAddr`
 - `rqToBjjAy`
@@ -191,7 +194,8 @@ Each leaf of the state tree (account) contains the following data:
 
 - Key: Merkle tree index (`idx`)
 - Value: `Hash(state)`
-    ```
+
+```
     **field element notation**
     State hash = H(e0, e1, e2, e3)
 
@@ -201,7 +205,7 @@ Each leaf of the state tree (account) contains the following data:
     e_1: [ 192 bits ] balance
     e_2: [ 253 bits ] ay
     e_3: [ 160 bits ] ethAddr
-    ```
+```
 
 All data is hashed with Poseidon hash function and inserted into the sparse Merkle tree as a key-value pair.
 
@@ -213,6 +217,7 @@ $MAX\_ACCOUNTS$ = $2^{MAX\_NLEVELS}$
 ### Exit Tree
 Each batch would have an associated exit tree with all the exits performed by the user, either L1 or L2 exit transactions.
 The exit tree has the same leaf structure as the state tree with some particularities:
+
 - nonce is always set to 0
 - if several exits are done in the same batch for the same account, the balance is just added on top of the account
 
@@ -225,6 +230,7 @@ User will need to prove that it owns a leaf in the exit tree in order to perform
 
 Regular accounts contain an Ethereum address and a Baby Jubjub public key.  Accounts are always indexed by Ethereum address in the UX, so it is a requirement that the Ethereum address authorizes the account keys.  Once the account is created, the Ethereum key is used to authorize L1 txs and the Baby Jubjub key is used to authorize L2 txs.
 There are two ways to authorize an account creation (that is, an Ethereum address authorizes the creation of an account containing that same Ethereum address and a Baby Jubjub public key):
+
 - Via Ethereum transaction, which has an implicit signature of the Ethereum address.  This requires the owner of the Ethereum address to sign the smart contract transaction call
 - Via an authorization signature (`AccountCreationAuthSig`) that can be used by any party to create accounts on behalf of the user
 
@@ -254,6 +260,7 @@ structured data: {
 ```
 
 where:
+
 - `chainID`: refers to the ethereum chain identifier
 - `rollupContractAddress`: rollup contract ethereum address
 - `compressed-bjj`: babyjubjub public key in its compressed format represented as hexadecimal string
@@ -295,21 +302,21 @@ Summary:
 - RollupTx
     - L1
         - User
-            - [CreateAccountDeposit](#CreateAccountDeposit)
-            - [CreateAccountDepositTransfer](#CreateAccountDepositTransfer)
-            - [Deposit](#Deposit)
-            - [DepositTransfer](#DepositTransfer)
-            - [ForceTransfer](#ForceTransfer)
-            - [ForceExit](#ForceExit)
+            - [CreateAccountDeposit](#createaccountdeposit)
+            - [CreateAccountDepositTransfer](#createaccountdeposittransfer)
+            - [Deposit](#deposit)
+            - [DepositTransfer](#deposittransfer)
+            - [ForceTransfer](#forcetransfer)
+            - [ForceExit](#forceexit)
         - Coordinator
-            - [CreateAccountEth](#CreateAccountEth)
-            - [CreateAccountBjj](#CreateAccountBjj)
+            - [CreateAccountEth](#createaccounteth)
+            - [CreateAccountBjj](#createaccountbjj)
     - L2
-        - [Transfer](#Transfer)
-        - [Exit](#Exit)
-        - [TransferToEthAddr](#TransferToEthAddr)
-        - [TransferToBjj](#TransferToBjj)
-- HermezWithdraw
+        - [Transfer](#transfer)
+        - [Exit](#exit)
+        - [TransferToEthAddr](#transfertoethaddr)
+        - [TransferToBjj](#transfertobjj)
+- [HermezWithdraw](#hermezwithdraw)
 
 **RollupTx** is any transaction that is processed in the rollup state through a
 ZK-SNARK proof.
@@ -319,6 +326,7 @@ funds back from the smart contract to Ethereum address. This is done by
 demonstrating the existence of a leaf in the exit tree.
 
 **NOP transaction** is an empty transaction that does not perform any action.  Used in the circuit inputs when the coordinator does not have enough transactions to fill maximum number of transactions in a batch.
+
 **NULL transaction** is a transaction that is forced to use the value 0 for amount or loadAmount.  Used to nullify an `L1UserTx` that is found to be invalid, so that it does not do any update to the state tree.
 
 ### L1 user transactions
@@ -346,16 +354,16 @@ All L1 txs that perform a transfer or exit must be approved by the Ethereum addr
 
 #### CreateAccountDeposit
 - Inputs:
-  - `fromEthAddr`: message.sender
-  - `fromBjj-compressed`: user parameter
-  - `fromIdx`: 0
-  - `loadAmountFloat40`: user parameter
-  - `amountFloat40`: 0
-  - `tokenId`: user parameter
-  - `toIdx`: 0
+    - `fromEthAddr`: message.sender
+    - `fromBjj-compressed`: user parameter
+    - `fromIdx`: 0
+    - `loadAmountFloat40`: user parameter
+    - `amountFloat40`: 0
+    - `tokenId`: user parameter
+    - `toIdx`: 0
 - Actions:
-  - new account inserted into the state tree with idx = `auxFromIdx`
-  - deposit `loadAmountFloat40` into the sender `auxFromIdx`
+    - new account inserted into the state tree with idx = `auxFromIdx`
+    - deposit `loadAmountFloat40` into the sender `auxFromIdx`
     - new account data:
         - `ax`: `fromBjj-compressed -> ax`
         - `ay`: `fromBjj-compressed -> ay`
@@ -367,153 +375,154 @@ All L1 txs that perform a transfer or exit must be approved by the Ethereum addr
 
 #### CreateAccountDepositTransfer
 - Inputs:
-  - `fromEthAddr`: message.sender
-  - `fromBjj-compressed`: user parameter
-  - `fromIdx`: 0
-  - `loadAmountFloat40`: user parameter
-  - `amountFloat40`: user parameter
-  - `tokenId`: user parameter
-  - `toIdx`: user parameter
+    - `fromEthAddr`: message.sender
+    - `fromBjj-compressed`: user parameter
+    - `fromIdx`: 0
+    - `loadAmountFloat40`: user parameter
+    - `amountFloat40`: user parameter
+    - `tokenId`: user parameter
+    - `toIdx`: user parameter
 - Actions:
-  - new account inserted into the state tree with idx = `auxFromIdx`
-  - deposit `loadAmountFloat40` into the sender `auxFromIdx`
-    - new account data:
-        - `ax`: `fromBjj-compressed -> ax`
-        - `ay`: `fromBjj-compressed -> ay`
-        - `ethAddr`: `fromEthAddr`
-        - `tokenID`: `tokenId`
-        - `balance`: `loadAmount`
-        - `nonce`: 0
-  - subtract `amountFloat40` from sender `auxFromIdx`
-  - add `amountFloat40` to recipient `toIdx`
+    - new account inserted into the state tree with idx = `auxFromIdx`
+    - deposit `loadAmountFloat40` into the sender `auxFromIdx`
+      - new account data:
+          - `ax`: `fromBjj-compressed -> ax`
+          - `ay`: `fromBjj-compressed -> ay`
+          - `ethAddr`: `fromEthAddr`
+          - `tokenID`: `tokenId`
+          - `balance`: `loadAmount`
+          - `nonce`: 0
+    - subtract `amountFloat40` from sender `auxFromIdx`
+    - add `amountFloat40` to recipient `toIdx`
 - Requirements:
-  - receiver `toIdx` account must exist
+    - receiver `toIdx` account must exist
 - Checks NULL:
-  - sender `fromIdx` and receiver should have the same `tokenID`
-  - `tokenID` should match state1 update account
-  - `tokenID` should match state2 update account
-  - sender `fromIdx` should have enough balance
+    - sender `fromIdx` and receiver should have the same `tokenID`
+    - `tokenID` should match state1 update account
+    - `tokenID` should match state2 update account
+    - sender `fromIdx` should have enough balance
 
 #### Deposit
 - Inputs:
-  - `fromEthAddr`: 0
-  - `fromBjj-compressed`: 0
-  - `fromIdx`: user parameter
-  - `loadAmountFloat40`: user parameter
-  - `amountFloat40`: 0
-  - `tokenId`: user parameter
-  - `toIdx`: 0
+    - `fromEthAddr`: 0
+    - `fromBjj-compressed`: 0
+    - `fromIdx`: user parameter
+    - `loadAmountFloat40`: user parameter
+    - `amountFloat40`: 0
+    - `tokenId`: user parameter
+    - `toIdx`: 0
 - Actions:
-  - deposit `loadAmountFloat40` into the account
+    - deposit `loadAmountFloat40` into the account
 - Requirements:
-  - recipient `fromIdx` account to receive L1 funds must exist
+    - recipient `fromIdx` account to receive L1 funds must exist
 - Checks NULL:
-  - `tokenID` should match state1 update account
+    - `tokenID` should match state1 update account
 
 #### DepositTransfer
 - Inputs:
-  - `fromEthAddr`: message.sender
-  - `fromBjj-compressed`: 0
-  - `fromIdx`: user parameter
-  - `loadAmountFloat40`: user parameter
-  - `amountFloat40`: user parameter
-  - `tokenId`: user parameter
-  - `toIdx`: user parameter
+    - `fromEthAddr`: message.sender
+    - `fromBjj-compressed`: 0
+    - `fromIdx`: user parameter
+    - `loadAmountFloat40`: user parameter
+    - `amountFloat40`: user parameter
+    - `tokenId`: user parameter
+    - `toIdx`: user parameter
 - Actions:
-  - deposit `loadAmountFloat40` into the account
-  - subtract `amountFloat40` from sender `fromIdx`
-  - add `amountFloat40` to recipient `toIdx`
+    - deposit `loadAmountFloat40` into the account
+    - subtract `amountFloat40` from sender `fromIdx`
+    - add `amountFloat40` to recipient `toIdx`
 - Requirements:
-  - recipient `fromIdx` account to receive L1 funds must exist
-  - receiver `toIdx` account must exist
+    - recipient `fromIdx` account to receive L1 funds must exist
+    - receiver `toIdx` account must exist
 - Checks NULL:
-  - `tokenID` should match state1 update account
-  - `tokenID` should match state2 update account
-  - sender `fromIdx` should have enough balance
-  - `fromEthAddr` should match state1 update account
+    - `tokenID` should match state1 update account
+    - `tokenID` should match state2 update account
+    - sender `fromIdx` should have enough balance
+    - `fromEthAddr` should match state1 update account
 
 #### ForceTransfer
 - Inputs:
-  - `fromEthAddr`: message.sender
-  - `fromBjj-compressed`: 0
-  - `fromIdx`: user parameter
-  - `loadAmountFloat40`: 0
-  - `amountFloat40`: user parameter
-  - `tokenId`: user parameter
-  - `toIdx`: user parameter
+    - `fromEthAddr`: message.sender
+    - `fromBjj-compressed`: 0
+    - `fromIdx`: user parameter
+    - `loadAmountFloat40`: 0
+    - `amountFloat40`: user parameter
+    - `tokenId`: user parameter
+    - `toIdx`: user parameter
 - Actions:
-  - subtract `amountFloat40` from sender `fromIdx`
-  - add `amountFloat40` to recipient `toIdx`
+    - subtract `amountFloat40` from sender `fromIdx`
+    - add `amountFloat40` to recipient `toIdx`
 - Requirements:
-  - sender `fromIdx` must exist
-  - receiver `toIdx` account must exist
+    - sender `fromIdx` must exist
+    - receiver `toIdx` account must exist
 - Checks NULL:
-  - sender `fromIdx` and receiver should have the same `tokenID`
-  - `tokenID` should match state1 update account
-  - `tokenID` should match state2 update account
-  - sender `fromIdx` should have enough balance
-  - `fromEthAddr` should match state1 update account
+    - sender `fromIdx` and receiver should have the same `tokenID`
+    - `tokenID` should match state1 update account
+    - `tokenID` should match state2 update account
+    - sender `fromIdx` should have enough balance
+    - `fromEthAddr` should match state1 update account
 
 #### ForceExit
 - Inputs:
-  - `fromEthAddr`: message.sender
-  - `fromBjj-compressed`: 0
-  - `fromIdx`: user parameter
-  - `loadAmountFloat40`: 0
-  - `amountFloat40`: user parameter
-  - `tokenId`: user parameter
-  - `toIdx`: 1
+    - `fromEthAddr`: message.sender
+    - `fromBjj-compressed`: 0
+    - `fromIdx`: user parameter
+    - `loadAmountFloat40`: 0
+    - `amountFloat40`: user parameter
+    - `tokenId`: user parameter
+    - `toIdx`: 1
 - Actions:
-  - subtract `amountFloat40` from sender `fromIdx`
-  - If it does not exit `fromIdx` account on the exit tree:
-    - new account `fromIdx` inserted into the exit tree
-  - add `amountFloat40` to the exit tree recipient `fromIdx`
+    - subtract `amountFloat40` from sender `fromIdx`
+    - If it does not exit `fromIdx` account on the exit tree:
+        - new account `fromIdx` inserted into the exit tree
+    - add `amountFloat40` to the exit tree recipient `fromIdx`
 - Requirements:
-  - sender `fromIdx` must exist
+    - sender `fromIdx` must exist
 - Checks NULL:
-  - `tokenID` should match state1 update account
-  - sender should have enough balance
-  - `fromEthAddr` should match state1 update account
+    - `tokenID` should match state1 update account
+    - sender should have enough balance
+    - `fromEthAddr` should match state1 update account
 
 ### L1 Coordinator
 Coordinator has the ability to create accounts at the time to forge a batch. These transactions are also included in the `L1TxsData`.
 Account could be created for a given:
+
 - Ethereum address - Baby Jubjub key pair (regular rollup account)
 - Baby Jubjub public key (internal rollup account)
 
 #### CreateAccountEth
 - Inputs:
-  - `fromEthAddr`: coordinator parameter
-  - `fromBjj-compressed`: coordinator parameter (from ecdsa signed message)
-  - `fromIdx`: 0
-  - `loadAmountFloat40`: 0
-  - `amountFloat40`: 0
-  - `tokenId`: coordinator parameter
-  - `toIdx`: 0
+    - `fromEthAddr`: coordinator parameter
+    - `fromBjj-compressed`: coordinator parameter (from ecdsa signed message)
+    - `fromIdx`: 0
+    - `loadAmountFloat40`: 0
+    - `amountFloat40`: 0
+    - `tokenId`: coordinator parameter
+    - `toIdx`: 0
 - Actions:
-  - new account inserted into the state tree
-    - account data:
-        - `sign`: `fromBjj-compressed -> sign`
-        - `ay`: `fromBjj-compressed -> ay`
-        - `ethAddr`: `fromEthAddr`
-        - `tokenID`: `tokenId`
-        - `balance`: 0
-        - `nonce`: 0
+    - new account inserted into the state tree
+      - account data:
+          - `sign`: `fromBjj-compressed -> sign`
+          - `ay`: `fromBjj-compressed -> ay`
+          - `ethAddr`: `fromEthAddr`
+          - `tokenID`: `tokenId`
+          - `balance`: 0
+          - `nonce`: 0
 - Requirements:
-  - coordinator must submit:
-    - `ecdsa signature`: R,S,V signature of [AccountCreationAuthMsg](#regular-rollup-account)
+    - coordinator must submit:
+        - `ecdsa signature`: R,S,V signature of [AccountCreationAuthMsg](#regular-rollup-account)
 
 #### CreateAccountBjj
 - Inputs:
-  - `fromEthAddr`: `0xffff..`
-  - `fromBjj-compressed`: coordinator parameter
-  - `fromIdx`: 0
-  - `loadAmountFloat40`: 0
-  - `amountFloat40`: 0
-  - `tokenId`: coordinator parameter
-  - `toIdx`: 0
+    - `fromEthAddr`: `0xffff..`
+    - `fromBjj-compressed`: coordinator parameter
+    - `fromIdx`: 0
+    - `loadAmountFloat40`: 0
+    - `amountFloat40`: 0
+    - `tokenId`: coordinator parameter
+    - `toIdx`: 0
 - Actions:
-  - new account inserted into the state tree
+    - new account inserted into the state tree
     - account data:
         - `sign`: `fromBjj-compressed -> sign`
         - `ay`: `fromBjj-compressed -> ay`
@@ -578,28 +587,28 @@ Standard transaction of tokens between two accounts inside the rollup, L2 --> L2
 It is assumed that this transaction has a recipient `toIdx` > `INITIAL_IDX`
 
 - Actions:
-  - subtract `amountFloat40` from sender `fromIdx`
-  - add `amountFloat40` to recipient `toIdx`
+    - subtract `amountFloat40` from sender `fromIdx`
+    - add `amountFloat40` to recipient `toIdx`
 - Valid transaction:
-  - sender `fromIdx` exist on the state tree
-  - recipient `toIdx` exist on the state tree
-  - `tokenID` match with `fromIdx` and `toIdx` token
-  - sender `fromIdx` has enough funds
-  - sender `fromIdx` has the correct `nonce`
+    - sender `fromIdx` exist on the state tree
+    - recipient `toIdx` exist on the state tree
+    - `tokenID` match with `fromIdx` and `toIdx` token
+    - sender `fromIdx` has enough funds
+    - sender `fromIdx` has the correct `nonce`
 
 #### Exit
 Transfer tokens from an account to the [exit tree](#exit-tree), L2 --> L2
 
 - Actions:
-  - subtract `amountFloat40` from sender `fromIdx`
-  - If it does not exit `fromIdx` account on the exit tree:
-    - new account `fromIdx` inserted into the exit tree
-  - add `amountFloat40` to the exit tree recipient `fromIdx`
+    - subtract `amountFloat40` from sender `fromIdx`
+    - If it does not exit `fromIdx` account on the exit tree:
+        - new account `fromIdx` inserted into the exit tree
+    - add `amountFloat40` to the exit tree recipient `fromIdx`
 - Valid transaction:
-  - sender `fromIdx` exist on the state tree
-  - `tokenID` match with `fromIdx` token
-  - sender `fromIdx` has enough funds
-  - sender `fromIdx` has the correct `nonce`
+    - sender `fromIdx` exist on the state tree
+    - `tokenID` match with `fromIdx` token
+    - sender `fromIdx` has enough funds
+    - sender `fromIdx` has the correct `nonce`
 
 
 #### TransferToEthAddr
@@ -614,14 +623,14 @@ Hence, coordinator would select the recipient `idx` to add `amountFloat40` (call
 > It is important to mention that this kind of transaction allows for the creation of new accounts in the state tree without needing to have any `ether` on L1. Hence, users could create new accounts and deposit tokens just through an L2 transaction.
 
 - Actions:
-  - subtract `amountFloat40` from sender `fromIdx`
-  - add `amountFloat40` to the recipient `auxToIdx`
-    - it must match with `toEthAddr` and `tokenID` signed by sender
+    - subtract `amountFloat40` from sender `fromIdx`
+    - add `amountFloat40` to the recipient `auxToIdx`
+        - it must match with `toEthAddr` and `tokenID` signed by sender
 - Valid transaction:
-  - sender `fromIdx` exist on the state tree
-  - `tokenID` match with `fromIdx` and `auxToIdx` token
-  - sender `fromIdx` has enough funds
-  - sender `fromIdx` has the correct `nonce`
+    - sender `fromIdx` exist on the state tree
+    - `tokenID` match with `fromIdx` and `auxToIdx` token
+    - sender `fromIdx` has enough funds
+    - sender `fromIdx` has the correct `nonce`
 
 #### TransferToBjj
 Sender sends the transaction to a Baby Jubjub address recipient in the state tree.
@@ -636,21 +645,22 @@ Hence, coordinator would select the recipient `idx` to add `amountFloat40` (call
 > It is important to mention that this kind of transaction allows for the creation of new accounts in the state tree without the needing to have any `ether` on L1. Hence, users could create new accounts and deposit tokens just through an L2 transaction.
 
 - Actions:
-  - subtract `amountFloat40` from sender `fromIdx`
-  - add `amountFloat40` to the recipient `auxToIdx`
-    - it must match with `toBjjAy` + `toBjjSign` and `tokenID` signed by sender
-    - it must match `ethAddr` with `0xff..ff`
+    - subtract `amountFloat40` from sender `fromIdx`
+    - add `amountFloat40` to the recipient `auxToIdx`
+        - it must match with `toBjjAy` + `toBjjSign` and `tokenID` signed by sender
+        - it must match `ethAddr` with `0xff..ff`
 - Valid transaction:
-  - sender `fromIdx` exist on the state tree
-  - `tokenID` match with `fromIdx` and `auxToIdx` token
-  - sender `fromIdx` has enough funds
-  - sender `fromIdx` has the correct `nonce`
+    - sender `fromIdx` exist on the state tree
+    - `tokenID` match with `fromIdx` and `auxToIdx` token
+    - sender `fromIdx` has enough funds
+    - sender `fromIdx` has the correct `nonce`
 
 ### HermezWithdraw
 Funds are held on Hermez contract once the user has perform an [exit transaction](#exit).
 The withdrawal data will contain unique data (nullifier) which identifies the withdrawal. Hence, the smart contract will store that data to avoid performing withdrawals multiple times.
 
 Each withdrawal could be identified uniquely by:
+
   - Merkle tree index
   - number exit root
 
@@ -688,6 +698,7 @@ ZK-Rollup approach determines that anyone can reconstruct the full tree state by
 This feature ensures liveness of the system, meaning that no third party needs to be active in order to provide data to rebuild the state tree.
 
 Transaction types:
+
 - txs
     - l1_txs: layer 1 transactions
         - l1_user_txs: queued asynchronously by users via smart contract call
@@ -708,9 +719,10 @@ $len(l1\_user\_txs) \leq MAX\_L1\_USER\_TXS < MAX\_L1\_TXS$
 All transaction data triggered by a smart contract function can be directly retrieved since it will be stored on the blockchain, but it's harder when this data happens in internal transactions, not all nodes support that functionality. That's why all the L1 user transactions emit an `L1UserTx` event to facilitate the data retrieval.
 
 When a user calls a function that adds an `L1UserTx`, the following happens:
+
 - Storage
     - Add the `L1UserTx` data at the end of the last non-frozen non-full queue of `L1UserTxs` (`L1UserTxs[lastL1UserTxs]`).
-        - Each queue is identified by a toForgeL1TxsNumber that grows incrementally
+        - Each queue is identified by a `toForgeL1TxsNumber` that grows incrementally
         - The queue in which this data is added is identified by a particular `toForgeL1TxsNumber` (which is `lastL1UserTxs` at the moment the `L1UserTx` is added)
         - The `L1UserTxs` has a position in this queue: `L1UserTxs[lastL1UserTxs][position]`
 - Event
@@ -734,13 +746,14 @@ L1CoordinatorTxs = L1CoordinatorTx[0] || L1CoordinatorTx[1] || ... || L1Coordina
 ```
 
 There two types of L1CoordinatorTx:
+
 - CreateAccountEth:
-  - Ethereum address is recovered from the ecdsa signature
-  - Coordinator should create an account with an Ethereum address equal to the `toEthAddr` in the L2 transaction in order to process the L2 transaction
-  - Contract will have to build the [`AccountCreationAuthMsg`](#regular-rollup-account), hash it and retrieve Ethereum account from signed message and the signature (`r`, `s` and `v`).
+    - Ethereum address is recovered from the ecdsa signature
+    - Coordinator should create an account with an Ethereum address equal to the `toEthAddr` in the L2 transaction in order to process the L2 transaction
+    - Contract will have to build the [`AccountCreationAuthMsg`](#regular-rollup-account), hash it and retrieve Ethereum account from signed message and the signature (`r`, `s` and `v`).
 - CreateAccountBjj:
-  - Coordinator should create an account with a Baby Jubjub key equal to the `toAx` and `toAy` in the L2 transaction in order to process the L2 transaction
-  - ecdsa signature fields are set to 0
+    - Coordinator should create an account with a Baby Jubjub key equal to the `toAx` and `toAy` in the L2 transaction in order to process the L2 transaction
+    - ecdsa signature fields are set to 0
 
 ### L1 - L2 Transactions
 All transactions processed in a batch must be posted on L1. This is assured by hashing all data-availability and forces the coordinator to match all his processed transactions with his posted L1 data-availability.
@@ -788,6 +801,7 @@ assert(msg.sender == tx.origin)
 ```
 
 For every `forging` call, an event will be sent with the following information:
+
 - BatchNum
 
 The rollup `forging` function will be private, and will be called internally in the smart contract by a wrapper that adds a consensus mechanism to decide if the caller is allowed to forge or not at that Ethereum block.
@@ -795,16 +809,16 @@ The rollup `forging` function will be private, and will be called internally in 
 Contract will compute the hash of all pretended public inputs of the circuit in order to force these private signals to be processed by the coordinator.
 
 - List parameters in `hashGlobalData`:
-  - `oldLastIdx`: old last merkle tree index created
-  - `newLastIdx`: new last merkle tree index created
-  - `oldStateRoot`: ols state root
-  - `newStateRoot`: new state root
-  - `newExitRoot`: new exit root
-  - `L1TxsFullData`: bits  L2 full data
-  - `L1L2TxsData`: bits L1-L2 transaction data-availability
-  - `feeTxsData`: all index accounts to receive accumulated fees
-  - `chainId`: global chain identifier
-  - `currentNumBatch`: current batch number processed
+    - `oldLastIdx`: old last merkle tree index created
+    - `newLastIdx`: new last merkle tree index created
+    - `oldStateRoot`: ols state root
+    - `newStateRoot`: new state root
+    - `newExitRoot`: new exit root
+    - `L1TxsFullData`: bits  L2 full data
+    - `L1L2TxsData`: bits L1-L2 transaction data-availability
+    - `feeTxsData`: all index accounts to receive accumulated fees
+    - `chainId`: global chain identifier
+    - `currentNumBatch`: current batch number processed
 
 
 ```
