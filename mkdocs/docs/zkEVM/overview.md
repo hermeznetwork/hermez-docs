@@ -31,7 +31,7 @@ The major components of Hermez 2.0 are:
 The skeletal architecture of Hermez 2.0 is shown below: 
 
 
-<p align="center"><img src="./images/fig1-simpl-arch.png" width="600" /></p>
+<p align="center"><img src="images/fig1-simpl-arch.png" width="600" /></p>
 <div align="center"><b> Figure 1 : Skeletal Overview of Hermez 2.0 </b></div>
 
 
@@ -94,7 +94,7 @@ The underlying protocol in Hermez 2.0 ensures that the state transitions are cor
 
 The PoE smart contract, therefore, makes two basic calls: A call to receive batches from Sequencers, and another call to Aggregators, requesting batches to be validated. See **Figure 2** below:
 
-<p align="center"><img src="./images/fig2-simple-poe.png" width="650" /></p>
+<p align="center"><img src="images/fig2-simple-poe.png" width="650" /></p>
 <div align="center"><b> Figure 2: Simplified Proof of Efficiency </b></div>
 
 
@@ -141,7 +141,7 @@ The zkNode Architecture is composed of:
 <br><br>The Synchronizer is responsible for reading the events from the Ethereum blockchain, including new batches to keep the state fully synced. The information read from these events must be stored in the database. The Synchronizer also handles possible reorgs, which will be detected by checking if the last `ethBlockNum` and the last `ethBlockHash` are synced.</br></br>
 
 
-<p align="center"><img src="./images/fig3-zkNode-arch.png" width="600" /></p>
+<p align="center"><img src="images/fig3-zkNode-arch.png" width="600" /></p>
 <div align="center"><b> Figure 3: Hermez 2.0 zkNode Diagram </b></div>
 
 <br>
@@ -159,7 +159,7 @@ The architecture of zkNode is modular and implements a set of functions as depic
 
 Hermez 2.0 employs advanced zero-knowledge technology to create validity proofs. It uses a zero-knowledge prover (zkProver), which is intended to run on any server and is being engineered to be compatible with most consumer hardware. Every Aggregator will use this zkProver to validate batches and provide validity proofs. zkProver has its own detailed architecture which is outlined below. It consists of a Main State Machine Executor, a collection of secondary State Machines (each with its own executor), a STARK-proof builder, and a SNARK-proof builder. See **Figure 4** below for a simplified diagram of the Hermez 2.0 zkProver:
 
-<p align="center"><img src="./images/fig4-zkProv-arch.png" width="650" /></p>
+<p align="center"><img src="images/fig4-zkProv-arch.png" width="650" /></p>
 <div align="center"><b> Figure 4: A Simplified zkProver Diagram </b></div>
 
 <br>
@@ -186,7 +186,7 @@ See **Figure 5** below for dependencies among these SMs.
 
 While some SMs use both zkASM and PIL, others rely only on one of these languages depending upon the specific operations each SM is responsible for.
 
-<p align="center"><img src="./images/fig5-col-sm-zkprov.png" width="800" /></p>
+<p align="center"><img src="images/fig5-col-sm-zkprov.png" width="800" /></p>
 <div align="center"><b> Figure 5: Hermez 2.0 State Machines </b></div>
 
 
@@ -213,7 +213,7 @@ Bridge L1 Contract requires two Merkle trees in order to perform the above opera
 The exit tree structure is depicted in **Figure 6** below:
 
 
-<p align="center"><img src="./images/fig6-exit-tr-strct.png" width="700" /></p>
+<p align="center"><img src="images/fig6-exit-tr-strct.png" width="700" /></p>
 <div align="center"><b> Figure 6: The Exit Tree Structure </b></div>
 
 
