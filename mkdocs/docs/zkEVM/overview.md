@@ -2,7 +2,7 @@
 
 Integrated seamlessly with the Ethereum ecosystem, Polygon Hermez is a powerful, decentralized technology that provides Layer 2 scalability solutions to blockchain users. With the tremendous increase in the number of transactions taking place on-chain (i.e. base layer Ethereum), the Layer 1 solution is already facing blockchain trilemma: decentralization, scalability, and security. It is where Polygon Hermez steps in. 
 
-By providing zk-rollups (zero-knowledge rollups) that sit on the top of Ethereum Maninnet, the scalability and the transactions per second (TPS) can be dramatically improved. To prove that the off-chain computations are correct, Polygon Hermez employs zero-knowledge proofs that can be verified easily. The Layer 2 zero-knowledge proofs are based on the complex polynomial computations that help in leveraging Ethereum scaling and provide fast finality to the off-chain transactions.
+By providing zk-rollups (zero-knowledge rollups) that sit on the top of Ethereum Mainnet, the scalability and the transactions per second (TPS) can be dramatically improved. To prove that the off-chain computations are correct, Polygon Hermez employs zero-knowledge proofs that can be verified easily. The Layer 2 zero-knowledge proofs are based on the complex polynomial computations that help in leveraging Ethereum scaling and provide fast finality to the off-chain transactions.
 
 ## What is Polygon Hermez 2.0? 
 
