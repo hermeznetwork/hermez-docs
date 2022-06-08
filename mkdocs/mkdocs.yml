@@ -29,7 +29,6 @@ extra:
 
 nav:
   - Hermez 2.0 (zkEVM):
-    - Overview: "zkEVM/overview.md"
     - Architecture:
       - Introduction: "zkEVM/architecture/introduction.md"
       - Simple State Machine: "zkEVM/architecture/simple-state-machine.md"  
