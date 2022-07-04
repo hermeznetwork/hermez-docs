@@ -194,7 +194,7 @@ In a nutshell, the zkEVM expresses state changes in a polynomial form. Therefore
 #### zkProver Architecture
 
 
-The zkNode Architecture is composed of:
+The zkProver Architecture is composed of:
 
 1. **Main State Machine Executor**: The Main Executor handles the execution of the zkEVM. This is where EVM Bytecodes are interpreted using a new **zero-knowledge Assembly language** (or zkASM), specially developed by the team. The executor also sets up the polynomial constraints that every valid batch of transactions must satisfy. Another language, specially developed by the team, called  **Polynomial Identity Language** (or PIL), is used to encode all the polynomial constraints.
 
