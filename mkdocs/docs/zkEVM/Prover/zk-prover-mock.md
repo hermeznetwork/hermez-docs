@@ -1,4 +1,4 @@
-# The mock server is at git@github.com:hermeznetwork/zk-mock-prover.git
+# The mock server is at git@github.com:0xPolygonHermez/zkevm-comms-protocol.git
 
 # Server definition
 - `proto/zk-prover-proto` contains the service specification

@@ -29,21 +29,21 @@ Integrated seamlessly with the Ethereum ecosystem, Polygon Hermez is a powerful,
 
 By providing zk-rollups (zero-knowledge rollups) that sit on the top of Ethereum Maninnet, the scalability and the transactions per second (TPS) can be dramatically improved. To prove that the off-chain computations are correct, Polygon Hermez employs zero-knowledge proofs that can be verified easily. The Layer 2 zero-knowledge proofs are based on the complex polynomial computations that help in leveraging Ethereum scaling and provide fast finality to the off-chain transactions.
 
-## What is Polygon Hermez 2.0? 
+## What is Polygon zkEVM? 
 
 Polygon Hermez 1.0 version was launched in March 2021. The goal of Polygon Hermez 1.0 was to scale payments and transfer ERC-20 tokens. It focussed mainly on decongesting Ethereum main chain by taking transactions off from the main chain and executing them off-chain; this resulted in an increase in the number of transactions that can be executed per second to up to 2000, which was a big improvement over Layer 1 Ethereum. See [Ethereum Live TPS](https://ethtps.info/Network/Ethereum) to keep track of Ethereum's live transactions per second. 
 
-Polygon Hermez 2.0, henceforth called Hermez 2.0, has been developed to emulate Ethereum Virtual Machine(EVM) that executes Ethereum transactions with zero-knowledge proof validations. This has been accomplished by developing an EVM based on zero-knowledge; the machine is designed to recreate all the existing EVM opcodes that can be deployed as smart contracts. Although taking on this revolutionary design approach was a hard decision to make, the objective is to minimise the users and dApps friction when using the solution. It is an approach that requires the recreation of all EVM opcodes for the transparent deployment of existing Ethereum smart contracts. For this purpose, a new set of technologies and tools are being created and engineered by the team.
+Polygon zkEVM, henceforth called zkEVM, has been developed to emulate Ethereum Virtual Machine(EVM) that executes Ethereum transactions with zero-knowledge proof validations. This has been accomplished by developing an EVM based on zero-knowledge; the machine is designed to recreate all the existing EVM opcodes that can be deployed as smart contracts. Although taking on this revolutionary design approach was a hard decision to make, the objective is to minimise the users and dApps friction when using the solution. It is an approach that requires the recreation of all EVM opcodes for the transparent deployment of existing Ethereum smart contracts. For this purpose, a new set of technologies and tools are being created and engineered by the team.
 
-This document presents a high-level description of the upcoming Polygon Hermez 2.0 solution including its main components and design. It also seeks to highlight how Polygon Hermez 2.0 departs from the original design of Hermez 1.0.
+This document presents a high-level description of the upcoming Polygon zkEVM solution including its main components and design. It also seeks to highlight how Polygon zkEVM departs from the original design of Hermez 1.0.
 
 
 ## Architecture
 
 
-Over and above what its predecessor was designed to do, the main functionality of Hermez 2.0 is to provide smart contract support. It performs the task of state transition resulting from the Ethereum Layer 2 transaction executions (transactions that users send to the network). Subsequently, by employing zero-knowledge functionality, it generates validity proofs that attest to the correctness of these state change computations carried out off-chain.
+Over and above what its predecessor was designed to do, the main functionality of zkEVM is to provide smart contract support. It performs the task of state transition resulting from the Ethereum Layer 2 transaction executions (transactions that users send to the network). Subsequently, by employing zero-knowledge functionality, it generates validity proofs that attest to the correctness of these state change computations carried out off-chain.
 
-The major components of Hermez 2.0 are:
+The major components of zkEVM are:
 
 - Proof of Efficiency Consensus Mechanism
 - zkNode Software
@@ -51,13 +51,13 @@ The major components of Hermez 2.0 are:
 - LX-to-LY Bridge
 - Sequencers
 - Aggregators 
-- Active users of the Hermez 2.0 network who create transactions.
+- Active users of the zkEVM network who create transactions.
 
-The skeletal architecture of Hermez 2.0 is shown below: 
+The skeletal architecture of zkEVM is shown below: 
 
 
 <p align="center"><img src="../images/fig1-simpl-arch.png" width="600" /></p>
-<div align="center"><b> Figure 1 : Skeletal Overview of Hermez 2.0 </b></div>
+<div align="center"><b> Figure 1 : Skeletal Overview of zkEVM </b></div>
 
 
 
@@ -95,7 +95,7 @@ The strategic implementation of PoE promises to ensure that the network:
 
 > Note: Possibilities of coupling PoE with a PoS (Proof of Stake) are currently being explored.
 
-A detailed description of Hermez 2.0's PoE is found [here](https://ethresear.ch/t/proof-of-efficiency-a-new-consensus-mechanism-for-zk-rollups/11988).
+A detailed description of zkEVM's PoE is found [here](https://ethresear.ch/t/proof-of-efficiency-a-new-consensus-mechanism-for-zk-rollups/11988).
 
 
 #### Hybrid Mode for On-Chain Data Availability
@@ -111,7 +111,7 @@ Unless, among other things, the proving module can be highly accelerated to miti
 
 ### The PoE Smart Contract 
 
-The underlying protocol in Hermez 2.0 ensures that the state transitions are correct by employing a validity proof. To ensure that a set of pre-determined rules have been followed for allowing transitioning of the state, a smart contract is employed. The verification of the validity proofs by a smart contract checks if each transition is done correctly. This is achieved by using zk-SNARK circuits. Such a mechanism entails two processes: batching of transactions and validation of the batched transactions. Hermez 2.0 uses two types of participants to carry out these processes: Sequencers and Aggregators. Under this two-layer model: 
+The underlying protocol in zkEVM ensures that the state transitions are correct by employing a validity proof. To ensure that a set of pre-determined rules have been followed for allowing transitioning of the state, a smart contract is employed. The verification of the validity proofs by a smart contract checks if each transition is done correctly. This is achieved by using zk-SNARK circuits. Such a mechanism entails two processes: batching of transactions and validation of the batched transactions. zkEVM uses two types of participants to carry out these processes: Sequencers and Aggregators. Under this two-layer model: 
 
 - Sequencers propose transaction batches to the network, i.e. they roll-up the transaction requests to batches and add them to the PoE smart contract.
 
@@ -132,7 +132,7 @@ The PoE smart contract imposes a few requirements on Sequencers and Aggregators.
 
 A Sequencer receives L2 transactions from the users, preprocesses them as a new L2 batch, and then proposes the batch to the PoE smart contract as a valid L2 transaction.
 
-- Anyone with the software necessary for running a Hermez 2.0 node can be a Sequencer. 
+- Anyone with the software necessary for running a zkEVM node can be a Sequencer. 
 - Every Sequencer must pay a fee in form of MATIC tokens to earn the right to create and propose batches. 
 - A Sequencer that proposes valid batches (which consist of valid transactions), is incentivised with the fee paid by transaction-requestors or the users of the network. 
 
@@ -142,7 +142,7 @@ A Sequencer receives L2 transactions from the users, preprocesses them as a new 
 An Aggregator receives all the transaction information from the Sequencer and sends it to the prover which provides a small zk-proof after complex polynomial computations. The smart contract validates this proof. This way, an aggregator collects the data, sends it to the prover, receives its output and finally, sends the information to the smart contract to check that the validity proof from the prover is correct. 
 
 - An Aggregator's task is to provide validity proofs for the L2 transactions proposed by Sequencers.
-- In addition to running Hermez 2.0's zkNode software, Aggregators need to have specialised hardware for creating the zero-knowledge validity proofs. We, herein, call it the zkProver. (You will read about it later in this document).
+- In addition to running zkEVM's zkNode software, Aggregators need to have specialised hardware for creating the zero-knowledge validity proofs. We, herein, call it the zkProver. (You will read about it later in this document).
 - For a given batch or batches, an Aggregator that submits a validity proof first earns the Matic fee (which is being paid by the Sequencer(s) of the batch(es)).
 - The Aggregators need to indicate their intention to validate transactions and then they compete to produce the validity proofs based on their own strategy.
 
@@ -154,20 +154,20 @@ An Aggregator receives all the transaction information from the Sequencer and se
 
 ### zkNode
 
-A zkNode is the software needed to run a Hermez 2.0 node. It is a client that the network requires to implement the synchronization and govern the roles of the participants (Sequencers or Aggregators). 
+A zkNode is the software needed to run a zkEVM node. It is a client that the network requires to implement the synchronization and govern the roles of the participants (Sequencers or Aggregators). 
 
 #### zkNode Architecture
 
 The zkNode Architecture is composed of:
 
-1. **Sequencers and Aggregators**: Polygon Hermez 2.0 participants will choose how they participate; either as a node to know the state of the network; or as a participant in the process of batch production in any of the two roles: Sequencer or Aggregator. An Aggregator runs the zkNode but also performs validation using the core part of the zkEVM, called the zkProver (this is labelled **Prover** in **Figure 3** below.)
+1. **Sequencers and Aggregators**: Polygon zkEVM participants will choose how they participate; either as a node to know the state of the network; or as a participant in the process of batch production in any of the two roles: Sequencer or Aggregator. An Aggregator runs the zkNode but also performs validation using the core part of the zkEVM, called the zkProver (this is labelled **Prover** in **Figure 3** below.)
 
 2. **Synchronizer**: Other than the sequencing and the validating processes, the zkNode also enables synchronisation of batches and their validity proofs, which happens only after these have been added to L1. This is accomplished using a subcomponent called the Synchronizer. A Synchronizer is in charge of getting all the data from smart contracts, which includes the data posted by the sequencers (transactions) and the data posted by the coordinators (which is the validity proof). All this data is stored in a huge database and served to third parties through a service called "JSON-RPC".
 <br><br>The Synchronizer is responsible for reading the events from the Ethereum blockchain, including new batches to keep the state fully synced. The information read from these events must be stored in the database. The Synchronizer also handles possible reorgs, which will be detected by checking if the last `ethBlockNum` and the last `ethBlockHash` are synced.</br></br>
 
 
 <p align="center"><img src="../images/fig3-zkNode-arch.png" width="600" /></p>
-<div align="center"><b> Figure 3: Hermez 2.0 zkNode Diagram </b></div>
+<div align="center"><b> Figure 3: zkEVM zkNode Diagram </b></div>
 
 <br>
 
@@ -182,7 +182,7 @@ The architecture of zkNode is modular and implements a set of functions as depic
 
 ### zkProver
 
-Hermez 2.0 employs advanced zero-knowledge technology to create validity proofs. It uses a zero-knowledge prover (zkProver), which is intended to run on any server and is being engineered to be compatible with most consumer hardware. Every Aggregator will use this zkProver to validate batches and provide validity proofs. zkProver has its own detailed architecture which is outlined below. It consists of a Main State Machine Executor, a collection of secondary State Machines (each with its own executor), a STARK-proof builder, and a SNARK-proof builder. See **Figure 4** below for a simplified diagram of the Hermez 2.0 zkProver:
+zkEVM employs advanced zero-knowledge technology to create validity proofs. It uses a zero-knowledge prover (zkProver), which is intended to run on any server and is being engineered to be compatible with most consumer hardware. Every Aggregator will use this zkProver to validate batches and provide validity proofs. zkProver has its own detailed architecture which is outlined below. It consists of a Main State Machine Executor, a collection of secondary State Machines (each with its own executor), a STARK-proof builder, and a SNARK-proof builder. See **Figure 4** below for a simplified diagram of the zkEVM zkProver:
 
 <p align="center"><img src="../images/fig4-zkProv-arch.png" width="650" /></p>
 <div align="center"><b> Figure 4: A Simplified zkProver Diagram </b></div>
@@ -212,20 +212,20 @@ See **Figure 5** below for dependencies among these SMs.
 While some SMs use both zkASM and PIL, others rely only on one of these languages depending upon the specific operations each SM is responsible for.
 
 <p align="center"><img src="../images/fig5-col-sm-zkprov.png" width="800" /></p>
-<div align="center"><b> Figure 5: Hermez 2.0 State Machines </b></div>
+<div align="center"><b> Figure 5: zkEVM State Machines </b></div>
 
 
 3. **STARK Proof Builder**: STARK, which stands for "Scalable Transparent Argument of Knowledge", is a proof system that enables provers to produce verifiable proofs without the need for a trusted setup. A STARK Proof Builder refers to the subcomponent used to produce zero-knowledge STARK proofs, which are zk-proofs attesting to the fact that all the polynomial constraints are satisfied.<br><br>State machines generate polynomial constraints and zk-STARKs are used to prove that batches satisfy these constraints. In particular, zkProver utilises "Fast Reed-Solomon Interactive Oracle Proofs of Proximity (RS-IOPP)", colloquially called [FRI](https://drops.dagstuhl.de/opus/volltexte/2018/9018/pdf/LIPIcs-ICALP-2018-14.pdf), to facilitate fast zk-STARK proving.</br></br>
 
 
-4. **SNARK Proof Builder**: SNARK, which stands for "Succinct Non-interactive Argument of Knowledge", is a proof system that produces verifiable proofs. Since STARK proofs are bigger than the SNARK proofs, Hermez 2.0 zkProver uses SNARK proofs to prove the correctness of these STARK proofs. Consequently, the SNARK proofs, which are much cheaper to verify on L1, are published as validity proofs.<br><br>The aim is to generate a [CIRCOM](https://www.techrxiv.org/articles/preprint/CIRCOM_A_Robust_and_Scalable_Language_for_Building_Complex_Zero-Knowledge_Circuits/19374986/1) circuit which can be used to generate or verify a SNARK proof. Whether a PLONK or a GROTH16 SNARK proof will be used for Hermez 2.0 is a question that needs to be discussed.</br></br> 
+4. **SNARK Proof Builder**: SNARK, which stands for "Succinct Non-interactive Argument of Knowledge", is a proof system that produces verifiable proofs. Since STARK proofs are bigger than the SNARK proofs, zkEVM zkProver uses SNARK proofs to prove the correctness of these STARK proofs. Consequently, the SNARK proofs, which are much cheaper to verify on L1, are published as validity proofs.<br><br>The aim is to generate a [CIRCOM](https://www.techrxiv.org/articles/preprint/CIRCOM_A_Robust_and_Scalable_Language_for_Building_Complex_Zero-Knowledge_Circuits/19374986/1) circuit which can be used to generate or verify a SNARK proof. Whether a PLONK or a GROTH16 SNARK proof will be used for zkEVM is a question that needs to be discussed.</br></br> 
 
 
 ### The LX-to-LY Bridge
 
-An LX-LY bridge is a smart contract that lets users transfer their assets between two layers, LX and LY. The L1-L2 in Hermez 2.0 is a decentralised bridge for secure deposits and withdrawal of assets; it is a combination of two smart contracts, one deployed on one chain and the second on the other.
+An LX-LY bridge is a smart contract that lets users transfer their assets between two layers, LX and LY. The L1-L2 in zkEVM is a decentralised bridge for secure deposits and withdrawal of assets; it is a combination of two smart contracts, one deployed on one chain and the second on the other.
 
- The L1 and L2 contracts in Hermez 2.0 are identical except for where each is deployed. **Bridge L1 Contract** is on the Ethereum mainnet in order to manage asset transfers between rollups, while **Bridge L2 Contract** is on a specific rollup and it is responsible for asset transfers between mainnet and the rollup (or rollups). Layer 2 Interoperability allows a native mechanism to migrate assets between different L2 networks. This solution is embedded in the bridge smart contract.
+ The L1 and L2 contracts in zkEVM are identical except for where each is deployed. **Bridge L1 Contract** is on the Ethereum mainnet in order to manage asset transfers between rollups, while **Bridge L2 Contract** is on a specific rollup and it is responsible for asset transfers between mainnet and the rollup (or rollups). Layer 2 Interoperability allows a native mechanism to migrate assets between different L2 networks. This solution is embedded in the bridge smart contract.
 
 
 
@@ -254,31 +254,31 @@ Bridge L2 Contract also requires all the information of exit trees of all rollup
 
 #### LX-to-LY Bridge
 
-Typically, a bridge smart contract is an L2-to-L1 Bridge, but the Hermez 2.0 Bridge is more flexible and interoperable. It can function as a bridge between any two arbitrary Layer 2 chains, L2_A and L2_B, or between any Layer 2 (say L2_X) and L1 (Ethereum blockchain). It consequently allows asset transfers among multiple rollups. Hence the term "LX-to-LY Bridge".
+Typically, a bridge smart contract is an L2-to-L1 Bridge, but the zkEVM Bridge is more flexible and interoperable. It can function as a bridge between any two arbitrary Layer 2 chains, L2_A and L2_B, or between any Layer 2 (say L2_X) and L1 (Ethereum blockchain). It consequently allows asset transfers among multiple rollups. Hence the term "LX-to-LY Bridge".
 
 
 
-## Hermez 2.0 Design Characteristics
+## zkEVM Design Characteristics
 
 
-The architectural details (for engineering and implementation) described in the sections above will help Hermez 2.0 attain its design goals. That would mean a network which is: permissionless, decentralized, secure, efficient and comes with verifiable block data.
+The architectural details (for engineering and implementation) described in the sections above will help zkEVM attain its design goals. That would mean a network which is: permissionless, decentralized, secure, efficient and comes with verifiable block data.
 
-Development efforts aim at **permissionless-ness**, that is, allowing anyone with the Hermez 2.0 software to participate in the network. For instance, the consensus algorithm will give everyone the opportunity to be a Sequencer or an Aggregator.
+Development efforts aim at **permissionless-ness**, that is, allowing anyone with the zkEVM software to participate in the network. For instance, the consensus algorithm will give everyone the opportunity to be a Sequencer or an Aggregator.
 
 Data availability is most crucial for **decentralization**, where every user has sufficient data needed to rebuild the full state of a rollup. As discussed above, the team still has to decide on the best configuration for data availability. The aim is to ensure that there is no censorship and that no one party can control the network.
 
-Hermez 2.0 was designed with **security** in mind. As an L2 solution, most of the security is inherited from Ethereum. Smart contracts will warrant that anyone who executes state changes must, firstly, do it correctly; secondly, create a proof that attests to the validity of a state change; and thirdly, avail validity proofs on-chain for verification.
+zkEVM was designed with **security** in mind. As an L2 solution, most of the security is inherited from Ethereum. Smart contracts will warrant that anyone who executes state changes must, firstly, do it correctly; secondly, create a proof that attests to the validity of a state change; and thirdly, avail validity proofs on-chain for verification.
 
 
 ### Efficiency and Overall Strategy
 
-Efficiency is key to network performance. Hermez 2.0, therefore, applies several implementation strategies to guarantee efficiency. A few of them are listed below:
+Efficiency is key to network performance. zkEVM, therefore, applies several implementation strategies to guarantee efficiency. A few of them are listed below:
 
 1. The first strategy is to deploy PoE, which incentivizes the most efficient aggregators to participate in the proof generation process.
 
 2. The second strategy is to carry out all computations off-chain while keeping only the necessary data and zk-proofs on-chain.
 
-There are other strategies too that are implemented within specific components of the Hermez 2.0 system. For instance:
+There are other strategies too that are implemented within specific components of the zkEVM system. For instance:
 
 1. The way in which the bridge smart contract is implemented, such as settling accounts in a UTXO manner, by only using the Exit Tree Roots.
 
@@ -294,7 +294,7 @@ There are other strategies too that are implemented within specific components o
 ## Conclusion 
 
 
-Given the EVM opcode compatibility, Hermez 2.0 is designed to process smart contracts seamlessly and verify state changes efficiently. It promises not only to be secure and efficient but also to accomplish competitive decentralization. In an effort to achieve high-speed proving and succinct proofs for quick verification, the team is focused on the optimization of the zkProver.
+Given the EVM opcode compatibility, zkEVM is designed to process smart contracts seamlessly and verify state changes efficiently. It promises not only to be secure and efficient but also to accomplish competitive decentralization. In an effort to achieve high-speed proving and succinct proofs for quick verification, the team is focused on the optimization of the zkProver.
 
 The team also leverages the synergies among the different Polygon teams that are also looking into zk-rollup solutions for achieving Ethereum scalability. Although development is still underway, it was important for this document to be released early so as to align with the goal of transparency set by the open-source projects, as well as keep the Polygon community of developers and users of Hermez 1.0 updated with the upcoming changes.
 

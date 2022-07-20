@@ -18,7 +18,7 @@ As a secondary state machine, the Binary State Machine has the executor part (th
 
 
 
-The Polygon Hermez Repo is here  [https://github.com/0xPolygonHermez](https://github.com/0xPolygonHermez)
+The Polygon zkEVM Repo is here  [https://github.com/0xPolygonHermez](https://github.com/0xPolygonHermez)
 
 **Binary SM Executor**: [sm_binary.js](https://github.com/0xPolygonHermez/zkevm-proverjs/blob/main/src/sm/sm_binary.js)
 
@@ -654,7 +654,7 @@ Firstly, the Binary SM Executor translates the Binary Actions into the PIL langu
 
 Secondly, it executes the Binary Actions. 
 
-And thirdly, it uses the Binary PIL program [binary.pil](https://github.com/hermeznetwork/zkproverjs/blob/main/pil/binary.pil), to check correct execution of the Binary Actions using [Plookup]().
+And thirdly, it uses the Binary PIL program [binary.pil](https://github.com/0xPolygonHermez/zkevm-proverjs/blob/main/pil/binary.pil), to check correct execution of the Binary Actions using [Plookup]().
 
 
 

@@ -27,9 +27,9 @@ of the current state of the zkEVM to build the proof.
 
 The executor is in fact an interpreter of an assembly language
 called zkASM. 
-The zkASM language is used to build a program called zkROM that 
+The zkASM language is used to build a program called zkEVM-ROM that 
 when executed by the Executor provides a suitable execution trace.
-In the zkROM program, each EVM opcode is implemented with a
+In the zkEVM-ROM program, each EVM opcode is implemented with a
 set of zkASM instructions. 
 Each instruction utilizes a row of the execution trace matrix, 
 also known as a "step" of the zkEVM. 

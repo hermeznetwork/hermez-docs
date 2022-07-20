@@ -1619,7 +1619,7 @@ The Storage SM is composed of three parts; Storage Assembly code, Storage Execut
 
 The Storage Assembly is the interpreter between the Main State Machine and its own Executor. It receives instructions from the Main SM and generates a JSON-file containing the corresponding rules and logic, which are stored in a special ROM for the Storage SM.
 
-The Storage SM has **a primary Storage Assembly code**, [storage_sm.zkasm](https://github.com/hermeznetwork/zkasmstorage/blob/main/zkasm/storage_sm.zkasm), that maps each instruction of the Main SM (i.e., each Storage Action) to the secondary Assembly code of the corresponding basic operation. These basic operations are mainly the CREATE, READ, UPDATE and DELETE, as discussed in previous sections.
+The Storage SM has **a primary Storage Assembly code**, [storage_sm.zkasm](https://github.com/0xPolygonHermez/zkevm-storage-rom/blob/main/zkasm/storage_sm.zkasm), that maps each instruction of the Main SM (i.e., each Storage Action) to the secondary Assembly code of the corresponding basic operation. These basic operations are mainly the CREATE, READ, UPDATE and DELETE, as discussed in previous sections.
 
 Considering some special cases, there are all-in-all eight (8) **secondary Storage Assembly codes**, each for a distinct basic operation; READ or Get, UPDATE, CREATE new value at a zero node, CREATE new value at found leaf, DELETE leaf with zero sibling, DELETE last non-zero node, DELETE leaf with non-zero sibling, and SET a zero node to zero. See Table 1, below, for the specific names of the secondary codes.
 
@@ -1658,9 +1658,9 @@ It uses selectors. Like switches can either be ON or OFF, selectors can either b
 
 The primary Assembly code uses selectors by following the sequence in which these Storage Actions are listed in Table 1 above. That is,
 
-- It first checks if the required action is a `Get`. If it is so, the [storage_sm_get.zkasm](https://github.com/hermeznetwork/zkasmstorage/blob/main/zkasm/storage_sm_get.zkasm) code is fetched for execution.
-- If not, it checks if the required action is `Set_Update`. If it is so, the [storage_sm_set_update.zkasm](https://github.com/hermeznetwork/zkasmstorage/blob/main/zkasm/storage_sm_set_update.zkasm) code is fetched for execution.
-- If not, it continues to check if the required action is `Set_InsertFound`. If it is so, the [storage_sm_set_insert_found.zkasm](https://github.com/hermeznetwork/zkasmstorage/blob/main/zkasm/storage_sm_set_insert_found.zkasm) code is fetched for execution.
+- It first checks if the required action is a `Get`. If it is so, the [storage_sm_get.zkasm](https://github.com/0xPolygonHermez/zkevm-storage-rom/blob/main/zkasm/storage_sm_get.zkasm) code is fetched for execution.
+- If not, it checks if the required action is `Set_Update`. If it is so, the [storage_sm_set_update.zkasm](https://github.com/0xPolygonHermez/zkevm-storage-rom/blob/main/zkasm/storage_sm_set_update.zkasm) code is fetched for execution.
+- If not, it continues to check if the required action is `Set_InsertFound`. If it is so, the [storage_sm_set_insert_found.zkasm](https://github.com/0xPolygonHermez/zkevm-storage-rom/blob/main/zkasm/storage_sm_set_insert_found.zkasm) code is fetched for execution.
 - If not, it continues in the same way until the correct action is selected, in which case the corresponding code is fetched for execution.   
 
 That's all the primary Storage Assembly code does, the details of how each if the SMT Actions are stipulated in the individual secondary Assembly codes.
@@ -1685,7 +1685,7 @@ Note that an UPDATE action involves,
 2. Ascertains that indeed the old value was included in the old root,
 3. Carries out the UPDATE of the old value with the new value, as well as updating all nodes along the path from the leaf to the root. 
 
-There is only one Set_UPDATE Assembly code, [storage_sm_set_update.zkasm](https://github.com/hermeznetwork/zkasmstorage/blob/main/zkasm/storage_sm_set_update.zkasm), for all the above three computations.
+There is only one Set_UPDATE Assembly code, [storage_sm_set_update.zkasm](https://github.com/0xPolygonHermez/zkevm-storage-rom/blob/main/zkasm/storage_sm_set_update.zkasm), for all the above three computations.
 
 
 

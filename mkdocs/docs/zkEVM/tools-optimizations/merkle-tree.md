@@ -49,7 +49,7 @@ Graphical representation:
 
 ## Reference Implementation
 
-Jordi has done js implementation here: [hermeznetwork/zkproverjs](https://github.com/hermeznetwork/zkproverjs/blob/main/src/smt.js)
+Jordi has done js implementation here: [0xPolygonHermez/zkevm-proverjs](https://github.com/0xPolygonHermez/zkevm-proverjs/blob/main/src/smt.js)
 
 ## Example of MT Creation
 
@@ -236,7 +236,7 @@ Structure of the proof from a reference implementation:
 
 ---
 
-## Hermez specific Leaf Types
+## Polygon zkEVM specific Leaf Types
 
 ### Balance
 

@@ -4,55 +4,55 @@
 [TOC]
 
 ## Repositories involved
-- [zkproverjs](https://github.com/hermeznetwork/zkproverjs): prover reference implementation writen in javascript
-- [zkproverc](https://github.com/hermeznetwork/zkproverc): prover implementation writen in C
-- [zkasm](https://github.com/hermeznetwork/zkasm): compiles .zkasm to a json ready for the zkproverjs
-- [zkpil](https://github.com/hermeznetwork/zkpil): Polynomial Identity Language
-- [zkvmpil](https://github.com/hermeznetwork/zkvmpil): PIL source code for the zkVM (state-machines)
-- [zkrom](https://github.com/hermeznetwork/zkrom): zkasm source code of the zkEVM
-- [zkevmdoc](https://github.com/hermeznetwork/zkevmdoc): docs zkevm
+- [zkevm-proverjs](https://github.com/0xPolygonHermez/zkevm-proverjs): prover reference implementation writen in javascript
+- [zkevm-prover](https://github.com/0xPolygonHermez/zkevm-prover): prover implementation writen in C
+- [zkasm](https://github.com/hermeznetwork/zkasm): compiles .zkasm to a json ready for the zkevm-proverjs
+- [pilcom](https://github.com/hermeznetwork/pilcom): Polynomial Identity Language
+- [zkvmpil](https://github.com/0xPolygonHermez/zkvmpil): PIL source code for the zkVM (state-machines)
+- [zkevm-rom](https://github.com/0xPolygonHermez/zkevm-rom): zkasm source code of the zkEVM
+- [zkevm-doc](https://github.com/0xPolygonHermez/zkevm-doc): docs zkevm
 
 ## Setup environment
 - ideal repository structure:
 ```
 github
-    --> zkrom
+    --> zkevm-rom
     --> zkvmpil
-    --> zkproverjs
+    --> zkevm-proverjs
 ```
 - Next steps are required to run the `zkprover:executor`:
 ```
-git clone https://github.com/hermeznetwork/zkrom.git
-cd zkrom
+git clone https://github.com/hermeznetwork/zkevm-rom.git
+cd zkevm-rom
 npm i && npm run build
 cd ..
 git clone https://github.com/hermeznetwork/zkvmpil.git
 cd zkvmpil
 npm i && npm run build
-git clone https://github.com/hermeznetwork/zkproverjs.git
-cd zkproverjs
+git clone https://github.com/0xPolygonHermez/zkevm-proverjs.git
+cd zkevm-proverjs
 npm i
 ```
 - Detailed explanation:
-  - repository `zkrom`
+  - repository `zkevm-rom`
     - `main/*` : contains assembly code
     - `build`: compiled assembly. code ready to the executor
   - repository `zkvmpil`
     - `src`: state-machines
     - `build`: compiled state-machines. code ready to the executor 
-  - repository `zkproverjs`
+  - repository `zkevm-proverjs`
     - `src/main_executor.js`: cli to run executor easily
-      - executor needs files fenerated from `zkrom/build` & `zkvm pil/build`
+      - executor needs files fenerated from `zkevm-rom/build` & `zkvm pil/build`
       - it also needs an `input.json`
       - Examples:
-        - [zkrom file](https://github.com/hermeznetwork/zkrom/blob/main/build/rom.json)
+        - [zkevm-rom file](https://github.com/hermeznetwork/zkevm-rom/blob/main/build/rom.json)
         - [zkvmpil file](https://github.com/hermeznetwork/zkvmpil/blob/main/build/zkevm.pil.json)
-        - [input file](https://github.com/hermeznetwork/zkproverjs/blob/main/testvectors/input.json)
+        - [input file](https://github.com/0xPolygonHermez/zkevm-proverjs/blob/main/testvectors/input.json)
 
-- Run executor (in `zkproverjs` repository)
+- Run executor (in `zkevm-proverjs` repository)
 >to just test the executor, the output is not needed
 ```
-node src/main_executor.js ./testvectors/input.json -r ../zkrom/build/rom.json -p ../zkvmpil/build/zkevm.pil.json -o ./testvectors/poly.bin
+node src/main_executor.js ./testvectors/input.json -r ../zkevm-rom/build/rom.json -p ../zkvmpil/build/zkevm.pil.json -o ./testvectors/poly.bin
 ``` 
 ## Executor insights
 Basically, the executor runs the program that is specified by the ROM.
@@ -66,20 +66,20 @@ JSON FILE:
   "neg": 0,
   "setB": 1,
   "line": 51,
-  "fileName": "../zkrom/main/main.zkasm"
+  "fileName": "../zkevm-rom/main/main.zkasm"
  }
 ```
 All operations are defined in the JSON file, plus `line` & `fileName` where the assembly code is.
 This JSON file is ready to be interpreted by the `executor`
 
 ## VSCode debugging
-In the `zkproverjs` repository you can find an example of `launch.json` to debug the executor code: https://github.com/hermeznetwork/zkproverjs/blob/main/.vscode/launch.json#L8
+In the `zkevm-proverjs` repository you can find an example of `launch.json` to debug the executor code: https://github.com/0xPolygonHermez/zkevm-proverjs/blob/main/.vscode/launch.json#L8
 
 ## Debugging tips
-- Main executor code to debug: https://github.com/hermeznetwork/zkproverjs/blob/main/src/executor.js#L12
-- variable `l` is the rom.json that is going to be executed: https://github.com/hermeznetwork/zkproverjs/blob/main/src/executor.js#L61
+- Main executor code to debug: https://github.com/0xPolygonHermez/zkevm-proverjs/blob/main/src/executor.js#L12
+- variable `l` is the rom.json that is going to be executed: https://github.com/0xPolygonHermez/zkevm-proverjs/blob/main/src/executor.js#L61
 - debug helpers
-  - [print registers](https://github.com/hermeznetwork/zkproverjs/blob/main/src/executor.js#L1030)
+  - [print registers](https://github.com/0xPolygonHermez/zkevm-proverjs/blob/main/src/executor.js#L1030)
 - By monioring `ctx(context)`, registers and `op` you will see all the states changes made by the executor
 - `ctx.input` contins all the variables loaded from `input.json`
 - `storage` makes refrence to the merkle-tree
@@ -119,7 +119,7 @@ A                       :MSTORE(sequencerAddr)
   "line": 9,
   "offsetLabel": "sequencerAddr",
   "useCTX": 0,
-  "fileName": ".../zkrom/main/main.zkasm"
+  "fileName": ".../zkevm-rom/main/main.zkasm"
  }
 ```
 - description:
@@ -144,7 +144,7 @@ $ => A          : MLOAD(pendingTxs)
   "line": 25,
   "offsetLabel": "pendingTxs",
   "useCTX": 0,
-  "fileName": ".../zkrom/main/main.zkasm"
+  "fileName": ".../zkevm-rom/main/main.zkasm"
  }
 ```
 - description:
@@ -171,7 +171,7 @@ $ => A                          :SLOAD
   "line": 47,
   "offsetLabel": "sequencerAddr",
   "useCTX": 0,
-  "fileName": ".../zkrom/main/main.zkasm"
+  "fileName": ".../zkevm-rom/main/main.zkasm"
  },
  {
   "CONST": 0,
@@ -179,7 +179,7 @@ $ => A                          :SLOAD
   "setB": 1,
   "setC": 1,
   "line": 48,
-  "fileName": ".../zkrom/main/main.zkasm"
+  "fileName": ".../zkevm-rom/main/main.zkasm"
  },
  {
   "freeInTag": {
@@ -190,7 +190,7 @@ $ => A                          :SLOAD
   "setA": 1,
   "sRD": 1,
   "line": 49,
-  "fileName": ".../zkrom/main/main.zkasm"
+  "fileName": ".../zkevm-rom/main/main.zkasm"
  }
 ```
 - description
@@ -225,7 +225,7 @@ $ => SR                         :SSTORE
   "line": 56,
   "offsetLabel": "sequencerAddr",
   "useCTX": 0,
-  "fileName": ".../zkrom/main/main.zkasm"
+  "fileName": ".../zkevm-rom/main/main.zkasm"
  },
  {
   "CONST": 0,
@@ -233,7 +233,7 @@ $ => SR                         :SSTORE
   "setB": 1,
   "setC": 1,
   "line": 57,
-  "fileName": ".../zkrom/main/main.zkasm"
+  "fileName": ".../zkevm-rom/main/main.zkasm"
  },
  {
   "freeInTag": {
@@ -244,7 +244,7 @@ $ => SR                         :SSTORE
   "setSR": 1,
   "sWR": 1,
   "line": 58,
-  "fileName": ".../zkrom/main/main.zkasm"
+  "fileName": ".../zkevm-rom/main/main.zkasm"
  }
 ```
 - description
