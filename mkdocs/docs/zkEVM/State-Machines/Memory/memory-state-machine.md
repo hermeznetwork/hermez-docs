@@ -6,6 +6,8 @@ Memory has addresses of $32$ bits, and initially, all memory locations are compo
 
 Now, let's see the layout in memory of the following two words $\texttt{0xc417...81a7}$ and $\texttt{0x88d1...b723}$. Table 1 displays this layout.
 
+<center>
+
 | $\mathbf{ADDRESS}$ |  $\mathbf{BYTE}$  |
 | :----------------: | :---------------: |
 |    $\mathtt{0}$    |  $\mathtt{0xc4}$  |
@@ -19,6 +21,8 @@ Now, let's see the layout in memory of the following two words $\texttt{0xc417..
 |   $\mathtt{62}$    |  $\mathtt{0xb7}$  |
 |   $\mathtt{63}$    |  $\mathtt{0x23}$  |
 
+</center>
+
 <div align="center"><b> Table 1: Layout in memory of 0xc417...81a7 and 0x88d1...b723. </b></div>
 
 Observe that each word has 32 bytes and that the words are stored in Big-Endian form. i.e. The most significant bytes are set in the lower addresses. The EVM provides three opcodes to interact with the memory area. There is an opcode to read, and an opcode to write 32-byte words providing an offset:
@@ -27,6 +31,8 @@ Observe that each word has 32 bytes and that the words are stored in Big-Endian 
 - $\texttt{MSTORE}$: It receives an offset and saves 32 bytes from the offset address of the memory.
 
 Considering our previous memory contents, if we perform an $\texttt{MLOAD}$ with an offset of $\texttt{1}$, we would obtain the following word: $\texttt{0x17...a788}$. On the other hand, if we do an $\texttt{MSTORE}$ with an offset of $\texttt{1}$ with the word $\texttt{0x74f0...ce92}$, we would modify the content of the memory as shown in Table 2.
+
+<center>
 
 | $\mathbf{ADDRESS}$ |     $\mathbf{BYTE}$      |
 | :----------------: | :----------------------: |
@@ -40,6 +46,8 @@ Considering our previous memory contents, if we perform an $\texttt{MLOAD}$ with
 | $\mathtt{\vdots}$  |    $\mathtt{\vdots}$     |
 |   $\mathtt{62}$    |     $\mathtt{0xb7}$      |
 |   $\mathtt{63}$    |     $\mathtt{0x23}$      |
+
+</center>
 
 <div align="center"><b> Table 2: Layout in memory after the introduction of 0x74f0...ce92. </b></div>
 
@@ -55,10 +63,14 @@ Notice that $\texttt{MSTOREE}$ always uses only one word.
 
 The Memory SM is in charge of proving the memory operations in the execution trace. As mentioned, read and write operations use addresses at byte level in the EVM. However, doing the proofs byte-by-byte would consume many values in the trace of this state machine. Instead, in this machine, we operate addressing words (32 bytes). For example, if we have the memory layout from Table 1, then we would have the memory layout of Table 3 with addresses that point to 32-byte words.
 
+<center>
+
 | $\textbf{ADDRESS}$ | $\textbf{32-BYTE WORD}$  |
 | :----------------: | :----------------------: |
 |    $\mathtt{0}$    | $\mathtt{0xc417...81a7}$ |
 |    $\mathtt{1}$    | $\mathtt{0x88d1...b723}$ |
+
+</center>
 
 <div align="center"><b> Table 3: Layout in the memory state machine. </b></div>
 
@@ -74,6 +86,8 @@ The Memory SM defines the design of the trace and the PIL description that check
 
 Table 4 shows an example with all the memory operations present at an execution trace of the Main SM.
 
+<center>
+
 | $\texttt{step}$ | $\texttt{mOp}$ | $\texttt{mWr}$ | $\texttt{addr}$ | $\texttt{val[7]}$ | $\texttt{val[6]}$ | $\dots$ | $\texttt{val[0]}$ |
 | :-------------: | :------------: | :------------: | :-------------: | :---------------: | :---------------: | :-----: | :---------------: |
 |       11        |       1        |       1        |        6        |       2121        |       3782        | $\dots$ |       5432        |
@@ -83,11 +97,15 @@ Table 4 shows an example with all the memory operations present at an execution 
 |       72        |       1        |       0        |        4        |       3231        |       9326        | $\dots$ |       8012        |
 |       89        |       1        |       1        |        2        |       9167        |       5291        | $\dots$ |       6001        |
 
+</center>
+
 <div align="center"><b> Table 4: Memory Operations and an Execution Trace of the Main SM. </b></div>
 
 The $\texttt{step}$ is the execution step number at the Main SM and in this case, we are showing only the steps that are performing a memory operation. The instruction to execute a memory operation is indicated by the $\texttt{mOp}$ selector. The $\texttt{mWr}$ is also a selector that shows whether the memory operation is a read or a write. In the previous trace, we can observe that the first memory operation is performed at step 11 and it is the write of the sixth 32-byte word. The eight registers $\texttt{val[0..7]}$ provide the bytes to be written in that word.
 
 It is worth to mention that for a specific word address, the first operation is always a write because it makes no sense to read a position that has not been previously written. Then, in this word address there can be a sequence of reads and writes. In the previous trace, we can observe that for the sixth word, there is a write at step 11, then a read at step $55$ and finally another write at step $63$.
+
+<center>
 
 | $\texttt{step}$ | $\texttt{addr}$ | $\texttt{mOp}$ | $\texttt{mWr}$ | $\texttt{val[7]}$ | $\texttt{val[6]}$ | $\dots$ | $\texttt{val[0]}$ |
 | :-------------: | :-------------: | :------------: | :------------: | :---------------: | :---------------: | :-----: | :---------------: |
@@ -97,6 +115,8 @@ It is worth to mention that for a specific word address, the first operation is 
 |       11        |        6        |       1        |       1        |       2121        |       3782        | $\dots$ |       5432        |
 |       55        |        6        |       1        |       0        |       2121        |       3782        | $\dots$ |       5432        |
 |       63        |        6        |       1        |       1        |       4674        |       1725        | $\dots$ |       2074        |
+
+</center>
 
 <div align="center"><b> Table 5: Corresponding Memory SM Execution Trace. </b></div>
 
@@ -159,15 +179,13 @@ There are various important details to remark from the point in which all memory
 
 Let's start with the set of constraints regarding the topology of the state machine.
 
+$$
 \begin{align}
-
 &\texttt{lastAccess} \cdot (\texttt{lastAccess} - 1) = 0,  \label{eq:lastAccessBin}\tag{1}\\
-
 &(1 - \texttt{lastAccess}) \cdot (\texttt{addr}' - \texttt{addr}) = 0, \label{eqaddresSame}\tag{2}\\
-
 &\texttt{ISNOTLAST}~\left \{ \texttt{lastAccess} \cdot \left( \texttt{addr}' - \texttt{addr} - (\texttt{step}' - \texttt{step}) \right) + (\texttt{step}' - \texttt{step}) \right \} \subset \texttt{INCS}. \label{eq:topology}\tag{3}
-
 \end{align}
+$$
 
 Equations (1) and (2) are straightforward. Equation (1) asserts that $\texttt{lastAccess}$ is a selector (i.e., a column whose values lie in the set $\{0,1\}$), while Equation (2) confirms that $\texttt{addr}$ does not change until it is accessed for the last time. Note that Equation (2) implies that addresses are processed one-by-one in the Memory SM, but it does not guarantees that they are ordered incrementally.
 
@@ -197,13 +215,9 @@ Let's continue with the operation selectors: $\texttt{mOp}$ and $\texttt{mWr}$.
 
 $$
 \begin{align}
-
 &\texttt{mOp} \cdot (\texttt{mOp} - 1) = 0, \tag{4}\\
-
 &\texttt{mWr} \cdot (\texttt{mWr} - 1) = 0, \tag{5}\\
-
 &\left( 1 - \texttt{mOp} \right) \cdot \texttt{mWr} = 0. \tag{6}
-
 \end{align}
 $$
 
@@ -215,11 +229,8 @@ Finally, we explain the constraints that deal with the value columns $\texttt{va
 
 $$
 \begin{align}
-
 &\left( 1 - \texttt{mOp}' \cdot \texttt{mWr}' \right) \cdot \left(1 - \texttt{lastAccess}\right) \cdot (\texttt{val[0..7]}' - \texttt{val[0..7]}) = 0, \tag{7}\\
-
 &\left( 1 - \texttt{mOp}' \cdot \texttt{mWr}' \right) \cdot \texttt{lastAccess} \cdot \texttt{val[0..7]}' = 0. \tag{8}
-
 \end{align}
 $$
 

@@ -16,6 +16,8 @@ namespace Global(%N);
 
 At this moment, the polynomials computed by the Global SM are showed in Table 1.
 
+<center>
+
 |   Row    |    L1    |   Row    |   BYTE   |   Row    |  BYTE2   |
 | :------: | :------: | :------: | :------: | :------: | :------: |
 |    1     |    1     |    1     |    0     |    1     |    0     |
@@ -27,11 +29,16 @@ At this moment, the polynomials computed by the Global SM are showed in Table 1.
 |   258    |    0     |   258    |    1     |  65538   |    1     |
 | $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ |
 |    N     |    0     |    N     |   255    |    N     |  65535   |
+
+</center>
+
 <div align="center"><b> Table 1: Description of the polynomials computed by the Global State Machine. </b></div>
 
 ## Byte4
 
 The Byte4 State Machine takes as input two $16$-bit numbers and generates a $32$-bit number from them. This generation is obtained through the concatenation of the input numbers. A working example can be find in Table 2.
+
+<center>
 
 | **row**  | **SET**  |    **freeIn**     |        **out**        |       **out'**        |
 | :------: | :------: | :---------------: | :-------------------: | :-------------------: |
@@ -43,6 +50,9 @@ The Byte4 State Machine takes as input two $16$-bit numbers and generates a $32$
 |    6     |    1     | $\textsf{0x6ab9}$ | $\textsf{0x0000d11e}$ | $\textsf{0xd11e6ab9}$ |
 |    7     |    0     |     $\vdots$      | $\textsf{0xd11e6ab9}$ |       $\vdots$        |
 | $\vdots$ | $\vdots$ |     $\vdots$      |       $\vdots$        |       $\vdots$        |
+
+</center>
+
 <div align="center"><b> Table 2: Example of they Byte4 SM. </b></div>
 
 The Byte4 SM works as follows. In one clock, the first input $x$ is moved to the $\textsf{out}$ column. In the following clock, $x$ is concatenated to the second input $y$ and moved to the $\textsf{out}$ column. In order to make this "moving" possible, we introduce a constant polynomial, called $\textsf{SET}$, defined as follows:

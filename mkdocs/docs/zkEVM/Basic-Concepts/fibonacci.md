@@ -5,7 +5,9 @@ number is a number of a [Fibonacci sequence](https://en.wikipedia.org/wiki/Fibon
 initial conditions.
 To do so, we can build a state machine with two registries, $A$ and $B$ as shown in the following picture:
 
+<center>
 ![Fibonacci Sequence](figures/fibonacci-sequence.pdf.png)
+</center>
 
 Notice that the initial conditions for the state machine are $A_1=0$ and $B_1=1$ and that we have the following relations between the states of these registries:
 
@@ -41,7 +43,9 @@ However, the previous identities do not correctly and uniquely describe our sequ
 
 We have to modify a little our solution in order correctly and uniquely describe the Fibonacci sequence with cyclic polynomial identities. To do that, let's add an auxiliary registry $C$:
 
+<center>
 ![Fibonacci Sequence Aux](figures/fibonacci-sequence-aux.pdf.png)
+</center>
 
 The corresponding polynomial $C$ is:
 
@@ -74,7 +78,9 @@ In our previous example $(A_1, B_1) = (0, 1)$.
 
 ## Proving our State Machine (High Level)
 
+<center>
 ![Polynomial Commitment](figures/polynomial-commitment.pdf.png)
+</center>
 
 The previous polynomial relations can be efficiently proven through **polynomial commitments** such as [Kate](https://www.iacr.org/archive/asiacrypt2010/6477178/6477178.pdf) and [FRI-based](https://drops.dagstuhl.de/opus/volltexte/2018/9018/pdf/LIPIcs-ICALP-2018-14.pdf).
 
