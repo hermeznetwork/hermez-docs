@@ -142,7 +142,7 @@ Graphical representation:
 
 ## Nodes
 
-Hermez 1.5 has 2 categories of nodes:
+Polygon Hermez 1.5 has 2 categories of nodes:
 
 - **Leafs**: node of the tree that instead of pointing to other nodes, it holds data. There is 4 types of leafs:
     - Nonce: Counter of transactions made by an account
@@ -194,7 +194,7 @@ where:
 
 ## Proofs
 
-Proofs are very similar to the implementation used in Hermez 1.0.
+Proofs are very similar to the implementation used in Polygon Hermez 1.0.
 
 ### Proof of Leaf Inclusion in Merkle Tree
 

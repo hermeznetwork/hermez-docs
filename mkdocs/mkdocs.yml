@@ -62,21 +62,21 @@ nav:
     #   - Merkle Tree: "zkEVM/tools-optimizations/merkle-tree.md"
     # - References: "zkEVM/references.md"
 
-  - Hermez 1.0:
+  - Polygon Hermez 1.0:
     - About:
       - Ethereum Scalability and zk-Rollups: "Hermez_1.0/about/scalability.md"
-      - Hermez Value Proposition: "Hermez_1.0/about/value-proposition.md"
-      - Hermez Network Model: "Hermez_1.0/about/model.md"
+      - Polygon Hermez Value Proposition: "Hermez_1.0/about/value-proposition.md"
+      - Polygon Hermez Network Model: "Hermez_1.0/about/model.md"
       - Security: "Hermez_1.0/about/security.md"
     - Users:
-      - Hermez Wallet: "Hermez_1.0/users/hermez-wallet.md"
-      - Hermez Mainnet: "Hermez_1.0/users/mainnet.md"
-      - Hermez Testnet: "Hermez_1.0/users/testnet.md"
+      - Polygon Hermez Wallet: "Hermez_1.0/users/hermez-wallet.md"
+      - Polygon Hermez Mainnet: "Hermez_1.0/users/mainnet.md"
+      - Polygon Hermez Testnet: "Hermez_1.0/users/testnet.md"
       - Exchanges: "Hermez_1.0/users/exchanges.md"
     - Developers:
       - Developer Guide: "Hermez_1.0/developers/dev-guide.md"
       - Protocol:
-        - Hermez zkRollup protocol:
+        - Polygon Hermez zkRollup protocol:
           - Core protocol: "Hermez_1.0/developers/protocol/hermez-protocol/protocol.md"
           - Smart contracts: "Hermez_1.0/developers/protocol/hermez-protocol/contracts/contracts.md"
           - Circuits: "Hermez_1.0/developers/protocol/hermez-protocol/circuits/circuits.md"
@@ -85,7 +85,7 @@ nav:
       - Examples/SDK: "Hermez_1.0/developers/sdk.md"
       - API: "Hermez_1.0/developers/api.md"
       - Batch Explorer: "Hermez_1.0/developers/batch-explorer.md"
-      - Hermez NodePrice Updater: "Hermez_1.0/developers/price-updater.md"
+      - Polygon Hermez NodePrice Updater: "Hermez_1.0/developers/price-updater.md"
       - Glossary: "Hermez_1.0/developers/glossary.md"
     - FAQ:
       - End-Users: "Hermez_1.0/faq/end-users.md"

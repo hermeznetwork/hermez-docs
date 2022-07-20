@@ -23,11 +23,11 @@
 
 ---
 
-# About Polygon Hermez
+# About Polygon zkEVM
 
-Integrated seamlessly with the Ethereum ecosystem, Polygon Hermez is a powerful, decentralized technology that provides Layer 2 scalability solutions to blockchain users. With the tremendous increase in the number of transactions taking place on-chain (i.e. base layer Ethereum), the Layer 1 solution is already facing blockchain trilemma: decentralization, scalability, and security. It is where Polygon Hermez steps in. 
+Integrated seamlessly with the Ethereum ecosystem, Polygon zkEVM is a powerful, decentralized technology that provides Layer 2 scalability solutions to blockchain users. With the tremendous increase in the number of transactions taking place on-chain (i.e. base layer Ethereum), the Layer 1 solution is already facing blockchain trilemma: decentralization, scalability, and security. It is where Polygon zkEVM steps in. 
 
-By providing zk-rollups (zero-knowledge rollups) that sit on the top of Ethereum Maninnet, the scalability and the transactions per second (TPS) can be dramatically improved. To prove that the off-chain computations are correct, Polygon Hermez employs zero-knowledge proofs that can be verified easily. The Layer 2 zero-knowledge proofs are based on the complex polynomial computations that help in leveraging Ethereum scaling and provide fast finality to the off-chain transactions.
+By providing zk-rollups (zero-knowledge rollups) that sit on the top of Ethereum Maninnet, the scalability and the transactions per second (TPS) can be dramatically improved. To prove that the off-chain computations are correct, Polygon zkEVM employs zero-knowledge proofs that can be verified easily. The Layer 2 zero-knowledge proofs are based on the complex polynomial computations that help in leveraging Ethereum scaling and provide fast finality to the off-chain transactions.
 
 ## What is Polygon zkEVM? 
 
@@ -35,7 +35,7 @@ Polygon Hermez 1.0 version was launched in March 2021. The goal of Polygon Herme
 
 Polygon zkEVM, henceforth called zkEVM, has been developed to emulate Ethereum Virtual Machine(EVM) that executes Ethereum transactions with zero-knowledge proof validations. This has been accomplished by developing an EVM based on zero-knowledge; the machine is designed to recreate all the existing EVM opcodes that can be deployed as smart contracts. Although taking on this revolutionary design approach was a hard decision to make, the objective is to minimise the users and dApps friction when using the solution. It is an approach that requires the recreation of all EVM opcodes for the transparent deployment of existing Ethereum smart contracts. For this purpose, a new set of technologies and tools are being created and engineered by the team.
 
-This document presents a high-level description of the upcoming Polygon zkEVM solution including its main components and design. It also seeks to highlight how Polygon zkEVM departs from the original design of Hermez 1.0.
+This document presents a high-level description of the upcoming Polygon zkEVM solution including its main components and design. It also seeks to highlight how Polygon zkEVM departs from the original design of Polygon Hermez 1.0.
 
 
 ## Architecture
@@ -63,7 +63,7 @@ The skeletal architecture of zkEVM is shown below:
 
 ### Consensus Algorithm: Proof of Efficiency
 
-Our earlier version, Hermez 1.0, is based on the Proof of Donation(PoD) consensus mechanism. This model decides who would be the next batch creator. PoD is a decentralised auction that is conducted automatically and the participants (coordinators) bid a number of tokens so that they have the chance to create the next batch.
+Our earlier version, Polygon Hermez 1.0, is based on the Proof of Donation(PoD) consensus mechanism. This model decides who would be the next batch creator. PoD is a decentralised auction that is conducted automatically and the participants (coordinators) bid a number of tokens so that they have the chance to create the next batch.
 
 However, for the implementation of the current 2.0, PoD needed to be replaced with a much simpler Proof of Efficiency (PoE) model. Let us see why PoE is preferable to PoD.
 
@@ -296,6 +296,6 @@ There are other strategies too that are implemented within specific components o
 
 Given the EVM opcode compatibility, zkEVM is designed to process smart contracts seamlessly and verify state changes efficiently. It promises not only to be secure and efficient but also to accomplish competitive decentralization. In an effort to achieve high-speed proving and succinct proofs for quick verification, the team is focused on the optimization of the zkProver.
 
-The team also leverages the synergies among the different Polygon teams that are also looking into zk-rollup solutions for achieving Ethereum scalability. Although development is still underway, it was important for this document to be released early so as to align with the goal of transparency set by the open-source projects, as well as keep the Polygon community of developers and users of Hermez 1.0 updated with the upcoming changes.
+The team also leverages the synergies among the different Polygon teams that are also looking into zk-rollup solutions for achieving Ethereum scalability. Although development is still underway, it was important for this document to be released early so as to align with the goal of transparency set by the open-source projects, as well as keep the Polygon community of developers and users of Polygon Hermez 1.0 updated with the upcoming changes.
 
 Our next step will be to develop a public testnet. Although it is difficult to set a fixed date for the same, our plan is to launch it by mid-2022.
