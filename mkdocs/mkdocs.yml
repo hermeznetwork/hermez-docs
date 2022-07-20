@@ -28,11 +28,40 @@ extra:
       link: https://hermez.io/
 
 nav:
-  - Hermez 2.0 (zkEVM):
+  - Polygon zkEVM:
+    - Basic Concepts:
+      - Introduction: "zkEVM/Basic-Concepts/introduction.md"
+      - "First Example: Fibonacci": "zkEVM/Basic-Concepts/fibonacci.md"
+      - Simple State Machine: "zkEVM/Basic-Concepts/simple-state-machine.md"  
+      - Modular Design: "zkEVM/Basic-Concepts/modular-design.md"  
     - Architecture:
-      - Introduction: "zkEVM/architecture/introduction.md"
-      - Simple State Machine: "zkEVM/architecture/simple-state-machine.md"  
-      - Modular Design: "zkEVM/architecture/modular-design.md"
+      - zkProver: "zkEVM/Architecture/zkProver.md"
+    - zkASM:
+      - Introduction: "zkEVM/zkASM/introduction.md"
+      - Basic Syntax: "zkEVM/zkASM/basic-syntax.md"
+      - Some Examples: "zkEVM/zkASM/some-examples.md"
+      - Related Repositories: "zkEVM/zkASM/related-repos.md"
+    - PIL:
+      - Introduction: "zkEVM/PIL/introduction.md"
+      - Hello Word Examples: "zkEVM/PIL/hello-world-examples.md"
+      - Components: "zkEVM/PIL/components.md"
+      - Cyclical Nature: "zkEVM/PIL/cyclical-nature.md"
+      - Modularity: "zkEVM/PIL/modularity.md"
+      - Advanced Features: "zkEVM/PIL/advanced-features.md"
+      - Related Repositories: "zkEVM/PIL/related-repos.md"
+    - State Machines:
+      - Arithmetic: "zkEVM/State-Machines/Arithmetic/Arithmetic-State-Machine-typ.md"
+      - Storage: "zkEVM/State-Machines/Storage/Storage-State-Machine-typ.md"
+      - Hashing: "zkEVM/State-Machines/Hashing/Hashing-State-Machine-typ.md"
+      - Binary: "zkEVM/State-Machines/Binary/Binary-State-Machine-typ.md"
+      - Memory: "zkEVM/State-Machines/Memory/memory-state-machine.md"
+      - Memory Align: "zkEVM/State-Machines/Memory-Align/memory-align-state-machine.md"
+      - Complementaries: "zkEVM/State-Machines/Complementary/complementary-state-machines.md"
+      - Configuration File: "zkEVM/State-Machines/Complementary/configuration-file.md"
+    # - Tools & Optimizations:
+    #   - Merkle Tree: "zkEVM/tools-optimizations/merkle-tree.md"
+    # - References: "zkEVM/references.md"
+
   - Hermez 1.0:
     - About:
       - Ethereum Scalability and zk-Rollups: "Hermez_1.0/about/scalability.md"
