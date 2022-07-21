@@ -1,0 +1,3457 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.hermez.io/Hermez_1.0/developers/protocol/hermez-protocol/protocol/">
+      
+      <link rel="icon" href="../../../../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
+    
+    
+      
+        <title>Core protocol - Polygon zkEVM Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.1d29e8d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#7e56c2">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="deep-purple" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hermez-zk-rollup-protocol" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="Polygon zkEVM Documentation" class="md-header__button md-logo" aria-label="Polygon zkEVM Documentation" data-md-component="logo">
+      
+  <img src="../../../../../logo-white.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Polygon zkEVM Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Core protocol
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hermeznetwork/hermez-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../../zkEVM/Basic-Concepts/introduction/" class="md-tabs__link">
+        Polygon zkEVM
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../about/scalability/" class="md-tabs__link md-tabs__link--active">
+        Polygon Hermez 1.0
+      </a>
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Polygon zkEVM Documentation" class="md-nav__button md-logo" aria-label="Polygon zkEVM Documentation" data-md-component="logo">
+      
+  <img src="../../../../../logo-white.svg" alt="logo">
+
+    </a>
+    Polygon zkEVM Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hermeznetwork/hermez-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Polygon zkEVM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Polygon zkEVM" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Polygon zkEVM
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1" type="checkbox" id="__nav_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_1">
+          Basic Concepts
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Basic Concepts" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Basic Concepts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/Basic-Concepts/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/Basic-Concepts/fibonacci/" class="md-nav__link">
+        First Example: Fibonacci
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/Basic-Concepts/simple-state-machine/" class="md-nav__link">
+        Simple State Machine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/Basic-Concepts/modular-design/" class="md-nav__link">
+        Modular Design
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_2" type="checkbox" id="__nav_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_2">
+          Architecture
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Architecture" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Architecture
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/Architecture/zkProver/" class="md-nav__link">
+        zkProver
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3" type="checkbox" id="__nav_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_3">
+          zkASM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="zkASM" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          zkASM
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/zkASM/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/zkASM/basic-syntax/" class="md-nav__link">
+        Basic Syntax
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/zkASM/some-examples/" class="md-nav__link">
+        Some Examples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/zkASM/related-repos/" class="md-nav__link">
+        Related Repositories
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_4">
+          PIL
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PIL" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          PIL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/PIL/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/PIL/hello-world-examples/" class="md-nav__link">
+        Hello Word Examples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/PIL/components/" class="md-nav__link">
+        Components
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/PIL/cyclical-nature/" class="md-nav__link">
+        Cyclical Nature
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/PIL/modularity/" class="md-nav__link">
+        Modularity
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/PIL/advanced-features/" class="md-nav__link">
+        Advanced Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/PIL/related-repos/" class="md-nav__link">
+        Related Repositories
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5" type="checkbox" id="__nav_1_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_5">
+          State Machines
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="State Machines" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          State Machines
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/State-Machines/Arithmetic/Arithmetic-State-Machine-typ/" class="md-nav__link">
+        Arithmetic
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/State-Machines/Storage/Storage-State-Machine-typ/" class="md-nav__link">
+        Storage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/State-Machines/Hashing/Hashing-State-Machine-typ/" class="md-nav__link">
+        Hashing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/State-Machines/Binary/Binary-State-Machine-typ/" class="md-nav__link">
+        Binary
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/State-Machines/Memory/memory-state-machine/" class="md-nav__link">
+        Memory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/State-Machines/Memory-Align/memory-align-state-machine/" class="md-nav__link">
+        Memory Align
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/State-Machines/Complementary/complementary-state-machines/" class="md-nav__link">
+        Complementaries
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../zkEVM/State-Machines/Complementary/configuration-file/" class="md-nav__link">
+        Configuration File
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Polygon Hermez 1.0
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Polygon Hermez 1.0" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Polygon Hermez 1.0
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          About
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="About" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about/scalability/" class="md-nav__link">
+        Ethereum Scalability and zk-Rollups
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about/value-proposition/" class="md-nav__link">
+        Polygon Hermez Value Proposition
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about/model/" class="md-nav__link">
+        Polygon Hermez Network Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about/security/" class="md-nav__link">
+        Security
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Users
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Users" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Users
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../users/hermez-wallet/" class="md-nav__link">
+        Polygon Hermez Wallet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../users/mainnet/" class="md-nav__link">
+        Polygon Hermez Mainnet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../users/testnet/" class="md-nav__link">
+        Polygon Hermez Testnet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../users/exchanges/" class="md-nav__link">
+        Exchanges
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Developers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Developers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Developers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev-guide/" class="md-nav__link">
+        Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_2" type="checkbox" id="__nav_2_3_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_2">
+          Protocol
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Protocol" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Protocol
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_2_1" type="checkbox" id="__nav_2_3_2_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_2_1">
+          Polygon Hermez zkRollup protocol
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Polygon Hermez zkRollup protocol" data-md-level="4">
+        <label class="md-nav__title" for="__nav_2_3_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Polygon Hermez zkRollup protocol
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Core protocol
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Core protocol
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assumptions" class="md-nav__link">
+    Assumptions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notation" class="md-nav__link">
+    Notation
+  </a>
+  
+    <nav class="md-nav" aria-label="Notation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#field-element" class="md-nav__link">
+    Field Element
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buffer-bytes" class="md-nav__link">
+    Buffer Bytes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-settings" class="md-nav__link">
+    Global Settings
+  </a>
+  
+    <nav class="md-nav" aria-label="Global Settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#circuit" class="md-nav__link">
+    Circuit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contracts" class="md-nav__link">
+    Contracts
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-types" class="md-nav__link">
+    Data Types
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#floating-point-format-float40" class="md-nav__link">
+    Floating Point Format (Float40)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#account" class="md-nav__link">
+    Account
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transaction-fields" class="md-nav__link">
+    Transaction Fields
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trees" class="md-nav__link">
+    Trees
+  </a>
+  
+    <nav class="md-nav" aria-label="Trees">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#state-tree" class="md-nav__link">
+    State tree
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exit-tree" class="md-nav__link">
+    Exit Tree
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#account-types" class="md-nav__link">
+    Account Types
+  </a>
+  
+    <nav class="md-nav" aria-label="Account Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#regular-rollup-account" class="md-nav__link">
+    Regular Rollup Account
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-rollup-account" class="md-nav__link">
+    Internal Rollup Account
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transaction-types" class="md-nav__link">
+    Transaction Types
+  </a>
+  
+    <nav class="md-nav" aria-label="Transaction Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#l1-user-transactions" class="md-nav__link">
+    L1 user transactions
+  </a>
+  
+    <nav class="md-nav" aria-label="L1 user transactions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#createaccountdeposit" class="md-nav__link">
+    CreateAccountDeposit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#createaccountdeposittransfer" class="md-nav__link">
+    CreateAccountDepositTransfer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deposit" class="md-nav__link">
+    Deposit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deposittransfer" class="md-nav__link">
+    DepositTransfer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forcetransfer" class="md-nav__link">
+    ForceTransfer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forceexit" class="md-nav__link">
+    ForceExit
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l1-coordinator" class="md-nav__link">
+    L1 Coordinator
+  </a>
+  
+    <nav class="md-nav" aria-label="L1 Coordinator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#createaccounteth" class="md-nav__link">
+    CreateAccountEth
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#createaccountbjj" class="md-nav__link">
+    CreateAccountBjj
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l2" class="md-nav__link">
+    L2
+  </a>
+  
+    <nav class="md-nav" aria-label="L2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transfer" class="md-nav__link">
+    Transfer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exit" class="md-nav__link">
+    Exit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transfertoethaddr" class="md-nav__link">
+    TransferToEthAddr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transfertobjj" class="md-nav__link">
+    TransferToBjj
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hermezwithdraw" class="md-nav__link">
+    HermezWithdraw
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-availability" class="md-nav__link">
+    Data Availability
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Availability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#l1-user-transactions_1" class="md-nav__link">
+    L1 User Transactions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l1-coordinator-transactions" class="md-nav__link">
+    L1 Coordinator Transactions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l1-l2-transactions" class="md-nav__link">
+    L1 - L2 Transactions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fee-tx" class="md-nav__link">
+    Fee Tx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forging" class="md-nav__link">
+    Forging
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fee-model" class="md-nav__link">
+    Fee Model
+  </a>
+  
+    <nav class="md-nav" aria-label="Fee Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user" class="md-nav__link">
+    User
+  </a>
+  
+    <nav class="md-nav" aria-label="User">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compute-fees" class="md-nav__link">
+    Compute Fees
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coordinator" class="md-nav__link">
+    Coordinator
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#token-listing" class="md-nav__link">
+    Token Listing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#emergency-mechanism" class="md-nav__link">
+    Emergency Mechanism
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contracts/contracts/" class="md-nav__link">
+        Smart contracts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../circuits/circuits/" class="md-nav__link">
+        Circuits
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../consensus/consensus/" class="md-nav__link">
+        Forging consensus protocol
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../withdrawal-delayer/withdrawal-delayer/" class="md-nav__link">
+        Withdrawal delayer protocol
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sdk/" class="md-nav__link">
+        Examples/SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../batch-explorer/" class="md-nav__link">
+        Batch Explorer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../price-updater/" class="md-nav__link">
+        Polygon Hermez NodePrice Updater
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../glossary/" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          FAQ
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="FAQ" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          FAQ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../faq/end-users/" class="md-nav__link">
+        End-Users
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../faq/integrators/" class="md-nav__link">
+        Integrators
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../faq/coordinators/" class="md-nav__link">
+        Coordinators
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../faq/pod/" class="md-nav__link">
+        Proof of Donation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../faq/other/" class="md-nav__link">
+        Other
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assumptions" class="md-nav__link">
+    Assumptions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notation" class="md-nav__link">
+    Notation
+  </a>
+  
+    <nav class="md-nav" aria-label="Notation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#field-element" class="md-nav__link">
+    Field Element
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buffer-bytes" class="md-nav__link">
+    Buffer Bytes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-settings" class="md-nav__link">
+    Global Settings
+  </a>
+  
+    <nav class="md-nav" aria-label="Global Settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#circuit" class="md-nav__link">
+    Circuit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contracts" class="md-nav__link">
+    Contracts
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-types" class="md-nav__link">
+    Data Types
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#floating-point-format-float40" class="md-nav__link">
+    Floating Point Format (Float40)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#account" class="md-nav__link">
+    Account
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transaction-fields" class="md-nav__link">
+    Transaction Fields
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trees" class="md-nav__link">
+    Trees
+  </a>
+  
+    <nav class="md-nav" aria-label="Trees">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#state-tree" class="md-nav__link">
+    State tree
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exit-tree" class="md-nav__link">
+    Exit Tree
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#account-types" class="md-nav__link">
+    Account Types
+  </a>
+  
+    <nav class="md-nav" aria-label="Account Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#regular-rollup-account" class="md-nav__link">
+    Regular Rollup Account
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-rollup-account" class="md-nav__link">
+    Internal Rollup Account
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transaction-types" class="md-nav__link">
+    Transaction Types
+  </a>
+  
+    <nav class="md-nav" aria-label="Transaction Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#l1-user-transactions" class="md-nav__link">
+    L1 user transactions
+  </a>
+  
+    <nav class="md-nav" aria-label="L1 user transactions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#createaccountdeposit" class="md-nav__link">
+    CreateAccountDeposit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#createaccountdeposittransfer" class="md-nav__link">
+    CreateAccountDepositTransfer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deposit" class="md-nav__link">
+    Deposit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deposittransfer" class="md-nav__link">
+    DepositTransfer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forcetransfer" class="md-nav__link">
+    ForceTransfer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forceexit" class="md-nav__link">
+    ForceExit
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l1-coordinator" class="md-nav__link">
+    L1 Coordinator
+  </a>
+  
+    <nav class="md-nav" aria-label="L1 Coordinator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#createaccounteth" class="md-nav__link">
+    CreateAccountEth
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#createaccountbjj" class="md-nav__link">
+    CreateAccountBjj
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l2" class="md-nav__link">
+    L2
+  </a>
+  
+    <nav class="md-nav" aria-label="L2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transfer" class="md-nav__link">
+    Transfer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exit" class="md-nav__link">
+    Exit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transfertoethaddr" class="md-nav__link">
+    TransferToEthAddr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transfertobjj" class="md-nav__link">
+    TransferToBjj
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hermezwithdraw" class="md-nav__link">
+    HermezWithdraw
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-availability" class="md-nav__link">
+    Data Availability
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Availability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#l1-user-transactions_1" class="md-nav__link">
+    L1 User Transactions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l1-coordinator-transactions" class="md-nav__link">
+    L1 Coordinator Transactions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l1-l2-transactions" class="md-nav__link">
+    L1 - L2 Transactions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fee-tx" class="md-nav__link">
+    Fee Tx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forging" class="md-nav__link">
+    Forging
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fee-model" class="md-nav__link">
+    Fee Model
+  </a>
+  
+    <nav class="md-nav" aria-label="Fee Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user" class="md-nav__link">
+    User
+  </a>
+  
+    <nav class="md-nav" aria-label="User">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compute-fees" class="md-nav__link">
+    Compute Fees
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coordinator" class="md-nav__link">
+    Coordinator
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#token-listing" class="md-nav__link">
+    Token Listing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#emergency-mechanism" class="md-nav__link">
+    Emergency Mechanism
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/hermeznetwork/hermez-docs/edit/master/docs/Hermez_1.0/developers/protocol/hermez-protocol/protocol.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="hermez-zk-rollup-protocol">Hermez ZK-Rollup Protocol</h1>
+<h2 id="overview">Overview</h2>
+<p>The core protocol ensures that state transitions are valid through a validity proof which will assure that certain rules have been fulfilled.
+This collection of rules are determined by a smart contract which will validate a proof of state transition. This verification will check that each state transitioning is made correctly. This is achieved by using a ZK-SNARK circuit and it will make sure that all rules for state transition are being followed.
+Any prover must submit a proof in order to demonstrate the correctness of the state transition computation.</p>
+<p>A prover (aka coordinator) is in charge of computing all state changes and calculating the ZK-SNARK proof. The coordinator will be in charge of submitting the ZK-SNARK to the verifier (smart contract) which will ensure state transition validation.</p>
+<p><img alt="" src="../zkSNARK-proof-1.png" /></p>
+<p>A sparse-Merkle-tree is used to keep the state data where all accounts and balances are stored. This information is kept on L2 and users will sign transactions in order to spend their balances between L2 accounts. These L2 transactions are collected together to create a batch. Afterward, batch data is compressed through a ZK-SNARK and it will prove that the state transitions of all those L2 transactions are correct.</p>
+<p>This collection of transactions are made public on L1 in order to provide data-availability to the protocol, meaning that anyone can re-build the L2 state just depending on L1 data. Hence, there is no need to rely on third parties to provide or store this data.</p>
+<p>The system is composed of L1 and L2 transactions:</p>
+<ul>
+<li>L1 transactions are the ones that are executed through the smart contract and affect the L2 state tree</li>
+<li>L2 transactions are the ones that are executed exclusively on L2 and affect the L2 state tree</li>
+</ul>
+<p><img alt="" src="../zkSNARK-proof-2.png" /></p>
+<p>L1 transactions are forced to be executed by the coordinator in the protocol. Therefore, these kinds of transactions will be always forged at some time.
+L2 transactions are generated off-chain by the users and they are sent to the coordinators. Coordinators will be in charge of gathering them.</p>
+<p>Some of the rollup functionality depends on a consensus mechanism to decide who
+can be the coordinator of a given batch.  Separate from the rollup smart
+contract (which mainly handles the queue of L1UserTxs and the forging of
+batches), there is an external smart contract that implements the consensus
+mechanism and maintains its own state.  During a forge call in the rollup smart
+contract, a call is made to the consensus smart contract to validate if the
+caller coordinator is allowed to forge and also to allow the consensus smart
+contract to update its own state and perform consensus actions if necessary.</p>
+<h2 id="assumptions">Assumptions</h2>
+<ul>
+<li>L1 (Ethereum):<ul>
+<li>integrity and immutability of data</li>
+</ul>
+</li>
+<li>Hashes<ul>
+<li><code>Poseidon</code> is unbreakable and collision-resistant</li>
+<li><code>SHA256</code> is unbreakable and collision-resistant</li>
+</ul>
+</li>
+<li>Elliptic curves:<ul>
+<li>L1:<ul>
+<li><code>secp256k1</code></li>
+<li>signature scheme is <code>ecdsa</code></li>
+</ul>
+</li>
+<li>L2:<ul>
+<li><code>BabyJubjub</code></li>
+<li>signature scheme is <code>eddsa</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>State tree transitions are always valid</li>
+<li>L1 transactions are forced to be processed</li>
+</ul>
+<h2 id="notation">Notation</h2>
+<ul>
+<li><code>H</code>: is the poseidon hash function</li>
+<li>elements are always encoded in big endian</li>
+</ul>
+<blockquote>
+<p>Big endian encoding is used since it fits better with EVM encoding</p>
+</blockquote>
+<h3 id="field-element">Field Element</h3>
+<ul>
+<li>the value encoded in a field element must be smaller than the field order</li>
+<li>first value corresponds to a less significant part of the field</li>
+</ul>
+<pre><code>dataField:  [16 bits] tokenID
+            [16 bits] nonce
+            [1 bit  ] sign
+</code></pre>
+<blockquote>
+<p>Example:
+<code>dataFieldExample: [16 bits] tokenID = 5
+                  [16 bits] nonce = 4
+                  [1 bit  ] sign = 1
+dataFieldExample (large integer) = 4295229445;
+dataFieldExample (hexadecimal padded 32 bytes) = 0x0000000000000000000000000000000000000000000000000000000100040005;</code></p>
+</blockquote>
+<h3 id="buffer-bytes">Buffer Bytes</h3>
+<ul>
+<li>first value corresponds to the first byte of the array</li>
+</ul>
+<pre><code>dataBuffer: [48 bits] fromIdx
+            [32 bits] tokenID
+            [16 bit ] amountFloat
+</code></pre>
+<blockquote>
+<p>Example:
+<code>dataBufferExample:  [48 bits] fromIdx = 5
+                    [32 bits] tokenID = 4
+                    [16 bit ] amountFloat = 20
+dataBufferExample (hexadecimal) = 0x000000000005000000040014;</code></p>
+</blockquote>
+<h2 id="global-settings">Global Settings</h2>
+<h3 id="circuit">Circuit</h3>
+<ul>
+<li><code>MAX_NLEVELS</code>: absolute maximum of Merkle tree depth (48 bits)<ul>
+<li>determines the maximum number of accounts that can exist in the ZK-Rollup: <span class="arithmatex">\(MAX\_ACCOUNTS=2^{MAX\_NLEVELS}\)</span></li>
+</ul>
+</li>
+<li><code>MAX_TX</code>: absolute maximum L1 or L2 transactions allowed to process in one batch</li>
+<li><code>MAX_L1_TXS</code>: absolute maximum of L1 transactions allowed to process in one batch</li>
+<li><code>MAX_FEE_TX</code>: maximum number of tokens that the coordinator is able to collect fees from in a batch from the included transactions</li>
+<li><code>NLevels</code>: Merkle tree depth<ul>
+<li>It should be noted that <code>NLevels</code> is always a multiple of 8</li>
+</ul>
+</li>
+</ul>
+<h3 id="contracts">Contracts</h3>
+<ul>
+<li><code>MAX_L1_USER_TXS</code>: absolute maximum of L1 user transactions allowed to be queued for a batch</li>
+<li><code>MAX_AMOUNT_DEPOSIT</code>: maximum amount of tokens that can be added when creating a new account</li>
+<li><code>INITIAL_IDX</code>: first Merkle tree index to populate if a new account is created<ul>
+<li>Some indexes are reserved in order to specify special transactions<ul>
+<li><code>IDX 0</code>: null index</li>
+<li><code>IDX 1</code>: exit</li>
+<li><code>2 &lt;= IDX &lt; 256</code>: reserved Idx values for future uses</li>
+<li><code>256 &lt;= IDX &lt; 2^MAX_NLEVELS</code>: available Idx values for rollup accounts</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>MAX_TOKENS</code>: maximum amount of tokens allowed to be registered in the ZK-Rollup</li>
+</ul>
+<h2 id="data-types">Data Types</h2>
+<h3 id="floating-point-format-float40">Floating Point Format (Float40)</h3>
+<p>A custom floating point, 40 bits, codification internally called Float40
+has been adopted to encode large integers. This is done in order to save bits
+when L2 transactions are published.</p>
+<p>Formula is as follows:</p>
+<p><span class="arithmatex">\(v = m \times 10^e\)</span></p>
+<p>where:</p>
+<ul>
+<li><code>v</code>: large integer value to encode</li>
+<li><code>m</code>: mantissa (35 bits)</li>
+<li><code>e</code>: exponent (5 bits)</li>
+</ul>
+<p>bit position:</p>
+<pre><code>[   e    |    m   ]
+[ 5 bits | 35 bits]
+</code></pre>
+<h3 id="account">Account</h3>
+<ul>
+<li><code>idx</code>: integer, path in the sparse Merkle tree (NLevels bits)</li>
+<li><code>sign</code>: Baby Jubjub sign (1 bit)</li>
+<li><code>ay</code>: Baby Jubjub public key Y coordinate (253 bits)</li>
+<li><code>ethAddr</code>: Ethereum address (160 bits)</li>
+<li><code>tokenID</code>: token identifier (32 bits)</li>
+<li><code>balance</code>: balance (192 bits)</li>
+<li><code>nonce</code>: nonce (40 bits)</li>
+</ul>
+<h3 id="transaction-fields">Transaction Fields</h3>
+<p>All transactions fields are required to build the ZK-SNARK proof but depending on the transaction type not all of them are used.
+Detailed transaction types can be seen in <a href="#transaction-types">transaction type section</a>
+Below is a summary of each transaction field and its explaination:</p>
+<ul>
+<li><code>signature_constant</code>: hardcoded transaction constant that indicates that the user is signing a Hermez rollup transaction. Used to avoid transaction replay in case other rollup are deployed (32 bits)</li>
+</ul>
+<pre><code>signature_constant = sha256(&quot;I authorize this hermez rollup transaction&quot;)[:32/8]
+</code></pre>
+<ul>
+<li><code>chainId</code>: Ethereum chain identifier in order to prevent replay attacks in case of hardforks, we use only 2 bytes since Hermez is only expected to be deployed in the Ethereum mainnet or one of its tesnets, so only 2 bytes are needed (16 bits)</li>
+<li><code>amountFloat40</code>: number of tokens to transfer inside the ZK-Rollup (40 bits)</li>
+<li><code>tokenID</code>: token identifier (32 bits)</li>
+<li><code>nonce</code>: nonce (40 bits)</li>
+<li><code>feeSelector</code>: select %fee to apply (8 bits)</li>
+<li><code>maxNumBatch</code>: maximum allowed batch number when the transaction can be processed (32 bits)</li>
+<li><code>onChain</code>: mark transaction as L1 transaction (1 bit)</li>
+<li><code>newAccount</code>: mark transaction to create new account (1 bit)</li>
+<li><code>fromIdx</code>: sender account index (NLevels bits)</li>
+<li><code>fromBjjCompressed</code>: sender Baby Jubjub public key compressed (256 bits)</li>
+<li><code>fromEthAddr</code>: sender Ethereum address (160 bits)</li>
+<li><code>toIdx</code>: recipient account index (NLevels bits)</li>
+<li><code>toEthAddr</code>: recipient Ethereum address (160 bits)</li>
+<li><code>toBjjSign</code>: recipient Baby Jubjub sign (1 bits)</li>
+<li><code>toAy</code>: recipient Baby Jubjub public key Y coordinate (253 bits)</li>
+<li><code>loadAmountFloat40</code>: L1 amount transfered to L2 (40 bits)</li>
+<li><code>txCompressedData</code>: transaction fields joined together that fit into a single field element (253 bits) <a href="#l2">See L2Tx specification</a></li>
+<li><code>txCompressedDataV2</code>: transaction fields joined together used for other transactions when using atomic transactions feature (193 bits) <a href="#l2">See L2Tx specification</a></li>
+<li><code>rqOffset</code>: relative transaction position to be linked. Used to perform atomic transactions (3 bits)</li>
+<li><code>rqTxCompressedDataV2</code>: requested <code>txCompressedDataV2</code></li>
+<li><code>rqToEthAddr</code>: requested <code>toEthAddr</code></li>
+<li><code>rqToBjjAy</code>: requested <code>toBjj</code></li>
+</ul>
+<p>Fields to perform atomic transactions:</p>
+<ul>
+<li><code>rqTxCompressedDataV2</code></li>
+<li><code>rqToEthAddr</code></li>
+<li><code>rqToBjjAy</code></li>
+<li><code>rqOffset</code></li>
+</ul>
+<h2 id="trees">Trees</h2>
+<ul>
+<li>It is assured by protocol a unique <code>idx</code> for each account. Therefore, a given <code>idx</code> identifies uniquely a ZK-Rollup account</li>
+<li><code>idx</code> is incremented sequentially and it is assured by protocol</li>
+</ul>
+<p><img alt="" src="../state-tree.png" /></p>
+<h3 id="state-tree">State tree</h3>
+<p>Sparse Merkle tree is used to represent the whole ZK-Rollup state which is identified by its root.
+Each leaf of the state tree (account) contains the following data:</p>
+<ul>
+<li>Key: Merkle tree index (<code>idx</code>)</li>
+<li>Value: <code>Hash(state)</code></li>
+</ul>
+<pre><code>    **field element notation**
+    State hash = H(e0, e1, e2, e3)
+
+    e_0: [ 32 bits  ] tokenID
+         [ 40 bits  ] nonce
+         [  1 bit   ] sign
+    e_1: [ 192 bits ] balance
+    e_2: [ 253 bits ] ay
+    e_3: [ 160 bits ] ethAddr
+</code></pre>
+<p>All data is hashed with Poseidon hash function and inserted into the sparse Merkle tree as a key-value pair.</p>
+<p>This approach implies a balanced Merkle tree: path is traversed from the root starting with the least significant bit out of the NLevels bits.
+This allows to have as many accounts as the tree levels:</p>
+<p><span class="arithmatex">\(MAX\_ACCOUNTS\)</span> = <span class="arithmatex">\(2^{MAX\_NLEVELS}\)</span></p>
+<h3 id="exit-tree">Exit Tree</h3>
+<p>Each batch would have an associated exit tree with all the exits performed by the user, either L1 or L2 exit transactions.
+The exit tree has the same leaf structure as the state tree with some particularities:</p>
+<ul>
+<li>nonce is always set to 0</li>
+<li>if several exits are done in the same batch for the same account, the balance is just added on top of the account</li>
+</ul>
+<p>User will need to prove that it owns a leaf in the exit tree in order to perform its withdraw and get back the tokens from the contract. This verification could be done either by submitting a Merkle tree proof or by submitting a ZK Proof.</p>
+<h2 id="account-types">Account Types</h2>
+<h3 id="regular-rollup-account">Regular Rollup Account</h3>
+<p>Regular accounts contain an Ethereum address and a Baby Jubjub public key.  Accounts are always indexed by Ethereum address in the UX, so it is a requirement that the Ethereum address authorizes the account keys.  Once the account is created, the Ethereum key is used to authorize L1 txs and the Baby Jubjub key is used to authorize L2 txs.
+There are two ways to authorize an account creation (that is, an Ethereum address authorizes the creation of an account containing that same Ethereum address and a Baby Jubjub public key):</p>
+<ul>
+<li>Via Ethereum transaction, which has an implicit signature of the Ethereum address.  This requires the owner of the Ethereum address to sign the smart contract transaction call</li>
+<li>Via an authorization signature (<code>AccountCreationAuthSig</code>) that can be used by any party to create accounts on behalf of the user</li>
+</ul>
+<p><code>AccountCreationAuthSig</code> specification (follows <a href="https://eips.ethereum.org/EIPS/eip-712">ethereum eip712</a>):</p>
+<pre><code>domain: {
+  name: &quot;Hermez Network&quot;,
+  version: &quot;1&quot;,
+  chainId: chainID,
+  verifyingContract: rollupContractAddress
+}
+
+structured typed data: {
+  Authorise: [
+      { name: &quot;Provider&quot;, type: &quot;string&quot; },
+      { name: &quot;Authorisation&quot;, type: &quot;string&quot; },
+      { name: &quot;BJJKey&quot;, type: &quot;bytes32&quot; }
+  ]
+}
+
+structured data: {
+  Provider: &quot;Hermez Network&quot;,
+  Authorisation: &quot;Account creation&quot;,
+  BJJKey: compressed-bjj
+}
+</code></pre>
+<p>where:</p>
+<ul>
+<li><code>chainID</code>: refers to the ethereum chain identifier</li>
+<li><code>rollupContractAddress</code>: rollup contract ethereum address</li>
+<li><code>compressed-bjj</code>: babyjubjub public key in its compressed format represented as hexadecimal string</li>
+</ul>
+<p><code>signature = eth_signTypedData(domain, types, value)</code></p>
+<p>Further details on <code>eth_signTypedData</code> can be found <a href="https://eips.ethereum.org/EIPS/eip-712#specification-of-the-eth_signtypeddata-json-rpc">here</a></p>
+<h3 id="internal-rollup-account">Internal Rollup Account</h3>
+<p>An internal rollup account does not use an Ethereum address, and thus can only operate via L2 txs.  Since no Ethereum address is involved, the account creation does not require an authorization and will only specify the Baby Jubjub public key.  Internally, this account will have the <code>ethAddr = 0xffff..</code>.</p>
+<h2 id="transaction-types">Transaction Types</h2>
+<p>Table of possible combinations of actions in an L1User transaction:</p>
+<table>
+<thead>
+<tr>
+<th>CreateAccount</th>
+<th>Deposit</th>
+<th>Transfer</th>
+<th>Exit</th>
+<th>Valid</th>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>NO</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>X</td>
+<td>YES</td>
+<td align="center">ForceExit</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>X</td>
+<td></td>
+<td>YES</td>
+<td align="center">ForceTransfer</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>X</td>
+<td>X</td>
+<td>NO</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td></td>
+<td>X</td>
+<td></td>
+<td></td>
+<td>YES</td>
+<td align="center">Deposit</td>
+</tr>
+<tr>
+<td></td>
+<td>X</td>
+<td></td>
+<td>X</td>
+<td>NO</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td></td>
+<td>X</td>
+<td>X</td>
+<td></td>
+<td>YES</td>
+<td align="center">DepositTransfer</td>
+</tr>
+<tr>
+<td></td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>NO</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>X</td>
+<td></td>
+<td></td>
+<td></td>
+<td>NO</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>X</td>
+<td></td>
+<td></td>
+<td>X</td>
+<td>NO</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>X</td>
+<td></td>
+<td>X</td>
+<td></td>
+<td>NO</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>X</td>
+<td></td>
+<td>X</td>
+<td>X</td>
+<td>NO</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>X</td>
+<td>X</td>
+<td></td>
+<td></td>
+<td>YES</td>
+<td align="center">CreateAccountDeposit</td>
+</tr>
+<tr>
+<td>X</td>
+<td>X</td>
+<td></td>
+<td>X</td>
+<td>NO</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td></td>
+<td>YES</td>
+<td align="center">CreateAccountDepositTransfer</td>
+</tr>
+<tr>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>NO</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<p>Summary:</p>
+<ul>
+<li>RollupTx<ul>
+<li>L1<ul>
+<li>User<ul>
+<li><a href="#createaccountdeposit">CreateAccountDeposit</a></li>
+<li><a href="#createaccountdeposittransfer">CreateAccountDepositTransfer</a></li>
+<li><a href="#deposit">Deposit</a></li>
+<li><a href="#deposittransfer">DepositTransfer</a></li>
+<li><a href="#forcetransfer">ForceTransfer</a></li>
+<li><a href="#forceexit">ForceExit</a></li>
+</ul>
+</li>
+<li>Coordinator<ul>
+<li><a href="#createaccounteth">CreateAccountEth</a></li>
+<li><a href="#createaccountbjj">CreateAccountBjj</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>L2<ul>
+<li><a href="#transfer">Transfer</a></li>
+<li><a href="#exit">Exit</a></li>
+<li><a href="#transfertoethaddr">TransferToEthAddr</a></li>
+<li><a href="#transfertobjj">TransferToBjj</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#hermezwithdraw">HermezWithdraw</a></li>
+</ul>
+<p><strong>RollupTx</strong> is any transaction that is processed in the rollup state through a
+ZK-SNARK proof.</p>
+<p><strong>HermezWithdraw</strong> is a transaction performed through the smart contract to get
+funds back from the smart contract to Ethereum address. This is done by
+demonstrating the existence of a leaf in the exit tree.</p>
+<p><strong>NOP transaction</strong> is an empty transaction that does not perform any action.  Used in the circuit inputs when the coordinator does not have enough transactions to fill maximum number of transactions in a batch.</p>
+<p><strong>NULL transaction</strong> is a transaction that is forced to use the value 0 for amount or loadAmount.  Used to nullify an <code>L1UserTx</code> that is found to be invalid, so that it does not do any update to the state tree.</p>
+<h3 id="l1-user-transactions">L1 user transactions</h3>
+<p>All L1 data transactions are concatenated together and hashed in order to force the coordinator to process them.
+Since the operator is forced to process L1 transactions, those transactions have to accomplish certain rules to be processed by the circuit. If any of those rules are not fulfilled the transaction will be considered as a NULL transaction.</p>
+<blockquote>
+<p>If any user tries to flood L1 transactions with invalid transactions, it will have to pay fees associated to L1 transactions</p>
+</blockquote>
+<p>Data of the transaction that is concatenated, hashed with sha256 and used as a public input in the circuit:</p>
+<pre><code>**Buffer bytes notation**
+L1TxFullData: [     160 bits     ] fromEthAddr
+              [     256 bits     ] fromBjj-compressed
+              [ MAX_NLEVELS bits ] fromIdx
+              [      40 bits     ] loadAmountFloat40
+              [      40 bits     ] amountFloat40
+              [      32 bits     ] tokenID
+              [ MAX_NLEVELS bits ] toIdx
+
+L1TxFullData length: 624 bits / 78 bytes
+
+L1TxsFullData = L1TxFullData[0] || L1TxFullData[1] || ... || L1TxFullData[len(L1Txs) - 1] || zero[(len(L1Txs)] || ... || zero[MAX_L1_TX - 1]
+</code></pre>
+<p>All L1 txs that perform a transfer or exit must be approved by the Ethereum address of the account.  This is indicated by setting the <code>fromEthAddr</code> as the <code>message.sender</code>, which is the address that signs the L1 tx.</p>
+<h4 id="createaccountdeposit">CreateAccountDeposit</h4>
+<ul>
+<li>Inputs:<ul>
+<li><code>fromEthAddr</code>: message.sender</li>
+<li><code>fromBjj-compressed</code>: user parameter</li>
+<li><code>fromIdx</code>: 0</li>
+<li><code>loadAmountFloat40</code>: user parameter</li>
+<li><code>amountFloat40</code>: 0</li>
+<li><code>tokenId</code>: user parameter</li>
+<li><code>toIdx</code>: 0</li>
+</ul>
+</li>
+<li>Actions:<ul>
+<li>new account inserted into the state tree with idx = <code>auxFromIdx</code></li>
+<li>deposit <code>loadAmountFloat40</code> into the sender <code>auxFromIdx</code></li>
+<li>new account data:<ul>
+<li><code>ax</code>: <code>fromBjj-compressed -&gt; ax</code></li>
+<li><code>ay</code>: <code>fromBjj-compressed -&gt; ay</code></li>
+<li><code>ethAddr</code>: <code>fromEthAddr</code></li>
+<li><code>tokenID</code>: <code>tokenId</code></li>
+<li><code>balance</code>: <code>loadAmount</code></li>
+<li><code>nonce</code>: 0</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Requirements:</li>
+</ul>
+<h4 id="createaccountdeposittransfer">CreateAccountDepositTransfer</h4>
+<ul>
+<li>Inputs:<ul>
+<li><code>fromEthAddr</code>: message.sender</li>
+<li><code>fromBjj-compressed</code>: user parameter</li>
+<li><code>fromIdx</code>: 0</li>
+<li><code>loadAmountFloat40</code>: user parameter</li>
+<li><code>amountFloat40</code>: user parameter</li>
+<li><code>tokenId</code>: user parameter</li>
+<li><code>toIdx</code>: user parameter</li>
+</ul>
+</li>
+<li>Actions:<ul>
+<li>new account inserted into the state tree with idx = <code>auxFromIdx</code></li>
+<li>deposit <code>loadAmountFloat40</code> into the sender <code>auxFromIdx</code></li>
+<li>new account data:<ul>
+<li><code>ax</code>: <code>fromBjj-compressed -&gt; ax</code></li>
+<li><code>ay</code>: <code>fromBjj-compressed -&gt; ay</code></li>
+<li><code>ethAddr</code>: <code>fromEthAddr</code></li>
+<li><code>tokenID</code>: <code>tokenId</code></li>
+<li><code>balance</code>: <code>loadAmount</code></li>
+<li><code>nonce</code>: 0</li>
+</ul>
+</li>
+<li>subtract <code>amountFloat40</code> from sender <code>auxFromIdx</code></li>
+<li>add <code>amountFloat40</code> to recipient <code>toIdx</code></li>
+</ul>
+</li>
+<li>Requirements:<ul>
+<li>receiver <code>toIdx</code> account must exist</li>
+</ul>
+</li>
+<li>Checks NULL:<ul>
+<li>sender <code>fromIdx</code> and receiver should have the same <code>tokenID</code></li>
+<li><code>tokenID</code> should match state1 update account</li>
+<li><code>tokenID</code> should match state2 update account</li>
+<li>sender <code>fromIdx</code> should have enough balance</li>
+</ul>
+</li>
+</ul>
+<h4 id="deposit">Deposit</h4>
+<ul>
+<li>Inputs:<ul>
+<li><code>fromEthAddr</code>: 0</li>
+<li><code>fromBjj-compressed</code>: 0</li>
+<li><code>fromIdx</code>: user parameter</li>
+<li><code>loadAmountFloat40</code>: user parameter</li>
+<li><code>amountFloat40</code>: 0</li>
+<li><code>tokenId</code>: user parameter</li>
+<li><code>toIdx</code>: 0</li>
+</ul>
+</li>
+<li>Actions:<ul>
+<li>deposit <code>loadAmountFloat40</code> into the account</li>
+</ul>
+</li>
+<li>Requirements:<ul>
+<li>recipient <code>fromIdx</code> account to receive L1 funds must exist</li>
+</ul>
+</li>
+<li>Checks NULL:<ul>
+<li><code>tokenID</code> should match state1 update account</li>
+</ul>
+</li>
+</ul>
+<h4 id="deposittransfer">DepositTransfer</h4>
+<ul>
+<li>Inputs:<ul>
+<li><code>fromEthAddr</code>: message.sender</li>
+<li><code>fromBjj-compressed</code>: 0</li>
+<li><code>fromIdx</code>: user parameter</li>
+<li><code>loadAmountFloat40</code>: user parameter</li>
+<li><code>amountFloat40</code>: user parameter</li>
+<li><code>tokenId</code>: user parameter</li>
+<li><code>toIdx</code>: user parameter</li>
+</ul>
+</li>
+<li>Actions:<ul>
+<li>deposit <code>loadAmountFloat40</code> into the account</li>
+<li>subtract <code>amountFloat40</code> from sender <code>fromIdx</code></li>
+<li>add <code>amountFloat40</code> to recipient <code>toIdx</code></li>
+</ul>
+</li>
+<li>Requirements:<ul>
+<li>recipient <code>fromIdx</code> account to receive L1 funds must exist</li>
+<li>receiver <code>toIdx</code> account must exist</li>
+</ul>
+</li>
+<li>Checks NULL:<ul>
+<li><code>tokenID</code> should match state1 update account</li>
+<li><code>tokenID</code> should match state2 update account</li>
+<li>sender <code>fromIdx</code> should have enough balance</li>
+<li><code>fromEthAddr</code> should match state1 update account</li>
+</ul>
+</li>
+</ul>
+<h4 id="forcetransfer">ForceTransfer</h4>
+<ul>
+<li>Inputs:<ul>
+<li><code>fromEthAddr</code>: message.sender</li>
+<li><code>fromBjj-compressed</code>: 0</li>
+<li><code>fromIdx</code>: user parameter</li>
+<li><code>loadAmountFloat40</code>: 0</li>
+<li><code>amountFloat40</code>: user parameter</li>
+<li><code>tokenId</code>: user parameter</li>
+<li><code>toIdx</code>: user parameter</li>
+</ul>
+</li>
+<li>Actions:<ul>
+<li>subtract <code>amountFloat40</code> from sender <code>fromIdx</code></li>
+<li>add <code>amountFloat40</code> to recipient <code>toIdx</code></li>
+</ul>
+</li>
+<li>Requirements:<ul>
+<li>sender <code>fromIdx</code> must exist</li>
+<li>receiver <code>toIdx</code> account must exist</li>
+</ul>
+</li>
+<li>Checks NULL:<ul>
+<li>sender <code>fromIdx</code> and receiver should have the same <code>tokenID</code></li>
+<li><code>tokenID</code> should match state1 update account</li>
+<li><code>tokenID</code> should match state2 update account</li>
+<li>sender <code>fromIdx</code> should have enough balance</li>
+<li><code>fromEthAddr</code> should match state1 update account</li>
+</ul>
+</li>
+</ul>
+<h4 id="forceexit">ForceExit</h4>
+<ul>
+<li>Inputs:<ul>
+<li><code>fromEthAddr</code>: message.sender</li>
+<li><code>fromBjj-compressed</code>: 0</li>
+<li><code>fromIdx</code>: user parameter</li>
+<li><code>loadAmountFloat40</code>: 0</li>
+<li><code>amountFloat40</code>: user parameter</li>
+<li><code>tokenId</code>: user parameter</li>
+<li><code>toIdx</code>: 1</li>
+</ul>
+</li>
+<li>Actions:<ul>
+<li>subtract <code>amountFloat40</code> from sender <code>fromIdx</code></li>
+<li>If it does not exit <code>fromIdx</code> account on the exit tree:<ul>
+<li>new account <code>fromIdx</code> inserted into the exit tree</li>
+</ul>
+</li>
+<li>add <code>amountFloat40</code> to the exit tree recipient <code>fromIdx</code></li>
+</ul>
+</li>
+<li>Requirements:<ul>
+<li>sender <code>fromIdx</code> must exist</li>
+</ul>
+</li>
+<li>Checks NULL:<ul>
+<li><code>tokenID</code> should match state1 update account</li>
+<li>sender should have enough balance</li>
+<li><code>fromEthAddr</code> should match state1 update account</li>
+</ul>
+</li>
+</ul>
+<h3 id="l1-coordinator">L1 Coordinator</h3>
+<p>Coordinator has the ability to create accounts at the time to forge a batch. These transactions are also included in the <code>L1TxsData</code>.
+Account could be created for a given:</p>
+<ul>
+<li>Ethereum address - Baby Jubjub key pair (regular rollup account)</li>
+<li>Baby Jubjub public key (internal rollup account)</li>
+</ul>
+<h4 id="createaccounteth">CreateAccountEth</h4>
+<ul>
+<li>Inputs:<ul>
+<li><code>fromEthAddr</code>: coordinator parameter</li>
+<li><code>fromBjj-compressed</code>: coordinator parameter (from ecdsa signed message)</li>
+<li><code>fromIdx</code>: 0</li>
+<li><code>loadAmountFloat40</code>: 0</li>
+<li><code>amountFloat40</code>: 0</li>
+<li><code>tokenId</code>: coordinator parameter</li>
+<li><code>toIdx</code>: 0</li>
+</ul>
+</li>
+<li>Actions:<ul>
+<li>new account inserted into the state tree</li>
+<li>account data:<ul>
+<li><code>sign</code>: <code>fromBjj-compressed -&gt; sign</code></li>
+<li><code>ay</code>: <code>fromBjj-compressed -&gt; ay</code></li>
+<li><code>ethAddr</code>: <code>fromEthAddr</code></li>
+<li><code>tokenID</code>: <code>tokenId</code></li>
+<li><code>balance</code>: 0</li>
+<li><code>nonce</code>: 0</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Requirements:<ul>
+<li>coordinator must submit:<ul>
+<li><code>ecdsa signature</code>: R,S,V signature of <a href="#regular-rollup-account">AccountCreationAuthMsg</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="createaccountbjj">CreateAccountBjj</h4>
+<ul>
+<li>Inputs:<ul>
+<li><code>fromEthAddr</code>: <code>0xffff..</code></li>
+<li><code>fromBjj-compressed</code>: coordinator parameter</li>
+<li><code>fromIdx</code>: 0</li>
+<li><code>loadAmountFloat40</code>: 0</li>
+<li><code>amountFloat40</code>: 0</li>
+<li><code>tokenId</code>: coordinator parameter</li>
+<li><code>toIdx</code>: 0</li>
+</ul>
+</li>
+<li>Actions:<ul>
+<li>new account inserted into the state tree</li>
+<li>account data:<ul>
+<li><code>sign</code>: <code>fromBjj-compressed -&gt; sign</code></li>
+<li><code>ay</code>: <code>fromBjj-compressed -&gt; ay</code></li>
+<li><code>ethAddr</code>: 0</li>
+<li><code>tokenID</code>: <code>tokenId</code></li>
+<li><code>balance</code>: 0</li>
+<li><code>nonce</code>: 0</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="l2">L2</h3>
+<p>All L2 transactions are sent to the coordinators by the users. The coordinator collects them into a batch in order to forge it.
+The coordinator must check that it collects valid transactions that must not perform an invalid transition state. Otherwise, the proof computed by the coordinator will not be valid.
+The user could submit any transaction data to the coordinator, but it will be rejected if the transaction could not be processed. Therefore, it is in the users' benefit to provide a valid transaction if they want it to be inserted in the ZK-Rollup.</p>
+<p>Signature used for L2 transactions is <code>eddsa</code> with Baby Jubjub key.
+L2 transaction data in the signature:</p>
+<pre><code>**Field element notation**
+txCompressedData: [      32 bits     ] signatureConstant
+                  [      16 bits     ] chainId
+                  [ MAX_NLEVELS bits ] fromIdx
+                  [ MAX_NLEVELS bits ] toIdx
+                  [      32 bits     ] tokenID
+                  [      40 bits     ] nonce
+                  [       8 bits     ] userFee
+                  [       1 bits     ] toBjjSign
+Total bits compressed data:  225
+
+toEthAddr
+toBjjAy
+
+**Field element notation**
+txCompressedDataV2: [ MAX_NLEVELS bits ] fromIdx
+                      [ MAX_NLEVELS bits ] toIdx
+                      [      40 bits     ] amountFloat40
+                      [      32 bits     ] tokenID
+                      [      40 bits     ] nonce
+                      [      8 bits      ] userFee
+                      [      1 bits      ] toBjjSign
+Total bits txCompressedDataV2: 217
+
+**Field element notation**
+element_1:[      160 bits    ] toEthAddr
+          [      40 bits     ] amountFloat40
+          [      32 bits     ] maxNumBatch
+Total bits element_1: 232
+
+rqToEthAddr
+rqToBjjAy
+
+messageToSign = H(e_0, e_1, e_2, e_3, e_4, e_5)
+
+e_0: [ 225 bits ] txCompressedData
+e_1: [ 232 bits ] element_1
+e_2: [ 253 bits ] toBjjAy
+e_3: [ 217 bits ] rqTxCompressedDataV2
+e_4: [ 160 bits ] rqToEthAddr
+e_5: [ 253 bits ] rqToBjjAy
+</code></pre>
+<h4 id="transfer">Transfer</h4>
+<p>Standard transaction of tokens between two accounts inside the rollup, L2 --&gt; L2.
+It is assumed that this transaction has a recipient <code>toIdx</code> &gt; <code>INITIAL_IDX</code></p>
+<ul>
+<li>Actions:<ul>
+<li>subtract <code>amountFloat40</code> from sender <code>fromIdx</code></li>
+<li>add <code>amountFloat40</code> to recipient <code>toIdx</code></li>
+</ul>
+</li>
+<li>Valid transaction:<ul>
+<li>sender <code>fromIdx</code> exist on the state tree</li>
+<li>recipient <code>toIdx</code> exist on the state tree</li>
+<li><code>tokenID</code> match with <code>fromIdx</code> and <code>toIdx</code> token</li>
+<li>sender <code>fromIdx</code> has enough funds</li>
+<li>sender <code>fromIdx</code> has the correct <code>nonce</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="exit">Exit</h4>
+<p>Transfer tokens from an account to the <a href="#exit-tree">exit tree</a>, L2 --&gt; L2</p>
+<ul>
+<li>Actions:<ul>
+<li>subtract <code>amountFloat40</code> from sender <code>fromIdx</code></li>
+<li>If it does not exit <code>fromIdx</code> account on the exit tree:<ul>
+<li>new account <code>fromIdx</code> inserted into the exit tree</li>
+</ul>
+</li>
+<li>add <code>amountFloat40</code> to the exit tree recipient <code>fromIdx</code></li>
+</ul>
+</li>
+<li>Valid transaction:<ul>
+<li>sender <code>fromIdx</code> exist on the state tree</li>
+<li><code>tokenID</code> match with <code>fromIdx</code> token</li>
+<li>sender <code>fromIdx</code> has enough funds</li>
+<li>sender <code>fromIdx</code> has the correct <code>nonce</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="transfertoethaddr">TransferToEthAddr</h4>
+<p>The sender sends the transaction to an Ethereum address recipient in the state tree.
+If the recipient does not exist and the coordinator wants to process the transaction, coordinator should create a new account with the recipient's Ethereum address.</p>
+<p>It is assumed that the <code>toIdx</code> is set to the special index 0.
+<code>toEthAddr</code> would be used to choose a recipient to transfer the <code>amountFloat40</code>.
+Hence, coordinator would select the recipient <code>idx</code> to add <code>amountFloat40</code> (called <code>auxToIdx</code>).</p>
+<blockquote>
+<p>Note that this transaction encourages the coordinator to create new accounts through the L1 coordinator transaction <a href="#createaccounteth">CreateAccountEth</a>.
+It is important to mention that this kind of transaction allows for the creation of new accounts in the state tree without needing to have any <code>ether</code> on L1. Hence, users could create new accounts and deposit tokens just through an L2 transaction.</p>
+</blockquote>
+<ul>
+<li>Actions:<ul>
+<li>subtract <code>amountFloat40</code> from sender <code>fromIdx</code></li>
+<li>add <code>amountFloat40</code> to the recipient <code>auxToIdx</code><ul>
+<li>it must match with <code>toEthAddr</code> and <code>tokenID</code> signed by sender</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Valid transaction:<ul>
+<li>sender <code>fromIdx</code> exist on the state tree</li>
+<li><code>tokenID</code> match with <code>fromIdx</code> and <code>auxToIdx</code> token</li>
+<li>sender <code>fromIdx</code> has enough funds</li>
+<li>sender <code>fromIdx</code> has the correct <code>nonce</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="transfertobjj">TransferToBjj</h4>
+<p>Sender sends the transaction to a Baby Jubjub address recipient in the state tree.
+If the recipient does not exist and coordinator wants to process the transaction, coordinator should create a new account with the recipient Baby Jubjub address.</p>
+<p>It is assumed that the <code>toIdx</code> is set to the special index 0.
+<code>toBjjAy</code> + <code>toBjjSign</code> would be used to choose the recipient to transfer the <code>amountFloat40</code>.
+<code>toEthAddr</code> will be set to <code>0xff..fff</code> which is a special case of an Ethereum address that no one can control and it will check that the recipient account has its Ethereum address set to <code>0xff..ff</code>.  This value allows account creation without Ethereum address authorization.
+Hence, coordinator would select the recipient <code>idx</code> to add <code>amountFloat40</code> (called <code>auxToIdx</code>).</p>
+<blockquote>
+<p>Note that this transaction encourages the coordinator to create new accounts through the L1 coordinator transaction <a href="#createaccountbjj">CreateAccountBjj</a>.
+It is important to mention that this kind of transaction allows for the creation of new accounts in the state tree without the needing to have any <code>ether</code> on L1. Hence, users could create new accounts and deposit tokens just through an L2 transaction.</p>
+</blockquote>
+<ul>
+<li>Actions:<ul>
+<li>subtract <code>amountFloat40</code> from sender <code>fromIdx</code></li>
+<li>add <code>amountFloat40</code> to the recipient <code>auxToIdx</code><ul>
+<li>it must match with <code>toBjjAy</code> + <code>toBjjSign</code> and <code>tokenID</code> signed by sender</li>
+<li>it must match <code>ethAddr</code> with <code>0xff..ff</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Valid transaction:<ul>
+<li>sender <code>fromIdx</code> exist on the state tree</li>
+<li><code>tokenID</code> match with <code>fromIdx</code> and <code>auxToIdx</code> token</li>
+<li>sender <code>fromIdx</code> has enough funds</li>
+<li>sender <code>fromIdx</code> has the correct <code>nonce</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="hermezwithdraw">HermezWithdraw</h3>
+<p>Funds are held on Hermez contract once the user has perform an <a href="#exit">exit transaction</a>.
+The withdrawal data will contain unique data (nullifier) which identifies the withdrawal. Hence, the smart contract will store that data to avoid performing withdrawals multiple times.</p>
+<p>Each withdrawal could be identified uniquely by:</p>
+<ul>
+<li>Merkle tree index</li>
+<li>number exit root</li>
+</ul>
+<pre><code>// numExitRoot =&gt; (idx =&gt; true/false)
+mapping(uint64 =&gt; mapping(uint48 =&gt; bool)) public exitNullifierMap;
+</code></pre>
+<p>In order to perform withdraw with a ZK Proof, all pretended public inputs are hashed with <code>sha256</code> into one single public input in order to optimize number of public inputs and therefore save gas at the time to do the verification in the smart contract.
+Pretended public inputs are hashed following the next specification:</p>
+<pre><code>**Buffer bytes notation**
+globalInputsData: [ 256 bits ] rootExit
+                  [ 160 bits ] ethAddr
+                  [  32 bits ] tokenID
+                  [ 192 bits ] balance
+                  [  48 bits ] idx
+hashGlobalInputs = SHA256(globalInputsData) % rField
+</code></pre>
+<p>Example:</p>
+<pre><code>rootExit =  0x1230000000000000000000000000000000000000000000000000000000000456
+ethAddr = 0xAB000000000000000000000000000000000000CD
+tokenID = 0x700000007
+balance = 0xEE00000000000000000000000000000000000000000000EE
+idx = 0xF0000000000F
+
+globalInputsData = 0x1230000000000000000000000000000000000000000000000000000000000456AB000000000000000000000000000000000000CD700000007EE00000000000000000000000000000000000000000000EEF0000000000F
+</code></pre>
+<h2 id="data-availability">Data Availability</h2>
+<p>ZK-Rollup approach determines that anyone can reconstruct the full tree state by just collecting data from the L1 chain. This is done by not having any dependency of third parties holding essential data to reconstruct the full state.
+This feature ensures liveness of the system, meaning that no third party needs to be active in order to provide data to rebuild the state tree.</p>
+<p>Transaction types:</p>
+<ul>
+<li>txs<ul>
+<li>l1_txs: layer 1 transactions<ul>
+<li>l1_user_txs: queued asynchronously by users via smart contract call</li>
+<li>l1_coordinator_txs: added by coordinator in <code>forge</code> smart contract call</li>
+</ul>
+</li>
+<li>l2_txs: layer 2 transactions</li>
+</ul>
+</li>
+</ul>
+<p><span class="arithmatex">\(len(txs) = len(l1\_txs) + len(l2\_txs)\)</span></p>
+<p><span class="arithmatex">\(len(l1\_txs) = len(l1\_user\_txs) + len(l1\_coordinator\_txs)\)</span></p>
+<p><span class="arithmatex">\(len(txs) \leq MAX\_TXS\)</span></p>
+<p><span class="arithmatex">\(len(l1\_txs) \leq MAX\_L1\_TXS &lt; MAX\_TXS\)</span></p>
+<p><span class="arithmatex">\(len(l1\_user\_txs) \leq MAX\_L1\_USER\_TXS &lt; MAX\_L1\_TXS\)</span></p>
+<h3 id="l1-user-transactions_1">L1 User Transactions</h3>
+<p>All transaction data triggered by a smart contract function can be directly retrieved since it will be stored on the blockchain, but it's harder when this data happens in internal transactions, not all nodes support that functionality. That's why all the L1 user transactions emit an <code>L1UserTx</code> event to facilitate the data retrieval.</p>
+<p>When a user calls a function that adds an <code>L1UserTx</code>, the following happens:</p>
+<ul>
+<li>Storage<ul>
+<li>Add the <code>L1UserTx</code> data at the end of the last non-frozen non-full queue of <code>L1UserTxs</code> (<code>L1UserTxs[lastL1UserTxs]</code>).<ul>
+<li>Each queue is identified by a <code>toForgeL1TxsNumber</code> that grows incrementally</li>
+<li>The queue in which this data is added is identified by a particular <code>toForgeL1TxsNumber</code> (which is <code>lastL1UserTxs</code> at the moment the <code>L1UserTx</code> is added)</li>
+<li>The <code>L1UserTxs</code> has a position in this queue: <code>L1UserTxs[lastL1UserTxs][position]</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Event<ul>
+<li><code>toForgeL1TxsNumber</code></li>
+<li><a href="#l1-user-transactions"><code>L1UserTx</code></a> data (78 bytes)</li>
+<li><code>position</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="l1-coordinator-transactions">L1 Coordinator Transactions</h3>
+<p>Coordinator could perform some special transactions to trigger L1 transactions. These transactions are processed in the <code>forgeBatch</code> smart contract method, and all the necessary data is provided in the method inputs. This means that like L2 transactions, the data availability can be retrieved by inspecting the Ethereum transaction.</p>
+<p>Data needed to perform these transactions will be encoded as:</p>
+<pre><code>**Buffer bytes notation**
+L1CoordinatorTx:    [  8   bits  ] V (ecdsa signature)
+                    [ 256  bits  ] S (ecdsa signature)
+                    [ 256  bits  ] R (ecdsa signature)
+                    [ 256  bits  ] Bjj compressed
+                    [ 32   bits  ] tokenID
+
+L1CoordinatorTxs = L1CoordinatorTx[0] || L1CoordinatorTx[1] || ... || L1CoordinatorTx[N - 1] || L1CoordinatorTx[N]
+</code></pre>
+<p>There two types of L1CoordinatorTx:</p>
+<ul>
+<li>CreateAccountEth:<ul>
+<li>Ethereum address is recovered from the ecdsa signature</li>
+<li>Coordinator should create an account with an Ethereum address equal to the <code>toEthAddr</code> in the L2 transaction in order to process the L2 transaction</li>
+<li>Contract will have to build the <a href="#regular-rollup-account"><code>AccountCreationAuthMsg</code></a>, hash it and retrieve Ethereum account from signed message and the signature (<code>r</code>, <code>s</code> and <code>v</code>).</li>
+</ul>
+</li>
+<li>CreateAccountBjj:<ul>
+<li>Coordinator should create an account with a Baby Jubjub key equal to the <code>toAx</code> and <code>toAy</code> in the L2 transaction in order to process the L2 transaction</li>
+<li>ecdsa signature fields are set to 0</li>
+</ul>
+</li>
+</ul>
+<h3 id="l1-l2-transactions">L1 - L2 Transactions</h3>
+<p>All transactions processed in a batch must be posted on L1. This is assured by hashing all data-availability and forces the coordinator to match all his processed transactions with his posted L1 data-availability.</p>
+<p>L2 transactions data-availability struct <code>L2TxData</code>:</p>
+<blockquote>
+<p><code>finalToIdx</code> is equal to <code>toIdx</code> except when <code>toIdx == IDX 0</code> where it will be equal to <code>auxToIdx</code></p>
+</blockquote>
+<pre><code>**Buffer bytes notation**
+L2TxData: [ NLevels  bits ] fromIdx
+          [ NLevels  bits ] finalToIdx
+          [    40  bits   ] amountF
+          [     8  bits   ] fee
+</code></pre>
+<blockquote>
+<p>note that <code>nopTxData</code> is a <code>L2TxData</code> struct where all the fields are set to 0</p>
+</blockquote>
+<p>L1 transactions data-availability struct <code>L1TxData</code>:</p>
+<blockquote>
+<p>note that effectiveAmount is the amount that will be transferred on L1 transaction once all the nullifiers are applied</p>
+</blockquote>
+<pre><code>**Buffer bytes notation**
+L1TxData: [ NLevels  bits ] fromIdx
+          [ NLevels  bits ] toIdx
+          [    40  bits   ] effectiveAmountF = amounF * (1 - isNullified)
+          [     8  bits   ] fee = 0
+</code></pre>
+<blockquote>
+<p>Example: considering <code>NLevels = 32 bits</code>, each L2Tx data-availability is 32 + 32 + 40 + 8 = 112 bits = 14 bytes</p>
+</blockquote>
+<p><code>L1L2TxsData</code> is the all the L1-L2 transaction data concatenated:</p>
+<pre><code>L1L2TxsData = L1TxData[0] || L1TxData[1] || ... || L1TxData[len(L1Txs) - 1] || L2TxData[0] || L2TxData[1] || ... || L2TxData[len(L2Txs) - 1] || nopTxData[len(Txs)] || ... || nopTxData[MAX_TXS - 1]
+</code></pre>
+<h3 id="fee-tx">Fee Tx</h3>
+<p>All indexes that will receive the fees accumulated. Further information can be found in <a href="#coordinator">this section</a>.</p>
+<p><code>feeTxsData</code> is all the indexes that will receive the fees concatenated:</p>
+<pre><code>feeTxsData = idx[0] || ... || ... || L2Tx[MAX_FEE_TX - 1]
+</code></pre>
+<h3 id="forging">Forging</h3>
+<p>When the coordinator calls the <code>forging</code> function, the L1CoordinatorTxs, L2Txs and feeTxsData data is sent as input to the smart contract function.  This data can be retrieved by querying the arguments of the function call.  To allow this data retrieval from a regular Ethereum node, we must force that the call is not made from a smart contract:</p>
+<pre><code>assert(msg.sender == tx.origin)
+</code></pre>
+<p>For every <code>forging</code> call, an event will be sent with the following information:</p>
+<ul>
+<li>BatchNum</li>
+</ul>
+<p>The rollup <code>forging</code> function will be private, and will be called internally in the smart contract by a wrapper that adds a consensus mechanism to decide if the caller is allowed to forge or not at that Ethereum block.</p>
+<p>Contract will compute the hash of all pretended public inputs of the circuit in order to force these private signals to be processed by the coordinator.</p>
+<ul>
+<li>List parameters in <code>hashGlobalData</code>:<ul>
+<li><code>oldLastIdx</code>: old last merkle tree index created</li>
+<li><code>newLastIdx</code>: new last merkle tree index created</li>
+<li><code>oldStateRoot</code>: ols state root</li>
+<li><code>newStateRoot</code>: new state root</li>
+<li><code>newExitRoot</code>: new exit root</li>
+<li><code>L1TxsFullData</code>: bits  L2 full data</li>
+<li><code>L1L2TxsData</code>: bits L1-L2 transaction data-availability</li>
+<li><code>feeTxsData</code>: all index accounts to receive accumulated fees</li>
+<li><code>chainId</code>: global chain identifier</li>
+<li><code>currentNumBatch</code>: current batch number processed</li>
+</ul>
+</li>
+</ul>
+<pre><code>**Buffer bytes notation**
+hashGlobalData: [            MAX_NLEVELS bits          ] oldLastIdx
+                [            MAX_NLEVELS bits          ] newLastIdx
+                [                256 bits              ] oldStRoot
+                [                256 bits              ] newStRoot
+                [                256 bits              ] newExitRoot
+                [ MAX_L1_TX*(2*MAX_NLEVELS + 528) bits ] L1TxsFullData
+                [     MAX_TX*(2*NLevels + 48) bits     ] L1L2TxsData
+                [       NLevels * MAX_TOKENS_FEE       ] feeTxsData
+                [                 16 bits              ] chainID
+                [                 32 bits              ] currentNumBatch
+
+hashGlobalInputs = SHA256(hashGlobalData) % rField
+</code></pre>
+<h2 id="fee-model">Fee Model</h2>
+<h3 id="user">User</h3>
+<p>Fees are paid on L2 transactions in the same token that they are done. So, if the user sends "Token A", the fees will be paid in "Token A".
+Fee is represented as a percentage of the total amount sent:</p>
+<p><span class="arithmatex">\(Fee_{amount} = amount * Fee_{percentage}\)</span></p>
+<p><span class="arithmatex">\(TotalTxCost = amount + Fee_{amount}\)</span></p>
+<p>Since there are 8 reserved bits for this field, there will be 256 different fee
+percentages that the user could choose to perform its transaction.
+See the <a href="../fee-table#transaction-fee-table">table showing the 256 values for each fee index</a></p>
+<h4 id="compute-fees">Compute Fees</h4>
+<p>Procedure to compute fees must remain equal across protocol implementations. The following procedure has been adopted:</p>
+<ul>
+<li>given <code>feeUser</code> bits selects <a href="../fee-table#feefactor-left-shifted">feeFactor shifted</a> large integer</li>
+<li>60 bits has been chosen in order to optimize precision at the time to compute fees. 60 bits is the minimum bits to achieve enough precision among all fee factor values</li>
+<li>
+<p><span class="arithmatex">\(\text{bitsShiftPrecision} = 60\)</span></p>
+</li>
+<li>
+<p><span class="arithmatex">\(Fee_{amount} = amount * feeFactor_{shifted}\)</span></p>
+</li>
+<li><span class="arithmatex">\(Fee_{amount} = Fee_{amount} &gt;&gt; \text{bitsShiftPrecision} \quad \text{if} \quad i &lt; 192\)</span></li>
+<li><span class="arithmatex">\(Fee_{amount} = Fee_{amount} \quad \text{if} \quad i \geq 192\)</span></li>
+<li><span class="arithmatex">\(assert(Fee_{amount} &lt; 2^{128})\)</span></li>
+</ul>
+<h3 id="coordinator">Coordinator</h3>
+<p>L2 transactions are collected by the coordinator and it will receive all the fees collected by the L2 transactions.
+In order to optimize protocol speed, it has been defined a maximum number of tokens that the coordinator can collect fees from <code>MAX_FEE_TX = 64</code>.</p>
+<p>It does not mean that the coordinator could forge as many transactions with more than 64 <code>tokenID</code>. The coordinator could do so, but it will only be available to collect fees from 64 different <code>tokenID</code>. The rest of <code>tokenID</code> that appear in the forged transactions will be processed but fees would not be collected.</p>
+<p>In order to ensure that the coordinator receives the correct amount of fees, the ZK-SNARK circuit will compute all the collected fees for all the L2 transactions processed. Then, the coordinator must submit in which leafs it wants to receive the fees collected.</p>
+<h2 id="token-listing">Token Listing</h2>
+<ul>
+<li>ERC20 tokens are supported by the rollup and it could be added up to <span class="arithmatex">\(2^{32}\)</span> different tokens</li>
+<li>Ether is supported by the rollup and it has an assigned <code>tokenID = 0</code></li>
+<li>Contracts maintain a list of all tokens registered in the rollup and each token needs to be listed before using it</li>
+<li><code>tokenID</code> is assigned (sequentially) each time a token is listed in the system and this identifier will be used for any rollup transaction, either L1 or L2, that modifies the state tree</li>
+<li>TokenInfo:<ul>
+<li>TokenID</li>
+<li>Address</li>
+</ul>
+</li>
+<li>Each time a new token is registered:<ul>
+<li>Storage<ul>
+<li>The TokenInfo is added to a mapping</li>
+</ul>
+</li>
+<li>Event<ul>
+<li>TokenInfo</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Constraints:</li>
+<li>A fee will be applied at the time to register tokens in order to prevent flooding attack<ul>
+<li>this fee could be modified by the governance and it is paid in HEZ tokens</li>
+</ul>
+</li>
+<li>Two tokens with the same Ethereum address cannot be added twice in the system</li>
+</ul>
+<h2 id="emergency-mechanism">Emergency Mechanism</h2>
+<p>This logic is implemented in order to mitigate attacks that could potentially steal funds from Hermez Network. The aim of this method is to mitigate funds stolen while preserving decentralization.</p>
+<p>The core mechanism is to set a withdrawal limit in order to avoid infinite withdrawal in case of stolen funds. Therefore, it is assured that the attacker can only steal a certain amount of tokens.</p>
+<p>This logic is implemented in a smart contract: <code>WithdrawalDelayer</code>. This contract is for use completely independent of the Hermez Network but it meets the objective we need to mitigate attacks.</p>
+<p>The purpose of this smart contract is to delay the withdraw. Hence, tokens will be held by the smart contract for a period of <code>D</code> and only afterwards tokens could be really withdrawn.</p>
+<ul>
+<li><a href="#emergency-mechanism">Hermez emergency mechanism</a></li>
+<li><a href="../../withdrawal-delayer/withdrawal-delayer#mechanism">Withdrawal delayer mechanism</a></li>
+</ul>
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../../../dev-guide/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Developer Guide" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Developer Guide
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../contracts/contracts/" class="md-footer__link md-footer__link--next" aria-label="Next: Smart contracts" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Smart contracts
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://t.me/polygonhermez" target="_blank" rel="noopener" title="t.me" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M248 8C111.033 8 0 119.033 0 256s111.033 248 248 248 248-111.033 248-248S384.967 8 248 8Zm114.952 168.66c-3.732 39.215-19.881 134.378-28.1 178.3-3.476 18.584-10.322 24.816-16.948 25.425-14.4 1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25 5.342-39.5 3.652-3.793 67.107-61.51 68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608 69.142-14.845 10.194-26.894 9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7 18.45-13.7 108.446-47.248 144.628-62.3c68.872-28.647 83.183-33.623 92.511-33.789 2.052-.034 6.639.474 9.61 2.885a10.452 10.452 0 0 1 3.53 6.716 43.765 43.765 0 0 1 .417 9.769Z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/hermeznetwork/hermez-docs" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.tracking"], "search": "../../../../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.6c7ad80a.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

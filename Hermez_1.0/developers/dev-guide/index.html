@@ -1,0 +1,2030 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.hermez.io/Hermez_1.0/developers/dev-guide/">
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
+    
+    
+      
+        <title>Developer Guide - Polygon zkEVM Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.1d29e8d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#7e56c2">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="deep-purple" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#developer-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Polygon zkEVM Documentation" class="md-header__button md-logo" aria-label="Polygon zkEVM Documentation" data-md-component="logo">
+      
+  <img src="../../../logo-white.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Polygon zkEVM Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Developer Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hermeznetwork/hermez-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../zkEVM/Basic-Concepts/introduction/" class="md-tabs__link">
+        Polygon zkEVM
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../about/scalability/" class="md-tabs__link md-tabs__link--active">
+        Polygon Hermez 1.0
+      </a>
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Polygon zkEVM Documentation" class="md-nav__button md-logo" aria-label="Polygon zkEVM Documentation" data-md-component="logo">
+      
+  <img src="../../../logo-white.svg" alt="logo">
+
+    </a>
+    Polygon zkEVM Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hermeznetwork/hermez-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Polygon zkEVM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Polygon zkEVM" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Polygon zkEVM
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1" type="checkbox" id="__nav_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_1">
+          Basic Concepts
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Basic Concepts" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Basic Concepts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/Basic-Concepts/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/Basic-Concepts/fibonacci/" class="md-nav__link">
+        First Example: Fibonacci
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/Basic-Concepts/simple-state-machine/" class="md-nav__link">
+        Simple State Machine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/Basic-Concepts/modular-design/" class="md-nav__link">
+        Modular Design
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_2" type="checkbox" id="__nav_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_2">
+          Architecture
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Architecture" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Architecture
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/Architecture/zkProver/" class="md-nav__link">
+        zkProver
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3" type="checkbox" id="__nav_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_3">
+          zkASM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="zkASM" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          zkASM
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/zkASM/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/zkASM/basic-syntax/" class="md-nav__link">
+        Basic Syntax
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/zkASM/some-examples/" class="md-nav__link">
+        Some Examples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/zkASM/related-repos/" class="md-nav__link">
+        Related Repositories
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_4">
+          PIL
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PIL" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          PIL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/PIL/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/PIL/hello-world-examples/" class="md-nav__link">
+        Hello Word Examples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/PIL/components/" class="md-nav__link">
+        Components
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/PIL/cyclical-nature/" class="md-nav__link">
+        Cyclical Nature
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/PIL/modularity/" class="md-nav__link">
+        Modularity
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/PIL/advanced-features/" class="md-nav__link">
+        Advanced Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/PIL/related-repos/" class="md-nav__link">
+        Related Repositories
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5" type="checkbox" id="__nav_1_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_5">
+          State Machines
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="State Machines" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          State Machines
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Arithmetic/Arithmetic-State-Machine-typ/" class="md-nav__link">
+        Arithmetic
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Storage/Storage-State-Machine-typ/" class="md-nav__link">
+        Storage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Hashing/Hashing-State-Machine-typ/" class="md-nav__link">
+        Hashing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Binary/Binary-State-Machine-typ/" class="md-nav__link">
+        Binary
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Memory/memory-state-machine/" class="md-nav__link">
+        Memory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Memory-Align/memory-align-state-machine/" class="md-nav__link">
+        Memory Align
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Complementary/complementary-state-machines/" class="md-nav__link">
+        Complementaries
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Complementary/configuration-file/" class="md-nav__link">
+        Configuration File
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Polygon Hermez 1.0
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Polygon Hermez 1.0" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Polygon Hermez 1.0
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          About
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="About" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/scalability/" class="md-nav__link">
+        Ethereum Scalability and zk-Rollups
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/value-proposition/" class="md-nav__link">
+        Polygon Hermez Value Proposition
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/model/" class="md-nav__link">
+        Polygon Hermez Network Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/security/" class="md-nav__link">
+        Security
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Users
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Users" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Users
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../users/hermez-wallet/" class="md-nav__link">
+        Polygon Hermez Wallet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../users/mainnet/" class="md-nav__link">
+        Polygon Hermez Mainnet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../users/testnet/" class="md-nav__link">
+        Polygon Hermez Testnet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../users/exchanges/" class="md-nav__link">
+        Exchanges
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Developers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Developers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Developers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Developer Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Developer Guide
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accounts" class="md-nav__link">
+    Accounts
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transactions" class="md-nav__link">
+    Transactions
+  </a>
+  
+    <nav class="md-nav" aria-label="Transactions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#l1-transactions" class="md-nav__link">
+    L1 Transactions
+  </a>
+  
+    <nav class="md-nav" aria-label="L1 Transactions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#l1-user-transactions" class="md-nav__link">
+    L1 User Transactions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l1-coordinator-transactions" class="md-nav__link">
+    L1 Coordinator Transactions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l2-transactions" class="md-nav__link">
+    L2 Transactions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transaction-id" class="md-nav__link">
+    Transaction ID
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forging" class="md-nav__link">
+    Forging
+  </a>
+  
+    <nav class="md-nav" aria-label="Forging">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#consensus" class="md-nav__link">
+    Consensus
+  </a>
+  
+    <nav class="md-nav" aria-label="Consensus">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#allocation-of-bids" class="md-nav__link">
+    Allocation of Bids
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protection-mechanisms" class="md-nav__link">
+    Protection Mechanisms
+  </a>
+  
+    <nav class="md-nav" aria-label="Protection Mechanisms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#l1l2-batches" class="md-nav__link">
+    L1/L2 Batches
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coordinator-override" class="md-nav__link">
+    Coordinator Override
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boot-coordinator" class="md-nav__link">
+    Boot Coordinator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slot-grouping" class="md-nav__link">
+    Slot Grouping
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#withdrawal" class="md-nav__link">
+    Withdrawal
+  </a>
+  
+    <nav class="md-nav" aria-label="Withdrawal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hermez-withdrawal-limit" class="md-nav__link">
+    Hermez Withdrawal Limit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#withdrawal-resolution" class="md-nav__link">
+    Withdrawal Resolution
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-new-tokens" class="md-nav__link">
+    Adding New Tokens
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_2" type="checkbox" id="__nav_2_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_2">
+          Protocol
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Protocol" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Protocol
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_2_1" type="checkbox" id="__nav_2_3_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_2_1">
+          Polygon Hermez zkRollup protocol
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Polygon Hermez zkRollup protocol" data-md-level="4">
+        <label class="md-nav__title" for="__nav_2_3_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Polygon Hermez zkRollup protocol
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protocol/hermez-protocol/protocol/" class="md-nav__link">
+        Core protocol
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protocol/hermez-protocol/contracts/contracts/" class="md-nav__link">
+        Smart contracts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protocol/hermez-protocol/circuits/circuits/" class="md-nav__link">
+        Circuits
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protocol/consensus/consensus/" class="md-nav__link">
+        Forging consensus protocol
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protocol/withdrawal-delayer/withdrawal-delayer/" class="md-nav__link">
+        Withdrawal delayer protocol
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sdk/" class="md-nav__link">
+        Examples/SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../batch-explorer/" class="md-nav__link">
+        Batch Explorer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../price-updater/" class="md-nav__link">
+        Polygon Hermez NodePrice Updater
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          FAQ
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="FAQ" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          FAQ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/end-users/" class="md-nav__link">
+        End-Users
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/integrators/" class="md-nav__link">
+        Integrators
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/coordinators/" class="md-nav__link">
+        Coordinators
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/pod/" class="md-nav__link">
+        Proof of Donation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/other/" class="md-nav__link">
+        Other
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accounts" class="md-nav__link">
+    Accounts
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transactions" class="md-nav__link">
+    Transactions
+  </a>
+  
+    <nav class="md-nav" aria-label="Transactions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#l1-transactions" class="md-nav__link">
+    L1 Transactions
+  </a>
+  
+    <nav class="md-nav" aria-label="L1 Transactions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#l1-user-transactions" class="md-nav__link">
+    L1 User Transactions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l1-coordinator-transactions" class="md-nav__link">
+    L1 Coordinator Transactions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l2-transactions" class="md-nav__link">
+    L2 Transactions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transaction-id" class="md-nav__link">
+    Transaction ID
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forging" class="md-nav__link">
+    Forging
+  </a>
+  
+    <nav class="md-nav" aria-label="Forging">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#consensus" class="md-nav__link">
+    Consensus
+  </a>
+  
+    <nav class="md-nav" aria-label="Consensus">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#allocation-of-bids" class="md-nav__link">
+    Allocation of Bids
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protection-mechanisms" class="md-nav__link">
+    Protection Mechanisms
+  </a>
+  
+    <nav class="md-nav" aria-label="Protection Mechanisms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#l1l2-batches" class="md-nav__link">
+    L1/L2 Batches
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coordinator-override" class="md-nav__link">
+    Coordinator Override
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boot-coordinator" class="md-nav__link">
+    Boot Coordinator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slot-grouping" class="md-nav__link">
+    Slot Grouping
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#withdrawal" class="md-nav__link">
+    Withdrawal
+  </a>
+  
+    <nav class="md-nav" aria-label="Withdrawal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hermez-withdrawal-limit" class="md-nav__link">
+    Hermez Withdrawal Limit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#withdrawal-resolution" class="md-nav__link">
+    Withdrawal Resolution
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-new-tokens" class="md-nav__link">
+    Adding New Tokens
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/hermeznetwork/hermez-docs/edit/master/docs/Hermez_1.0/developers/dev-guide.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="developer-guide">Developer Guide</h1>
+<p>This document is an overview of the Hermez Protocol. Its objective is to provide an introduction to developers on the Hermez Protocol so that the use of the tools which interact with Hermez Network, such as <a href="../sdk#dk"><code>HermezJS</code></a> (javascript SDK) and the <a href="../api#api"><code>REST API</code></a>, become simpler.  This document assumes you are familiar with the Ethereum ecosystem and L2 Rollups (in particular ZK-Rollups). </p>
+<p>For a more in depth analysis, read the <a href="../protocol/hermez-protocol/protocol"><code>protocol</code></a> section.</p>
+<p>Hermez smart contracts can be downloaded from <a href="https://github.com/hermeznetwork/contracts"><code>here</code></a>.</p>
+<h2 id="overview">Overview</h2>
+<p>Hermez is a <a href="../glossary#zk-rollup"><code>zk-rollup</code></a> solution that allows scaling payments and token transfers on top of the Ethereum public blockchain. It uses Ethereum for data storage but not for computation. In addition, by using zero-knowledge proofs, it is easy to verify on-chain that computations have been carried out correctly.</p>
+<p>All accounts and balances in Hermez Network are stored off-chain in a <a href="../glossary#state-tree"><code>state tree</code></a>. Incoming user <a href="../glossary#transactions"><code>transactions</code></a> are <a href="../glossary#batch"><code>batched</code></a> together, and through a <a href="../glossary#zk-snark"><code>zk-SNARK</code></a> that proves that those transactions meet certain rules specified in a smart contract, the state tree transitions to a new verifiable valid state.</p>
+<p>The <a href="../glossary#coordinator"><code>coordinator</code></a> is the entity that collects and codifies these transactions, calculates the ZK-SNARK proof and submits the result to the smart contract that validates the transition. Transactions are made public to provide <a href="../glossary#data-availability"><code>data availability</code></a> to the protocol so that anyone can rebuild the state tree from on-chain data.</p>
+<p>Users typically send transactions to Hermez via a wallet. The purpose of this tool is to improve the experience of using Hermez by hiding the internal interactions between the different Hermez components and simplifying the usage. </p>
+<p>The <a href="../glossary#governance"><code>governance</code></a> is the  entity that oversees the sustainability and evolution of the network. Some functions delegated to the governance include the upgrade of smart contracts, the modification of <a href="../glossary#system-parameters"><code>system parameters</code></a>, or the execution of the <a href="#withdrawal"><code>withdrawal delay</code></a> mechanism among others.</p>
+<p>Hermez deploys three main smart contracts:
+1. <strong>Hermez smart contract</strong>: Manages the <a href="../glossary#forging"><code>forging</code></a> stage by checking the zk-proofs provided by the selected coordinator, and updates the state and exit trees. It also interacts with users by collecting L1 transactions and adding them to the transaction queue.
+2. <strong>Consensus smart contract</strong>: Manages the selection of a coordinator node via an auction process.
+3. <strong>WithdrawalDelayer smart contract</strong>: Manages a withdrawal protection mechanism embedded into the system.</p>
+<p>The overall picture of Hermez can be seen in the diagram below.</p>
+<p><img alt="" src="../hermez_zkrollup.png" /></p>
+<p>Users send L1 transactions (such as Create account, Deposit or Withdrawal requests) using a UI. These transactions are collected by the Hermez smart contract and added into a queue of pending transactions.  Users may also send L2 transactions (Transfer, Exit) directly to the coordinator node. The UI hides all the unnecessary complexities from the user, who just selects the type of operation and the input data for a given operation (source account, destination account, amount to transfer,...).
+At the time of processing a batch, the coordinator takes the pending L1 transactions from the Hermez smart contract and the received L2 transactions, and generates a proof showing that these transactions have been carried out correctly. This proof is given to the smart contract that verifies it and updates the state of the network.  In the meantime, an auction process is ongoing to select the coordinator node for a given amount of time. In this auction, nodes bid for the right to forge upcoming batches and thus collecting the fees associated to those transactions. The proceedings of these bids will be sent to different accounts, including a  Gitcoin grants account.</p>
+<p>Hermez functionalities can be summarized in 4 major groups:
+1. Handling L1-user and L2-user transactions
+2. Forging batches
+3. Reaching <a href="../glossary#auction"><code>consensus</code></a> to select a coordinator
+4. Withdrawal of funds.</p>
+<p><img alt="" src="../L1diagram.png" /></p>
+<h2 id="accounts">Accounts</h2>
+<p>Hermez stores accounts as leaves in the Hermez state tree. Each account stores a single type of token. A user may own multiple rollup accounts.</p>
+<p>There are two types of accounts to operate in Hermez Network:
+1. <strong>Regular</strong>: Regular accounts can be used in both L1 and L2 transactions. Regular accounts include an Ethereum and a <a href="../glossary#BabyJubJub"><code>babyjubjub</code></a> public key. An Ethereum key is used to authorize L1 transactions and the Baby Jubjub key is used to authorize L2 transactions. An Ethereum address may authorize the creation of a Regular account containing that same Ethereum address plus a Baby Jubjub public key. Typically, this is done via a UI.</p>
+<ol>
+<li><strong>Internal</strong>: Internal accounts only have a Baby Jubjub key, and thus may only be used in L2 transactions. Since there is no Ethereum address, the account creation does not require an authorization and will only require a Baby Jubjub key.</li>
+</ol>
+<h2 id="transactions">Transactions</h2>
+<p>There are two types of Hermez transactions:
+- <strong>L1 transactions</strong> are those that are executed through the smart contract. These transactions may be started by the user or by the coordinator.
+- <strong>L2 transactions</strong> are those that are executed exclusively on L2.</p>
+<h3 id="l1-transactions">L1 Transactions</h3>
+<p>L1 transactions can be divided in two groups depending the originator of the transaction:
+- <strong>L1 User Transactions</strong>: originate from an Hermez end-user using some form of UI. 
+- <strong>L1 Coordinator Transactions</strong>: originate from the coordinator.</p>
+<h4 id="l1-user-transactions">L1 User Transactions</h4>
+<p>L1 user transactions (L1UserTxs) are received by the smart contract. These transactions are concatenated and added in queues to <a href="#L1L2-Batches"><code>force the coordinator</code></a> to process them as part of the batch. The queue that will be forged in the next L1L2-batch is always frozen, and the L1 Transactions will be added in the following queues. In case a transaction is invalid (e.g. attempts to send an amount greater than the account balance) it will be processed by the circuit but will be nullified.</p>
+<p>This system allows the L1 transactions to be uncensorable</p>
+<p>Examples of L1 User transactions include <code>CreateAccountDeposit</code>, <code>Deposit</code>, <code>DepositTransfer</code>... All the transactions details are handled by the UI.</p>
+<h4 id="l1-coordinator-transactions">L1 Coordinator Transactions</h4>
+<p>L1 Coordinator Transactions (L1CoordinatorTxs) allow the coordinator to create regular or internal <a href="#accounts"><code>accounts</code></a> when forging a batch so that a user can transfer funds to another user that doesn't own an account yet.</p>
+<h3 id="l2-transactions">L2 Transactions</h3>
+<p>L2 transactions (L2Txs) are executed exclusively on L2. Examples of L2 transactions include <code>Transfer</code> of funds between rollup accounts or <code>Exit</code> to transfer funds to the exit tree. All L2 transactions are initiated by the user, who sends the transactions directly to the coordinator via a <a href="../api#api"><code>REST API</code></a>. Depending on the UI capabilities, the user may be able to select among a number of coordinators (the one currently forging, the ones that have already won the right to forge in upcoming slots,...).</p>
+<p>Fees are payed on L2 transactions in the same token used in the transaction. The coordinator collects these fees from up to 64 different tokens per batch. If more than 64 tokens are used in the same batch, no fees will be collected for the excess number of tokens. </p>
+<h3 id="transaction-id">Transaction ID</h3>
+<p>Transaction ID (TxID) allows tracking transactions from the time they are sent to the coordinator to the time they are made available on
+chain.</p>
+<p>TxID is computed differently depending on the type of transaction (L1UserTxs, L1CoordinatorTxs or L2Txs).
+Padding is used to make all TxID (no matter which type) have the same length of 33 bytes.</p>
+<ul>
+<li>TxID on L1UserTx:
+  <code>bytes:   | 1 byte |             32 bytes                |
+                      SHA256(    8 bytes      |  2 bytes )
+  content: |   0    | SHA256([ToForgeL1TxsNum | Position ])</code></li>
+<li>TxID on L1CoordinatorTx:
+  <code>bytes:   | 1 byte |             32 bytes        |
+                      SHA256( 8 bytes  |  2 bytes )
+  content: |   1    | SHA256([BatchNum | Position ])</code></li>
+<li>TxID on L2Tx:
+  <code>bytes:   | 1 byte |             32 bytes        |
+                      SHA256( 6 bytes | 4 bytes | 2 bytes| 5 bytes | 1 byte )
+  content: |   2    | SHA256([FromIdx | TokenID | Amount |  Nonce  | Fee    ])</code></li>
+</ul>
+<h2 id="forging">Forging</h2>
+<p>In this section we will describe how consensus to select a coordinator with the permission to forge batches and collect fees from the processed transactions is reached. We will also describe some of the embedded security mechanisms that discourage these coordinators from acting maliciously.</p>
+<h3 id="consensus">Consensus</h3>
+<p>In Hermez zkRollup, time is divided into slots of a certain duration:
+  - Ethereum Block = ~ 15s.
+  - Slot = 40 Ethereum Blocks ~ 10 min.</p>
+<p><img alt="" src="../consensus-1.png" /></p>
+<p>Hermez reaches a consensus on who will play the role of coordinator by running an auction managed by a smart contract. This auction is held among the existing nodes for every slot. The node that places the highest bid for a given slot while the auction is open will claim the role of coordinator for that slot. </p>
+<p>The coordinator node is allowed to forge batches during the awarded slot, which is the mechanism by which an authorized coordinator processes a batch of transactions, produces a ZK-SNARK attesting to the correctness of the operation and is able to reclaim the processing fees.</p>
+<p>Auction bids are placed only in <a href="../glossary#hez"><code>HEZ</code></a>. The auction of future slots opens up to <strong>S1</strong> slots in advance. Auction closes <strong>S2</strong> slots before the beginning the slot. Tentative <strong>S1</strong> and <strong>S2</strong> values are 1 month and 2 slots respectively. Additionally, these parameters can be changed by governance at any time.</p>
+<p>Bids placed during the auction should be at least greater than the minimal bidding price if it's the first bid in a slot, or a premium bid factor <strong>P</strong> % higher than the previous bid. Both the minimum bidding price and the premium bid factor(<strong>P</strong>) can be modified by the network governance. Tentative values for minimum bid and premium factor are 10 HEZ and 10% respectively. Bids not meeting these conditions will not be valid and bidders will receive their HEZ when the slot is forged.</p>
+<p><img alt="" src="../consensus-2.png" /></p>
+<p><img alt="" src="../consensus-3.png" /></p>
+<h4 id="allocation-of-bids">Allocation of Bids</h4>
+<p>All bids are deposited in the consensus smart contract the moment they are placed. </p>
+<p>Once the slot is forged, the tokens bid are assigned to three different accounts:
+- Part will be <strong>burnt</strong>. 
+- Part will be assigned to a <strong>donations account</strong> with Gitcoin grants, which will decide how to allocate this funds into different projects.
+- Remaining tokens will be allocated to an <strong>incentives account</strong>, compensation active engagement and network adoption.</p>
+<h3 id="protection-mechanisms">Protection Mechanisms</h3>
+<p>There are some rules on how coordinators must process transactions. These rules ensure that a coordinator will behave correctly and efficiently, attempting to forge as many transactions as possible during its allocated slots. </p>
+<h4 id="l1l2-batches">L1/L2 Batches</h4>
+<p>There are 2 types of batches:
+- <strong>L2-batch</strong>: Only L2 transactions are mined.
+- <strong>L1L2-batch</strong>: Both L1 and L2 transactions can be mined. In these batches, the coordinator must forge the last L1 queue.</p>
+<p>In both cases the coordinator may include L1-coordinator-transactions.</p>
+<p>Coordinators must process L1 user transactions periodically. The smart contract establishes a deadline for the L1L2-batches. This deadline indicates the maximum time between two consecutive L1L2 batches. Once this deadline is reached, the coordinator cannot forge any L2 batches until the deadline is reset which only happens after a L1L2 batch is forged.</p>
+<p>This mechanism is summarized in the diagram below.</p>
+<p><img alt="" src="../forgeL1L2.png" /></p>
+<h4 id="coordinator-override">Coordinator Override</h4>
+<p>If for some reason the coordinator of the current slot doesn't forge any batch in the N first available blocks inside the slot, any available coordinator may forge batches without bidding. This maximum idle time is called <strong>Slot deadline</strong>, and defines the amount of time that any coordinator must wait to start forging without bidding, provided that the coordinator that won the current slot action hasn't forged anything during that time.</p>
+<p>This mechanism ensures that as long as there is one honest working coordinator, Hermez Network will be running and all funds will be recoverable. </p>
+<h4 id="boot-coordinator">Boot Coordinator</h4>
+<p>Hermez includes the role of Boot coordinator managed by the network. The Boot coordinator acts as the bootstrap mechanism and its mission is to guarantee that there is always coordinator available in the early stages of the project.</p>
+<h4 id="slot-grouping">Slot Grouping</h4>
+<p>Auction is structured in groups of <strong>6 slots</strong> (i.e, slots are sequentially indexed 0,1,2,3,4,5,0,1,...). Each slot index has an independent minimum bidding price. This grouping allows certain flexibility to the governance to influence behavior of coordinators. If slots are frequently wasted (meaning that elected coordinators chose not to forge batches), governance may increase the minimum bid amount for certain slots to make slot wasting less efficient for coordinators, and thus allowing the boot coordinator to forge the batches.</p>
+<p>When the minimum bidding price is set to <strong>0 HEZ value</strong> for a given slot index, the value will be locked and governance will not be able to modify it anymore for that slot. </p>
+<h2 id="withdrawal">Withdrawal</h2>
+<p>Funds are recovered from Hermez network by executing two transactions back-to-back:
+1. <strong>Exit transaction</strong>: Funds are transferred from the state tree to the exit tree.
+2. <strong>Withdrawal</strong>: Funds are transferred from Hermez smart contract to the user Ethereum address. The limit and rate at which funds can be transferred from the smart contract is regulated by a <a href="https://en.wikipedia.org/wiki/Leaky_bucket"><code>leaky bucket</code></a> algorithm. Depending on the amount of available credits in the smart contract, withdrawal may be instantaneous or delayed.</p>
+<h3 id="hermez-withdrawal-limit">Hermez Withdrawal Limit</h3>
+<p>Withdrawals are classified in one of several buckets depending on the USD amount to be withdrawn. Every bucket contains some amount of credits indicating the maximum amount that can be withdrawn at any point in time. Buckets are re-filled with credits at a specific rate (depending on bucket). When a user attempts to withdraw funds, credits in the selected bucket are subtracted. If the withdrawal amount exceeds the existing value of credits, the instant withdrawal cannot be performed and a delayed withdrawal will be done instead. Delayed withdrawal is handled by the WithdrawalDelayer smart contract.</p>
+<p>Figure below depicts how the different buckets are structured depending on the amount.</p>
+<p><img alt="" src="../buckets.png" /></p>
+<h3 id="withdrawal-resolution">Withdrawal Resolution</h3>
+<p>The amount above the <code>withdrawal limit</code> set by the available credits wont be withdrawn instantly. In this case, excess tokens will be sent to the <code>WithdrawalDelayer</code> smart contract. </p>
+<p>The WithdrawalDelayer smart contract can be in one of two states:
+1. <strong>Normal Mode</strong>: Amount above withdrawal limit is available for withdrawal, but with a delay D. This is the standard state.
+2. <strong>Emergency Mode</strong>: The Hermez Foundation is the only body that may change the 
+WithdrawalDelayer mode to Emergency in case of an attack. In this scenario, funds can only be 
+withdrawn by the governance under the tutelage of an emergency council that will return the funds to the users. </p>
+<h2 id="adding-new-tokens">Adding New Tokens</h2>
+<p>Hermez contains a list with all tokens supported. The following list includes some requirements on the token listing:
+- Tokens must be ERC20
+- Governance can decide the fee cost of adding tokens and therefore can regulate the token listing.
+- There can be up to 2^{32} different tokens.
+- Contracts maintain a list of all tokens registered in the rollup and each token needs to be listed before using it.
+- The token 0 will be reserved for <code>ether</code>
+- A token only can be added once</p>
+<p>The list of supported tokens can be retrieved though the <a href="../developers/api?=api"><code>REST API</code></a> </p>
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../../users/exchanges/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Exchanges" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Exchanges
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../protocol/hermez-protocol/protocol/" class="md-footer__link md-footer__link--next" aria-label="Next: Core protocol" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Core protocol
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://t.me/polygonhermez" target="_blank" rel="noopener" title="t.me" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M248 8C111.033 8 0 119.033 0 256s111.033 248 248 248 248-111.033 248-248S384.967 8 248 8Zm114.952 168.66c-3.732 39.215-19.881 134.378-28.1 178.3-3.476 18.584-10.322 24.816-16.948 25.425-14.4 1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25 5.342-39.5 3.652-3.793 67.107-61.51 68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608 69.142-14.845 10.194-26.894 9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7 18.45-13.7 108.446-47.248 144.628-62.3c68.872-28.647 83.183-33.623 92.511-33.789 2.052-.034 6.639.474 9.61 2.885a10.452 10.452 0 0 1 3.53 6.716 43.765 43.765 0 0 1 .417 9.769Z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/hermeznetwork/hermez-docs" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.tracking"], "search": "../../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.6c7ad80a.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2098 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.hermez.io/zkEVM/Basic-Concepts/simple-state-machine/">
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
+    
+    
+      
+        <title>Simple State Machine - Polygon zkEVM Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.1d29e8d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#7e56c2">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="deep-purple" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#a-simple-state-machine" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Polygon zkEVM Documentation" class="md-header__button md-logo" aria-label="Polygon zkEVM Documentation" data-md-component="logo">
+      
+  <img src="../../../logo-white.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Polygon zkEVM Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Simple State Machine
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hermeznetwork/hermez-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../introduction/" class="md-tabs__link md-tabs__link--active">
+        Polygon zkEVM
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../Hermez_1.0/about/scalability/" class="md-tabs__link">
+        Polygon Hermez 1.0
+      </a>
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Polygon zkEVM Documentation" class="md-nav__button md-logo" aria-label="Polygon zkEVM Documentation" data-md-component="logo">
+      
+  <img src="../../../logo-white.svg" alt="logo">
+
+    </a>
+    Polygon zkEVM Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hermeznetwork/hermez-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Polygon zkEVM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Polygon zkEVM" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Polygon zkEVM
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1" type="checkbox" id="__nav_1_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_1">
+          Basic Concepts
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Basic Concepts" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Basic Concepts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fibonacci/" class="md-nav__link">
+        First Example: Fibonacci
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Simple State Machine
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Simple State Machine
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-simple-state-machine" class="md-nav__link">
+    A Simple State Machine
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#programs-with-conditional-jumps" class="md-nav__link">
+    Programs with Conditional Jumps
+  </a>
+  
+    <nav class="md-nav" aria-label="Programs with Conditional Jumps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#managing-conditional-jumps" class="md-nav__link">
+    Managing Conditional Jumps
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proving-the-execution-of-the-correct-program" class="md-nav__link">
+    Proving the Execution of the "Correct Program"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identities-to-prove-an-execution-trace" class="md-nav__link">
+    Identities to Prove an Execution Trace
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modular-design/" class="md-nav__link">
+        Modular Design
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_2" type="checkbox" id="__nav_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_2">
+          Architecture
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Architecture" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Architecture
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Architecture/zkProver/" class="md-nav__link">
+        zkProver
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3" type="checkbox" id="__nav_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_3">
+          zkASM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="zkASM" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          zkASM
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../zkASM/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../zkASM/basic-syntax/" class="md-nav__link">
+        Basic Syntax
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../zkASM/some-examples/" class="md-nav__link">
+        Some Examples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../zkASM/related-repos/" class="md-nav__link">
+        Related Repositories
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_4">
+          PIL
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PIL" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          PIL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PIL/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PIL/hello-world-examples/" class="md-nav__link">
+        Hello Word Examples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PIL/components/" class="md-nav__link">
+        Components
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PIL/cyclical-nature/" class="md-nav__link">
+        Cyclical Nature
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PIL/modularity/" class="md-nav__link">
+        Modularity
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PIL/advanced-features/" class="md-nav__link">
+        Advanced Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PIL/related-repos/" class="md-nav__link">
+        Related Repositories
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5" type="checkbox" id="__nav_1_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_5">
+          State Machines
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="State Machines" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          State Machines
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../State-Machines/Arithmetic/Arithmetic-State-Machine-typ/" class="md-nav__link">
+        Arithmetic
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../State-Machines/Storage/Storage-State-Machine-typ/" class="md-nav__link">
+        Storage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../State-Machines/Hashing/Hashing-State-Machine-typ/" class="md-nav__link">
+        Hashing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../State-Machines/Binary/Binary-State-Machine-typ/" class="md-nav__link">
+        Binary
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../State-Machines/Memory/memory-state-machine/" class="md-nav__link">
+        Memory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../State-Machines/Memory-Align/memory-align-state-machine/" class="md-nav__link">
+        Memory Align
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../State-Machines/Complementary/complementary-state-machines/" class="md-nav__link">
+        Complementaries
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../State-Machines/Complementary/configuration-file/" class="md-nav__link">
+        Configuration File
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Polygon Hermez 1.0
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Polygon Hermez 1.0" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Polygon Hermez 1.0
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          About
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="About" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/about/scalability/" class="md-nav__link">
+        Ethereum Scalability and zk-Rollups
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/about/value-proposition/" class="md-nav__link">
+        Polygon Hermez Value Proposition
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/about/model/" class="md-nav__link">
+        Polygon Hermez Network Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/about/security/" class="md-nav__link">
+        Security
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Users
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Users" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Users
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/users/hermez-wallet/" class="md-nav__link">
+        Polygon Hermez Wallet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/users/mainnet/" class="md-nav__link">
+        Polygon Hermez Mainnet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/users/testnet/" class="md-nav__link">
+        Polygon Hermez Testnet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/users/exchanges/" class="md-nav__link">
+        Exchanges
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Developers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Developers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Developers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/developers/dev-guide/" class="md-nav__link">
+        Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_2" type="checkbox" id="__nav_2_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_2">
+          Protocol
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Protocol" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Protocol
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_2_1" type="checkbox" id="__nav_2_3_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_2_1">
+          Polygon Hermez zkRollup protocol
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Polygon Hermez zkRollup protocol" data-md-level="4">
+        <label class="md-nav__title" for="__nav_2_3_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Polygon Hermez zkRollup protocol
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/developers/protocol/hermez-protocol/protocol/" class="md-nav__link">
+        Core protocol
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/developers/protocol/hermez-protocol/contracts/contracts/" class="md-nav__link">
+        Smart contracts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/developers/protocol/hermez-protocol/circuits/circuits/" class="md-nav__link">
+        Circuits
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/developers/protocol/consensus/consensus/" class="md-nav__link">
+        Forging consensus protocol
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/developers/protocol/withdrawal-delayer/withdrawal-delayer/" class="md-nav__link">
+        Withdrawal delayer protocol
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/developers/sdk/" class="md-nav__link">
+        Examples/SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/developers/api/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/developers/batch-explorer/" class="md-nav__link">
+        Batch Explorer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/developers/price-updater/" class="md-nav__link">
+        Polygon Hermez NodePrice Updater
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/developers/glossary/" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          FAQ
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="FAQ" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          FAQ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/faq/end-users/" class="md-nav__link">
+        End-Users
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/faq/integrators/" class="md-nav__link">
+        Integrators
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/faq/coordinators/" class="md-nav__link">
+        Coordinators
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/faq/pod/" class="md-nav__link">
+        Proof of Donation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Hermez_1.0/faq/other/" class="md-nav__link">
+        Other
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-simple-state-machine" class="md-nav__link">
+    A Simple State Machine
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#programs-with-conditional-jumps" class="md-nav__link">
+    Programs with Conditional Jumps
+  </a>
+  
+    <nav class="md-nav" aria-label="Programs with Conditional Jumps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#managing-conditional-jumps" class="md-nav__link">
+    Managing Conditional Jumps
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proving-the-execution-of-the-correct-program" class="md-nav__link">
+    Proving the Execution of the "Correct Program"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identities-to-prove-an-execution-trace" class="md-nav__link">
+    Identities to Prove an Execution Trace
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/hermeznetwork/hermez-docs/edit/master/docs/zkEVM/Basic-Concepts/simple-state-machine.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+  <h1>Simple State Machine</h1>
+
+<h2 id="a-simple-state-machine">A Simple State Machine</h2>
+<p>Next we show the arithmetization process of a more complex but yet simple state machine. Our simple state machine transitionates from one state to the following one using the rules of a certain instruction. This machine can be represented as follows:</p>
+<p><img alt="image" src="../figures/simple-state-machine-overview.pdf.png" /></p>
+<p>The following program describes a state machine with two registries <span class="arithmatex">\(\mathtt{A}\)</span> and <span class="arithmatex">\(\mathtt{B}\)</span> that accepts an input:</p>
+<div class="arithmatex">\[\begin{array}{|l|}
+\hline
+\mathbf{Instruction} \\ \hline
+\mathtt{\$\{getInput()\} =&gt; A}\\ \hline
+\mathtt{3 =&gt; B} \\ \hline
+\mathtt{:ADD} \\ \hline
+\mathtt{0 =&gt; A,B} \\ \hline
+\end{array}\]</div>
+<p>The previous program written in an assembly language that is
+read by a program called "the executor".
+The executor generates an execution trace according to each instruction of 
+the assembly program.
+In the previous program, the assembly instructions mean the following:</p>
+<ul>
+<li>
+<p><span class="arithmatex">\(\mathtt{\$\{getInput()\} =&gt; A}\)</span>. It is an instruction that asks for a free input value and saves it into register <span class="arithmatex">\(A\)</span>.</p>
+</li>
+<li>
+<p><span class="arithmatex">\(\mathtt{3 =&gt; B}\)</span>. Moves the value 3 into register <span class="arithmatex">\(\mathtt{B}\)</span>. </p>
+</li>
+<li>
+<p><span class="arithmatex">\(\mathtt{:ADD}\)</span>. Sums the values of the registers <span class="arithmatex">\(\mathtt{A}\)</span> and <span class="arithmatex">\(\mathtt{B}\)</span> and saves the output into register <span class="arithmatex">\(\mathtt{A}\)</span>. </p>
+</li>
+<li>
+<p><span class="arithmatex">\(\mathtt{0 =&gt; A, B}\)</span>. Moves the value 0 into registers <span class="arithmatex">\(\mathtt{A}\)</span> and <span class="arithmatex">\(\mathtt{B}\)</span>. </p>
+</li>
+</ul>
+<p>For example, the execution trace that the executor must generate with free input <span class="arithmatex">\(7\)</span> is the following:</p>
+<div class="arithmatex">\[\begin{array}{|l|c|c|c|c|c|}
+\hline
+\mathbf{Instruction} &amp; \mathtt{free} &amp; \mathtt{A} &amp; \mathtt{A'} &amp; \mathtt{B} &amp; \mathtt{B'} \\ \hline
+\mathtt{\$\{getInput()\} =&gt; A} &amp; 7 &amp; 0 &amp; 7 &amp; 0 &amp; 0 \\ \hline
+\mathtt{3 =&gt; B} &amp; 0 &amp; 7 &amp; 7 &amp; 0 &amp; 3 \\ \hline
+\mathtt{:ADD} &amp; 0 &amp; 7 &amp; 10 &amp; 3 &amp; 3 \\ \hline
+\mathtt{0 =&gt; A,B} &amp; 0 &amp; 10 &amp; 0 &amp; 3 &amp; 0 \\ \hline
+\end{array}\]</div>
+<p>We denote as <span class="arithmatex">\(\mathtt{X'}\)</span> as the next state of the register <span class="arithmatex">\(\mathtt{X}\)</span>, where <span class="arithmatex">\(\mathtt{X} \in \{\mathtt{A}, \mathtt{B}\}\)</span>. </p>
+<p>Now we need to create a proper set of arithmetic constraints to prove the correctness of the execution trace. To achieve this, we add auxiliary states and selectors to express the relations between the next values of registries <span class="arithmatex">\(A\)</span> and <span class="arithmatex">\(B\)</span> as a linear combination of the previous ones
+and these auxiliary states and selectors.
+This is shown in the following figure:</p>
+<p><img alt="image" src="../figures/simple-state-machine.pdf.png" /></p>
+<p>Where we denote:</p>
+<p>a)  <span class="arithmatex">\(\mathtt{inX}^i \in \{0,1\}\)</span>: Selector to include or not <span class="arithmatex">\(X_i\)</span> in
+    the linear combination.</p>
+<p>b)  <span class="arithmatex">\(\mathtt{setX}^i \in \{0,1\}\)</span>: Selector to move or not the result of
+    the linear combination into <span class="arithmatex">\(X_{i+1}\)</span>.</p>
+<p>c) <span class="arithmatex">\(\mathtt{freeIn}^i\)</span> contains the inputs that we can freely choose to execute the program.</p>
+<p>d) <span class="arithmatex">\(\mathtt{const}^i\)</span> contains the fixed values of the instructions.</p>
+<p>Introducing the new auxiliary variables, we have the following extended table:</p>
+<div class="arithmatex">\[
+\scriptsize
+\begin{array}{|l|}
+\hline
+\mathbf{Instruction} \\ \hline
+\mathtt{\$\{getInput()\} =&gt; A} \\ \hline
+\mathtt{3 =&gt; B} \\ \hline
+\mathtt{:ADD} \\ \hline
+\mathtt{0 =&gt; A, B} \\ \hline
+\end{array}
+\hspace{0.1cm}
+\begin{array}{|c|c|c|c|c|c|c|c|}
+\hline
+\texttt{free} &amp; \texttt{const} &amp; \texttt{setB} &amp; \texttt{setA} &amp; \texttt{inFree} &amp; \texttt{selB} &amp; \texttt{selA} \\ \hline
+7 &amp; 0 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\ \hline
+0 &amp; 3 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \hline
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 1 \\ \hline
+0 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\ \hline
+\end{array}
+\hspace{0.1cm}
+\begin{array}{|c|c|c|c|}
+\hline
+\mathtt{A} &amp; \mathtt{A'} &amp; \mathtt{B} &amp; \mathtt{B'} \\ \hline
+0 &amp; 7 &amp; 0 &amp; 0\\ \hline
+7 &amp; 7 &amp; 0 &amp; 3\\ \hline
+7 &amp; 10 &amp; 3 &amp; 3\\ \hline
+10 &amp; 0 &amp; 3 &amp; 0\\ \hline
+\end{array}
+\]</div>
+<p>Henceforth, the relations between the states of the registries can be expressed algebraically as follows: </p>
+<div class="arithmatex">\[\begin{aligned}
+&amp;\mathtt{A}^{i+1} = \mathtt{A}^i + \mathtt{setA}^i \cdot (\mathtt{selA}^i \cdot \mathtt{A}^i + \mathtt{selB}^i \cdot \mathtt{B^i} + \mathtt{inFree}^i \cdot \mathtt{free}^i + \mathtt{const}^i - \mathtt{A}^i), \\
+&amp;\mathtt{B}^{i+1} = \mathtt{B}^i + \mathtt{setB}^i \cdot (\mathtt{selA}^i \cdot \mathtt{A}^i + \mathtt{selB}^i \cdot \mathtt{B}^i + \mathtt{inFree}^i \cdot \mathtt{free}^i + \mathtt{const}^i - \mathtt{B}^i).\\
+\end{aligned}\]</div>
+<p>Let's represent the states of these registries for four steps as polynomials <span class="arithmatex">\(\mathtt{A}, \mathtt{B} \in \mathbb{Z}_p[x]\)</span> evaluated on the subgroup <span class="arithmatex">\(H = \{\omega, \omega^2, \omega^3, \omega^4 = 1\}\)</span>, in order to produce a cyclic relation:</p>
+<div class="arithmatex">\[\begin{aligned}
+&amp;\mathtt{A}(x\omega) = \mathtt{A}(x) + \mathtt{setA}(x) \cdot (\mathtt{selA}(x) \cdot \mathtt{A}(x) + \mathtt{selB}(x) \cdot \mathtt{B}(x) + \mathtt{inFree}(x) \cdot \mathtt{free}(x) + \mathtt{const}(x) - \mathtt{A}(x)), \\
+&amp;\mathtt{B}(x\omega) = \mathtt{B}(x) + \mathtt{setB}(x) \cdot (\mathtt{selA}(x) \cdot \mathtt{A}(x) + \mathtt{selB}(x) \cdot \mathtt{B}(x) + \mathtt{inFree}(x) \cdot \mathtt{free}(x) + \mathtt{const}(x) - \mathtt{B}(x)).
+\end{aligned}\]</div>
+<p>Observe that the program is completely described by the constant (and public) polynomials <span class="arithmatex">\(\mathtt{selA(x)}\)</span>, <span class="arithmatex">\(\mathtt{selB(x)}\)</span>, <span class="arithmatex">\(\mathtt{setA(x)}\)</span>, <span class="arithmatex">\(\mathtt{setB(x)}\)</span>, <span class="arithmatex">\(\mathtt{inFree(x)}\)</span> and <span class="arithmatex">\(\mathtt{const(x)}\)</span>.</p>
+<p>The polynomial <span class="arithmatex">\(\mathtt{free}(x)\)</span> can be public or committed and by changing this polynomial, we can proof different executions for different initial conditions for the same "program".</p>
+<p>In our previous program, we can provide a result of the execution by giving <span class="arithmatex">\(A(\omega^4)\)</span>.</p>
+<p>Notice that the last instruction resets the states' values and "glues" the last instruction with the first one, achieving a cycle.</p>
+<h2 id="programs-with-conditional-jumps">Programs with Conditional Jumps</h2>
+<p>We are going to add the instruction <span class="arithmatex">\(\mathtt{JMPZ}\)</span> to our assembly. <span class="arithmatex">\(\mathtt{JMPZ}\)</span> jumps to a specified position in the program if the preceding state of the register <span class="arithmatex">\(\mathtt{A}\)</span> is zero. </p>
+<p>In the next program, <span class="arithmatex">\(\mathtt{JMPZ}\)</span> will jump to position <span class="arithmatex">\(5\)</span> if the previous result of <span class="arithmatex">\(\mathtt{A + B}\)</span> (which is actually stored in the register <span class="arithmatex">\(\mathtt{A}\)</span>) is <span class="arithmatex">\(0\)</span>: </p>
+<div class="arithmatex">\[
+\begin{array}{|c|l|}
+\hline
+\textbf{Position} &amp; \mathbf{Instruction} \\ \hline
+0 &amp; \mathtt{\$\{getInput()\} =&gt; A}  \\ \hline
+1 &amp; \mathtt{-3 =&gt; B} \\ \hline
+2 &amp; \mathtt{:ADD} \\ \hline
+3 &amp; \mathtt{:JMPZ(5)} \\ \hline 
+4 &amp; \mathtt{:ADD} \\ \hline
+5 &amp; \mathtt{0 =&gt; A, B} \\ \hline
+\end{array}
+\]</div>
+<p><em>Note: We will discuss later on how to introduce negative values into our program.</em></p>
+<p>In programs with conditional jumps, our previous model will not work, because the flow of the program may vary depending on the values of the input.</p>
+<p>As it can be seen next, with conditional jumps, the length of the execution trace is <strong>not constant</strong> (it depends on the free input):</p>
+<div class="arithmatex">\[\scriptsize
+\begin{array}{|l|c|c|c|c|c|}
+\hline
+\mathbf{Instruction} &amp; \mathtt{free} &amp; \mathtt{A} &amp; \mathtt{A'} &amp; \mathtt{B} &amp; \mathtt{B'} \\ \hline
+\mathtt{\$\{getInput()\} =&gt; A} &amp; 7 &amp; 0 &amp; 7 &amp; 0 &amp; 0 \\ \hline
+\mathtt{-3 =&gt; B} &amp; 0 &amp; 7 &amp; 7 &amp; 0 &amp; -3 \\ \hline
+\mathtt{:ADD} &amp; 0 &amp; 7 &amp; 4 &amp; -3 &amp; -3 \\ \hline
+\mathtt{:JMPZ(5)} &amp; 0 &amp; 4 &amp; 4 &amp; -3 &amp; -3 \\ \hline
+\mathtt{:ADD} &amp; 0 &amp; 4 &amp; 1 &amp; -3 &amp; -3 \\ \hline
+\mathtt{0 =&gt; A, B} &amp; 0 &amp; 1 &amp; 0 &amp; -3 &amp; 0 \\ \hline
+\end{array}\]</div>
+<div class="arithmatex">\[\scriptsize
+\begin{array}{|l|c|c|c|c|c|}
+\hline
+\mathbf{Instruction} &amp; \mathtt{free} &amp; \mathtt{A} &amp; \mathtt{A'} &amp; \mathtt{B} &amp; \mathtt{B'} \\ \hline
+\mathtt{\$\{getInput()\} =&gt; A} &amp; 3 &amp; 0 &amp; 3 &amp; 0 &amp; 0 \\ \hline
+\mathtt{-3 =&gt; B} &amp; 0 &amp; 3 &amp; 3 &amp; 0 &amp; -3 \\ \hline
+\mathtt{:ADD} &amp; 0 &amp; 3 &amp; 0 &amp; -3 &amp; -3 \\ \hline
+\mathtt{:JMPZ(5)} &amp; 0 &amp; 0 &amp; 0 &amp; -3 &amp; -3 \\ \hline
+\mathtt{0 =&gt; A, B} &amp; 0 &amp; 0 &amp; 0 &amp; -3 &amp; 0 \\ \hline
+\end{array}\]</div>
+<p>The first execution is done in 6 steps, meanwhile the second one has been done in 5 steps. </p>
+<h3 id="managing-conditional-jumps">Managing Conditional Jumps</h3>
+<p>Now, let us introduce a new model to manage a program that contains conditional jumps.</p>
+<p><img alt="image" src="../figures/simple-state-machine-overview-PC.pdf.png" /></p>
+<p>To do this, we need to add the <strong>Program Counter (PC)</strong>. The <span class="arithmatex">\(\mathtt{PC}\)</span> is a special registry that contains the position of the instruction in the program being executed.</p>
+<p>We use <span class="arithmatex">\(\texttt{op}_i\)</span> as a shorthand for the linear combination of our state machine to simplify the forthcoming constraints:
+$$
+\mathtt{op}^i := \mathtt{setA}^i \cdot \mathtt{A}^i + \mathtt{setB}^i \cdot \mathtt{B}^i + \mathtt{inFree}^i \cdot \mathtt{free}^i + \mathtt{const}^i.
+$$</p>
+<p><img alt="image" src="../figures/simple-state-machine-op.pdf.png" /></p>
+<p>The <span class="arithmatex">\(\mathtt{JMPZ}\)</span> instruction will jump to the instruction <span class="arithmatex">\(\texttt{addr}^i\)</span> (specified by the <span class="arithmatex">\(\mathtt{JMPZ}\)</span> instruction) if <span class="arithmatex">\(\texttt{op}^i\)</span> is zero. Let us first develop some procedure to check if our operation is or not zero in <span class="arithmatex">\(\mathbb{Z}_p\)</span>: </p>
+<p>To check that a number in the field <span class="arithmatex">\(\mathbb{Z}_p\)</span> is zero, we use the fact that a number <span class="arithmatex">\(a\)</span> has a multiplicative inverse <span class="arithmatex">\(a^{-1}\)</span> if and only if <span class="arithmatex">\(a \neq 0\)</span>. </p>
+<p>Using this fact, we use the following definition and constraint to do the <span class="arithmatex">\(\mathtt{isZero}\)</span> check:</p>
+<div class="arithmatex">\[\begin{aligned}
+&amp;\mathtt{isZero}^i := 1 - \mathtt{op}^i \cdot (\mathtt{op}^i)^{-1}, \\
+&amp;\mathtt{isZero}^i \cdot \mathtt{op}^i = 0.
+\end{aligned}\]</div>
+<p>We can proof that the previous equations describe the desired check by case examination where <span class="arithmatex">\(a \neq 0\)</span>
+and <span class="arithmatex">\(\alpha, \beta \in \mathbb{Z}_p\)</span>:</p>
+<p><span class="arithmatex">\(\mathtt{op}^i = 0,~(\mathtt{op}^i)^{-1} = \alpha,~\mathtt{isZero}^i = 1\)</span> <strong>passes</strong> the definition and constraint,</p>
+<p><span class="arithmatex">\(\mathtt{op}^i = a,~(\mathtt{op}^i)^{-1} = a^{-1},~\mathtt{isZero}^i = 0\)</span> <strong>passes</strong> the definition and constraint.</p>
+<p><span class="arithmatex">\(\mathtt{op}^i = 0,~(\mathtt{op}^i)^{-1} = \alpha,~\mathtt{isZero}^i \neq 1\)</span> <strong>does not pass</strong> the definition of <span class="arithmatex">\(\mathtt{isZero}\)</span>.</p>
+<p><span class="arithmatex">\(\mathtt{op}^i = a,~(\mathtt{op}^i)^{-1} = \beta,~\mathtt{isZero}^i \neq 0\)</span> <strong>does not pass</strong> the definition and constraint, 
+either you consider <span class="arithmatex">\(\beta = 0\)</span>, <span class="arithmatex">\(\beta = a^{-1}\)</span> or <span class="arithmatex">\(\beta \neq a^{-1}\)</span>.</p>
+<p>We can mix the two equations into just one constraint:
+$$
+\mathtt{isZero}^i \cdot \mathtt{op}^i = 0,~~\mathtt{isZero}^i = 1 - \mathtt{op}^i \cdot (\mathtt{op}^i)^{-1}~~\rightarrow~~(1 - \mathtt{op}^i \cdot (\mathtt{op}^i)^{-1}) \cdot \mathtt{op}^i = 0.
+$$</p>
+<p>Let us introduce the following machinery to our setup in order to introduce jumps:</p>
+<!-- TODO: We should change this picture to invert i and -1 -->
+<p><img alt="image" src="../figures/simple-state-machine-jump.pdf.png" /></p>
+<p>We add a selector <span class="arithmatex">\(\texttt{jmpz}^i \in \{0,1\}\)</span> to our state machine to code the <span class="arithmatex">\(\mathtt{JMPZ}\)</span> instruction and express the behaviour of the <strong>PC</strong>. Then, the set of constraints is the following:</p>
+<div class="arithmatex">\[\begin{aligned}
+&amp;\mathtt{op}^i := \mathtt{setA}^i \cdot \mathtt{A}^i + \mathtt{setB}^i \cdot \mathtt{B}^i + \mathtt{inFree}^i \cdot \mathtt{free}^i + \mathtt{const}^i, \\
+&amp;\mathtt{PC}^{i+1} = \mathtt{PC}^i + 1 + \mathtt{jmpz}^i \cdot (1 - \mathtt{op}^i \cdot (\mathtt{op}^i)^{-1}) \cdot (\mathtt{addr}^i  - \mathtt{PC}^i - 1),\\
+&amp;(1 - \mathtt{op}^i \cdot (\mathtt{op}^i)^{-1}) \cdot \mathtt{op}^i = 0.
+\end{aligned}\]</div>
+<p>Observe that:</p>
+<ol>
+<li>If <span class="arithmatex">\(\mathtt{op}^i \neq 0\)</span>, then <span class="arithmatex">\((1 - \mathtt{op}^i \cdot (\mathtt{op}^i)^{-1}) = 0\)</span> and hence <span class="arithmatex">\(\mathtt{PC}^{i+1} = \mathtt{PC}^i + 1\)</span>; </li>
+<li>If <span class="arithmatex">\(\mathtt{op}^i = 0\)</span>, then <span class="arithmatex">\((1 - \mathtt{op}^i \cdot (\mathtt{op}^i)^{-1}) = 1\)</span> and hence <span class="arithmatex">\(\mathtt{PC}^{i+1} = \mathtt{PC}^i + 1 + \mathtt{addr}^i  - \mathtt{PC}^i - 1 = \mathtt{addr}^i\)</span>.</li>
+</ol>
+<p>This is exactly the wanted behaviour.</p>
+<p>Next, we show the execution traces for the free inputs 7 and 3 respectively:</p>
+<div class="arithmatex">\[
+\tiny
+\begin{array}{|l|}
+\hline
+\mathbf{Instruction} \\ \hline
+\mathtt{\$\{getInput()\} =&gt; A} \\ \hline
+\mathtt{-3 =&gt; B} \\ \hline
+\mathtt{:ADD} \\ \hline
+\mathtt{:JMPZ(5)} \\ \hline
+\mathtt{:ADD} \\ \hline
+\mathtt{0 =&gt; A, B, PC} \\ \hline
+\end{array}
+\hspace{0.1cm}
+\begin{array}{|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\texttt{free} &amp; \textbf{const} &amp; \texttt{addr} &amp; \texttt{jmpz} &amp; \texttt{setB} &amp; \texttt{setA} &amp; \texttt{inFree} &amp;  \texttt{selB} &amp; \texttt{selA} &amp; \texttt{op} &amp; \texttt{invOp} \\ \hline
+7 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 7 &amp; 7^{-1} \\ \hline
+0 &amp; -3 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; -3 &amp; (-3)^{-1} \\ \hline
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 1 &amp; \mathbf{\color{blue!75!black} 4} &amp; \mathbf{\color{blue!75!black} 4^{-1}} \\ \hline
+0 &amp; 0 &amp; 5 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \hline
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 1 &amp; 1 &amp; 1 \\ \hline
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \hline
+\end{array}
+\hspace{0.1cm}
+\begin{array}{|c|c|c|c|c|c|}
+\hline
+\mathtt{PC} &amp; \mathtt{PC'} &amp; \mathtt{A} &amp; \mathtt{A'} &amp; \mathtt{B} &amp; \mathtt{B'} \\ \hline
+0 &amp; 1 &amp; 0 &amp; 7 &amp; 0 &amp; 0\\ \hline
+1 &amp; 2 &amp; 7 &amp; 7 &amp; 0 &amp; -3\\ \hline
+2 &amp; 3 &amp; 7 &amp; 4 &amp; -3 &amp; -3\\ \hline
+3 &amp; 4 &amp; 4 &amp; 4 &amp; -3 &amp; -3\\ \hline
+4 &amp; 5 &amp; 4 &amp; 1 &amp; -3 &amp; -3\\ \hline
+5 &amp; 0 &amp; 1 &amp; 0 &amp; -3 &amp; 0\\ \hline
+\end{array}
+\]</div>
+<div class="arithmatex">\[
+\tiny
+\begin{array}{|l|}
+\hline
+\mathbf{Instruction} \\ \hline
+\mathtt{\$\{getInput()\} =&gt; A} \\ \hline
+\mathtt{-3 =&gt; B} \\ \hline
+\mathtt{:ADD} \\ \hline
+\mathtt{:JMPZ(5)} \\ \hline
+\mathtt{0 =&gt; A, B} \\ \hline
+\end{array}
+\hspace{0.1cm}
+\begin{array}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\texttt{free} &amp; \texttt{const} &amp; \texttt{addr} &amp; \texttt{jmpz} &amp; \texttt{setB} &amp; \texttt{setA} &amp; \texttt{inFree} &amp;  \texttt{selB} &amp; \texttt{selA} &amp; \texttt{op} &amp; \texttt{invOp} \\ \hline
+3 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 3 &amp; 3^{-1} \\ \hline
+0 &amp; -3 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; -3 &amp; (-3)^{-1} \\ \hline
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 1 &amp; \mathbf{\color{blue!75!black} 0} &amp; \mathbf{\color{blue!75!black} \alpha} \\ \hline
+0 &amp; 0 &amp; 5 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \hline
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \hline
+\end{array}
+\hspace{0.1cm}
+\begin{array}{|c|c|c|c|c|c|}
+\hline
+\mathtt{PC} &amp; \mathtt{PC'} &amp; \mathtt{A} &amp; \mathtt{A'} &amp; \mathtt{B} &amp; \mathtt{B'} \\ \hline
+0 &amp; 1 &amp; 0 &amp; 3 &amp; 0 &amp; 0\\ \hline
+1 &amp; 2 &amp; 3 &amp; 3 &amp; 0 &amp; -3\\ \hline
+2 &amp; 3 &amp; 3 &amp; 0 &amp; -3 &amp; -3\\ \hline
+3 &amp; 5 &amp; 3 &amp; 0 &amp; -3 &amp; -3\\ \hline
+5 &amp; 0 &amp; 0 &amp; 0 &amp; -3 &amp; 0\\ \hline
+\end{array}
+\]</div>
+<p>Note that we use <span class="arithmatex">\(\mathtt{invOp}\)</span> for the column containing the inverses of <span class="arithmatex">\(\mathtt{op}\)</span>.</p>
+<p>Note also that the <span class="arithmatex">\(\mathtt{PC}\)</span> turns to be an important registry when jumps are included in the set of possible instructions because jumps can modify the sequence of instructions that is executed also known as "the trace".</p>
+<p>Now, our polynomials are definitely not preprocessed, this is because the values of the table will not only depend on the program, but also on the free input values. Hence, we need to ensure that we are verifying the correct program. </p>
+<h3 id="proving-the-execution-of-the-correct-program">Proving the Execution of the "Correct Program"</h3>
+<p>Up to now, we can prove that each instruction is correctly executed, but, how do we prove that we are executing the correct set of instructions, that is to say, that we are executing the "correct program"?
+The solution seems obvious: Check that every executed instruction is some instruction in the program,
+but how do we do this in a succinct manner?</p>
+<p>To do so, we have to provide <strong>a codification for each instruction</strong> and then we will check that the codification of the execution's instructions is included in the codification of the program's instructions.</p>
+<p>Let's begin showing how to encode the constant values of our instructions. As a particular example, consider that we want to use signed integers of 4 bits (in the real machine, we will use an analogous 32 bits codification).
+The four bit codification is shown next: </p>
+<div class="arithmatex">\[\begin{array}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+-8 &amp; -7 &amp; -6 &amp; ... &amp; -2 &amp; -1 &amp; 0 &amp; 1 &amp; 2 &amp; ... &amp; 6 &amp; 7 &amp; 8 \\ \hline
+1000 &amp; 1001 &amp; 1010 &amp; ... &amp; 1110 &amp; 1111 &amp; 0000 &amp; 0001 &amp; 0010 &amp; ... &amp; 0110 &amp; 0111 &amp; 1000 \\ \hline
+\end{array}\]</div>
+<p>Notice that with this arithmetic <span class="arithmatex">\(8=-8\)</span>, which is a weird case that we discard, using only values from -7 to 7.
+Then, we encode these values in elements of the field <span class="arithmatex">\(\mathbb{Z}_p\)</span>:</p>
+<div class="arithmatex">\[\begin{array}{|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+-7 &amp; -6 &amp; ... &amp; -2 &amp; -1 &amp; 0 &amp; 1 &amp; 2 &amp; ...&amp; 6 &amp; 7 \\ \hline
+p-7 &amp; p-6 &amp; ... &amp; p-2 &amp; p-1 &amp; 0 &amp; 1 &amp; 2 &amp; ...&amp; 6 &amp; 7  \\ \hline
+\end{array}\]</div>
+<p>So, we have to enforce that <span class="arithmatex">\(\mathsf{const}(x) \in \{p-7, p-6, ..., p-2, p-1, 0,1,2, ..., 6, 7\}\)</span>.</p>
+<p>We enforce the previous condition with the following equivalent inclusion: </p>
+<div class="arithmatex">\[\mathsf{const}(x) + 7 \in \{0,1,2,...,14\}\]</div>
+<p>Hence, we will use <span class="arithmatex">\(\mathsf{const}(x) + 7\)</span> in base <span class="arithmatex">\(2\)</span> instead of <span class="arithmatex">\(\mathsf{const}(x)\)</span> to encode our instruction, just to avoid the sum. </p>
+<p>Let's now explain how to encode every <strong>distinct</strong> instruction to be executed by the program: </p>
+<!-- TODO: Complete this table.  -->
+<div class="arithmatex">\[
+\scriptsize
+\begin{array}{|c|l|}
+\hline
+\mathbf{Instruction} \\ \hline
+\mathtt{\$\{getInput()\} =&gt; A} \\ \hline
+\mathtt{-3 =&gt; B} \\ \hline
+\mathtt{:ADD} \\ \hline
+\mathtt{:JMPZ(5)} \\ \hline
+\mathtt{:ADD} \\ \hline
+\mathtt{0 =&gt; A, B, PC} \\ \hline
+\end{array}
+\hspace{0.1cm}
+\begin{array}{|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\mathbf{\color{blue!75!black} \texttt{const+7}} &amp; \texttt{addr} &amp; \texttt{jmpz} &amp; \texttt{setB} &amp; \texttt{setA} &amp; \texttt{inFree} &amp; \texttt{selB} &amp; \texttt{selA} &amp; \texttt{instruction} \\ \hline
+\mathbf{\color{blue!75!black} 7} &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0111.0000.001100 \\ \hline
+\mathbf{\color{blue!75!black} 4} &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0100.0000.010000 \\ \hline
+\mathbf{\color{blue!75!black} 7} &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 1 &amp; 0111.0000.001011\\ \hline
+\mathbf{\color{blue!75!black} 7} &amp; 5 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0111.0101.100000 \\ \hline
+\mathbf{\color{blue!75!black} 7} &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 1 &amp; 0111.0000.001011 \\ \hline
+\mathbf{\color{blue!75!black} 7} &amp; 0 &amp; 1 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0111.0000.111000 \\ \hline
+\end{array}
+\]</div>
+<p>Observe that we have codified the instruction using the following rule:
+$$
+\texttt{instruction}^i := 2^{10}\cdot(\texttt{const}^i + 7) + 2^6\cdot \texttt{addr}^i + 2^5\cdot \texttt{jmpz}^i + 2^4 \cdot \texttt{setB}^i + 2^3 \cdot \texttt{setA}^i + 2^2 \cdot \texttt{inFree}^i + 2 \cdot \texttt{selB}^i + \texttt{selA}^i.
+$$</p>
+<p>That is, we are codifying it as the concatenated base <span class="arithmatex">\(2\)</span> integer of all the values (in the order of appearance on the table).</p>
+<p>Note that additionally, we will need to check that the selectors are binary and that <span class="arithmatex">\(\texttt{addr}\)</span> is composed of <span class="arithmatex">\(4\)</span> bits, i.e., <span class="arithmatex">\(\texttt{addr}^i \in \{0, 1, \dots, 15\}\)</span></p>
+<p>Also observe that, when <span class="arithmatex">\(\texttt{const}^i+7 = 7\)</span>, this means that <span class="arithmatex">\(\texttt{const}^i = 0\)</span>, so the constant is not used in those cases. </p>
+<p>Now, to prove the program, every instruction will be uniquely identified by its code and position in the program (we also use 4 bits in this example for the position).</p>
+<p>We define the <span class="arithmatex">\(\mathtt{ROM}\)</span> of the program as the sum between every instruction and the position in which it is defined:
+$$
+\texttt{ROM}^i := 2^{14}  \cdot \texttt{position}^i + \texttt{instruction}^i.
+$$</p>
+<p>Observe that the <span class="arithmatex">\(\mathtt{ROM}\)</span> uniquely identifies the program we want to verify and it is independent of the different possible executions. </p>
+<p>The resulting <span class="arithmatex">\(\mathtt{ROM}\)</span> of our program is the following:</p>
+<div class="arithmatex">\[
+\begin{array}{|c|c|}
+\hline
+\texttt{position} &amp; \mathbf{Instruction} \\ \hline
+0 &amp; \mathtt{\$\{getInput()\} =&gt; A} \\ \hline
+1 &amp; \mathtt{-3 =&gt; B} \\ \hline
+2 &amp; \mathtt{:ADD} \\ \hline
+3 &amp; \mathtt{:JMPZ(5)} \\ \hline
+4 &amp; \mathtt{:ADD} \\ \hline
+5 &amp; \mathtt{0 =&gt; A, B, PC} \\ \hline
+\end{array}
+\hspace{0.1cm}
+\begin{array}{|c|}
+\hline
+\texttt{ROM} \\ \hline
+0111.0000.001100 \\ \hline
+0100.0000.010000 \\ \hline
+0111.0000.001011\\ \hline
+0111.0101.100000 \\ \hline
+0111.0000.001011 \\ \hline
+0111.0000.111000 \\ \hline
+\end{array}
+\]</div>
+<p>We will encode the program trace using the PC:</p>
+<div class="arithmatex">\[
+\scriptsize
+\begin{array}{|c|c|c|c|c|c|}
+\hline
+\mathtt{PC} \\ \hline
+0 \\ \hline
+1 \\ \hline
+2 \\ \hline
+3 \\ \hline
+4 \\ \hline
+5 \\ \hline
+\end{array}
+\hspace{0.1cm}
+\begin{array}{|c|c|c|}
+\hline
+\mathtt{position} &amp; \mathbf{Instruction} \\ \hline
+0 &amp; \mathtt{\$\{getInput()\} =&gt; A} \\ \hline
+1 &amp; \mathtt{-3 =&gt; B} \\ \hline
+2 &amp; \mathtt{:ADD} \\ \hline
+3 &amp; \mathtt{:JMPZ(5)} \\ \hline
+4 &amp; \mathtt{:ADD} \\ \hline
+5 &amp; \mathtt{0 =&gt; A, B, PC} \\ \hline
+\end{array}
+\hspace{0.1cm}
+\begin{array}{|c|c|c|c|c|c|c|c|c|}
+\hline
+\texttt{const+7} &amp; \texttt{addr} &amp; \texttt{jmpz} &amp; \texttt{setB} &amp; \texttt{setA} &amp; \texttt{inFree} &amp;  \texttt{selB} &amp; \texttt{selA} \\ \hline
+7 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\ \hline
+4 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \hline
+7 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 1 \\ \hline
+7 &amp; 5 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \hline
+7 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 1 \\ \hline
+7 &amp; 0 &amp; 1 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\ \hline
+\end{array}
+\hspace{0.1cm}
+\begin{array}{|c|c|c|c|c|c|}
+\hline
+\mathtt{insTrace} \\ \hline
+0000.0111.0000.001100 \\ \hline
+0001.0100.0000.010000 \\ \hline
+0010.0111.0000.001011\\ \hline
+0011.0111.0101.100000 \\ \hline
+0100.0111.0000.001011 \\ \hline
+0101.0111.0000.111000 \\ \hline
+\end{array}
+\]</div>
+<div class="arithmatex">\[
+\scriptsize
+\begin{array}{|c|c|c|c|c|c|}
+\hline
+\mathtt{PC} \\ \hline
+0 \\ \hline
+1 \\ \hline
+2 \\ \hline
+3 \\ \hline
+5 \\ \hline
+\end{array}
+\hspace{0.1cm}
+\begin{array}{|c|c|c|}
+\hline
+\mathtt{position} &amp; \mathbf{Instruction} \\ \hline
+0 &amp; \mathtt{\$\{getInput()\} =&gt; A} \\ \hline
+1 &amp; \mathtt{-3 =&gt; B} \\ \hline
+2 &amp; \mathtt{:ADD} \\ \hline
+3 &amp; \mathtt{:JMPZ(5)} \\ \hline
+4 &amp; \mathtt{0 =&gt; A, B, PC} \\ \hline
+\end{array}
+\hspace{0.1cm}
+\begin{array}{|c|c|c|c|c|c|c|c|c|}
+\hline
+\texttt{const+7} &amp; \texttt{addr} &amp; \texttt{jmpz} &amp; \texttt{setB} &amp; \texttt{setA} &amp; \texttt{inFree} &amp;  \texttt{selB} &amp; \texttt{selA} \\ \hline
+7 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\ \hline
+4 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \hline
+7 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 1 \\ \hline
+7 &amp; 5 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \hline
+7 &amp; 0 &amp; 1 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\ \hline
+\end{array}
+\hspace{0.1cm}
+\begin{array}{|c|c|c|c|c|c|}
+\hline
+\mathtt{insTrace} \\ \hline
+0000.0111.0000.001100 \\ \hline
+0001.0100.0000.010000 \\ \hline
+0010.0111.0000.001011\\ \hline
+0011.0111.0101.100000 \\ \hline
+0101.0111.0000.111000 \\ \hline
+\end{array}
+\]</div>
+<p>Recall that our main question was: <strong>How do we actually check correctness in an efficient manner?</strong></p>
+<p>We can achieve it with the <a href="https://eprint.iacr.org/2020/315.pdf">Plookup</a> protocol. So, to check that the correct program is being executed, we simply have to use Plookup to determine if:</p>
+<div class="arithmatex">\[\mathsf{insTrace(x)} \subset \mathsf{ROM(x)}\]</div>
+<p>In words, the trace being executed is an execution of the actual program if the instruction trace is contained in the ROM of the program.</p>
+<h3 id="identities-to-prove-an-execution-trace">Identities to Prove an Execution Trace</h3>
+<p>As a summary, we have seen that the following set of identities are used to define our program:</p>
+<div class="arithmatex">\[\begin{aligned}
+&amp;\mathsf{A}(x\omega) = \mathsf{A}(x) + \mathsf{setA}(x) \cdot (\mathsf{op}(x) - \mathsf{A}(x)), \\
+&amp;\mathsf{B}(x\omega) = \mathsf{B}(x) + \mathsf{setB}(x) \cdot (\mathsf{op}(x) - \mathsf{B}(x)), \\
+&amp;\mathsf{PC}(x\omega) = \mathsf{PC}(x) + 1 + \mathsf{jmpz}(x) \cdot (1 - \mathsf{op}(x) \cdot \mathsf{invOp}(x)) \cdot (\mathsf{addr}(x)  - \mathsf{PC}(x) - 1), \\
+&amp;(1 - \mathsf{op}(x) \cdot \mathsf{invOp}(x)) \cdot \mathsf{op}(x) = 0.
+\end{aligned}\]</div>
+<p>With the following definition:
+$$
+\mathsf{op}(x) := \mathsf{selA}(x) \cdot \mathsf{A}(x) + \mathsf{selB}(x) \cdot \mathsf{B}(x) + \mathsf{inFree}(x) \cdot \mathsf{free}(x) + \mathsf{const}(x).
+$$</p>
+<p>Moreover, we should add the following Plookup checks: </p>
+<div class="arithmatex">\[\begin{aligned}
+&amp;\textsf{const}(x) + 7 \subset \{0,1, \dots, 14\},\\
+&amp;\mathsf{addr}(x) \subset \{0,1, \dots, 15\},\\
+&amp;\mathsf{position}(x) \subset \{0,1, \dots, 15\},\\
+&amp;\mathsf{PC}(x) \subset \{0,1, \dots, 15\},\\
+&amp;\textsf{insTrace}(x) \subset \textsf{ROM}(x).
+\end{aligned}\]</div>
+<p>With the following definitions:</p>
+<div class="arithmatex">\[\begin{aligned}
+&amp;\textsf{instruction}(x) := 2^{10}\cdot(\textsf{const}(x) + 7) + 2^6\cdot \textsf{addr}(x) + 2^5\cdot \textsf{jmpz}(x) + 2^4 \cdot \textsf{setB}(x) + \\ 
+&amp;\qquad \qquad \qquad \quad~~2^3 \cdot \textsf{setA}(x) + 2^2 \cdot \textsf{inFree}(x) + 2 \cdot \textsf{selB}(x) + \textsf{selA}(x),\\
+&amp;\textsf{ROM}(x) := 2^{14}  \cdot \textsf{position}(x) + \textsf{instruction}(x), \\
+&amp;\textsf{insTrace}(x) := 2^{14}  \cdot \textsf{PC}(x) + \textsf{instruction}(x).
+\end{aligned}\]</div>
+<p>Finally, it should be checked that the whole set of selectors are, in fact, binary:</p>
+<div class="arithmatex">\[\begin{aligned}
+&amp;\mathsf{selA}(x) \cdot (\mathsf{selA}(x) - 1) = 0, \quad \mathsf{setA}(x) \cdot (\mathsf{setA}(x) - 1) = 0, \quad\\
+&amp;\mathsf{selB}(x) \cdot (\mathsf{selB}(x)- 1) = 0, \quad \mathsf{setB}(x) \cdot (\mathsf{setB}(x) - 1) = 0, \quad\\
+&amp;\mathsf{inFree}(x) \cdot (\mathsf{inFree}(x) - 1) = 0, \quad \mathsf{jmpz}(x) \cdot (\mathsf{jmpz}(x) - 1) = 0.
+\end{aligned}\]</div>
+<p>Regarding the polynomials, in this state machine:</p>
+<ol>
+<li>
+<p>We have to commit <span class="arithmatex">\(\textsf{inFree}(x), \textsf{selA}(x), \textsf{selB}(x), \textsf{setA}(x), \textsf{setB}(x)\)</span> <span class="arithmatex">\(\textsf{A}(x), \textsf{B}(x), \textsf{const}(x),\)</span> <span class="arithmatex">\(\textsf{jmpz}(x),\)</span> <span class="arithmatex">\(\textsf{invOp}(x)\)</span>, <span class="arithmatex">\(\textsf{addr}(x)\)</span>, <span class="arithmatex">\(\textsf{free}(x)\)</span>, <span class="arithmatex">\(\textsf{position}(x)\)</span> and <span class="arithmatex">\(\textsf{PC}(x)\)</span>.</p>
+</li>
+<li>
+<p>While the only constant (preprocessed) polynomial is <span class="arithmatex">\(\textsf{ROM}(x)\)</span>.</p>
+</li>
+</ol>
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../fibonacci/" class="md-footer__link md-footer__link--prev" aria-label="Previous: First Example: Fibonacci" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              First Example: Fibonacci
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../modular-design/" class="md-footer__link md-footer__link--next" aria-label="Next: Modular Design" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Modular Design
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://t.me/polygonhermez" target="_blank" rel="noopener" title="t.me" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M248 8C111.033 8 0 119.033 0 256s111.033 248 248 248 248-111.033 248-248S384.967 8 248 8Zm114.952 168.66c-3.732 39.215-19.881 134.378-28.1 178.3-3.476 18.584-10.322 24.816-16.948 25.425-14.4 1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25 5.342-39.5 3.652-3.793 67.107-61.51 68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608 69.142-14.845 10.194-26.894 9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7 18.45-13.7 108.446-47.248 144.628-62.3c68.872-28.647 83.183-33.623 92.511-33.789 2.052-.034 6.639.474 9.61 2.885a10.452 10.452 0 0 1 3.53 6.716 43.765 43.765 0 0 1 .417 9.769Z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/hermeznetwork/hermez-docs" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.tracking"], "search": "../../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.6c7ad80a.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

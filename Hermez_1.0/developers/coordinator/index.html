@@ -1,0 +1,2020 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.hermez.io/Hermez_1.0/developers/coordinator/">
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
+    
+    
+      
+        <title>Hermez Node - Polygon zkEVM Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.1d29e8d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#7e56c2">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="deep-purple" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hermez-node" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Polygon zkEVM Documentation" class="md-header__button md-logo" aria-label="Polygon zkEVM Documentation" data-md-component="logo">
+      
+  <img src="../../../logo-white.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Polygon zkEVM Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hermez Node
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hermeznetwork/hermez-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../zkEVM/Basic-Concepts/introduction/" class="md-tabs__link">
+        Polygon zkEVM
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../about/scalability/" class="md-tabs__link">
+        Polygon Hermez 1.0
+      </a>
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Polygon zkEVM Documentation" class="md-nav__button md-logo" aria-label="Polygon zkEVM Documentation" data-md-component="logo">
+      
+  <img src="../../../logo-white.svg" alt="logo">
+
+    </a>
+    Polygon zkEVM Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hermeznetwork/hermez-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Polygon zkEVM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Polygon zkEVM" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Polygon zkEVM
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1" type="checkbox" id="__nav_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_1">
+          Basic Concepts
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Basic Concepts" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Basic Concepts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/Basic-Concepts/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/Basic-Concepts/fibonacci/" class="md-nav__link">
+        First Example: Fibonacci
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/Basic-Concepts/simple-state-machine/" class="md-nav__link">
+        Simple State Machine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/Basic-Concepts/modular-design/" class="md-nav__link">
+        Modular Design
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_2" type="checkbox" id="__nav_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_2">
+          Architecture
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Architecture" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Architecture
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/Architecture/zkProver/" class="md-nav__link">
+        zkProver
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3" type="checkbox" id="__nav_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_3">
+          zkASM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="zkASM" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          zkASM
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/zkASM/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/zkASM/basic-syntax/" class="md-nav__link">
+        Basic Syntax
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/zkASM/some-examples/" class="md-nav__link">
+        Some Examples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/zkASM/related-repos/" class="md-nav__link">
+        Related Repositories
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_4">
+          PIL
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PIL" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          PIL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/PIL/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/PIL/hello-world-examples/" class="md-nav__link">
+        Hello Word Examples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/PIL/components/" class="md-nav__link">
+        Components
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/PIL/cyclical-nature/" class="md-nav__link">
+        Cyclical Nature
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/PIL/modularity/" class="md-nav__link">
+        Modularity
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/PIL/advanced-features/" class="md-nav__link">
+        Advanced Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/PIL/related-repos/" class="md-nav__link">
+        Related Repositories
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5" type="checkbox" id="__nav_1_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_5">
+          State Machines
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="State Machines" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          State Machines
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Arithmetic/Arithmetic-State-Machine-typ/" class="md-nav__link">
+        Arithmetic
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Storage/Storage-State-Machine-typ/" class="md-nav__link">
+        Storage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Hashing/Hashing-State-Machine-typ/" class="md-nav__link">
+        Hashing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Binary/Binary-State-Machine-typ/" class="md-nav__link">
+        Binary
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Memory/memory-state-machine/" class="md-nav__link">
+        Memory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Memory-Align/memory-align-state-machine/" class="md-nav__link">
+        Memory Align
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Complementary/complementary-state-machines/" class="md-nav__link">
+        Complementaries
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Complementary/configuration-file/" class="md-nav__link">
+        Configuration File
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Polygon Hermez 1.0
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Polygon Hermez 1.0" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Polygon Hermez 1.0
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          About
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="About" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/scalability/" class="md-nav__link">
+        Ethereum Scalability and zk-Rollups
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/value-proposition/" class="md-nav__link">
+        Polygon Hermez Value Proposition
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/model/" class="md-nav__link">
+        Polygon Hermez Network Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/security/" class="md-nav__link">
+        Security
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Users
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Users" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Users
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../users/hermez-wallet/" class="md-nav__link">
+        Polygon Hermez Wallet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../users/mainnet/" class="md-nav__link">
+        Polygon Hermez Mainnet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../users/testnet/" class="md-nav__link">
+        Polygon Hermez Testnet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../users/exchanges/" class="md-nav__link">
+        Exchanges
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Developers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Developers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Developers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dev-guide/" class="md-nav__link">
+        Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_2" type="checkbox" id="__nav_2_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_2">
+          Protocol
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Protocol" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Protocol
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_2_1" type="checkbox" id="__nav_2_3_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_2_1">
+          Polygon Hermez zkRollup protocol
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Polygon Hermez zkRollup protocol" data-md-level="4">
+        <label class="md-nav__title" for="__nav_2_3_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Polygon Hermez zkRollup protocol
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protocol/hermez-protocol/protocol/" class="md-nav__link">
+        Core protocol
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protocol/hermez-protocol/contracts/contracts/" class="md-nav__link">
+        Smart contracts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protocol/hermez-protocol/circuits/circuits/" class="md-nav__link">
+        Circuits
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protocol/consensus/consensus/" class="md-nav__link">
+        Forging consensus protocol
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protocol/withdrawal-delayer/withdrawal-delayer/" class="md-nav__link">
+        Withdrawal delayer protocol
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sdk/" class="md-nav__link">
+        Examples/SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../batch-explorer/" class="md-nav__link">
+        Batch Explorer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../price-updater/" class="md-nav__link">
+        Polygon Hermez NodePrice Updater
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          FAQ
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="FAQ" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          FAQ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/end-users/" class="md-nav__link">
+        End-Users
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/integrators/" class="md-nav__link">
+        Integrators
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/coordinators/" class="md-nav__link">
+        Coordinators
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/pod/" class="md-nav__link">
+        Proof of Donation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/other/" class="md-nav__link">
+        Other
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#preparing-the-environment" class="md-nav__link">
+    Preparing the Environment
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparing the Environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    Dependencies
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    Setup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launching-the-boot-coordinator" class="md-nav__link">
+    Launching the Boot Coordinator
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launching-a-proof-server" class="md-nav__link">
+    Launching a Proof Server
+  </a>
+  
+    <nav class="md-nav" aria-label="Launching a Proof Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dependencies_1" class="md-nav__link">
+    Dependencies
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#circuit-files" class="md-nav__link">
+    Circuit Files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup_1" class="md-nav__link">
+    Setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-a-prover-input-file" class="md-nav__link">
+    Generate a Prover Input File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-a-new-proof" class="md-nav__link">
+    Generate a New Proof
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connect-prover-to-coordinator-node" class="md-nav__link">
+    Connect Prover to Coordinator Node
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launching-a-price-updater" class="md-nav__link">
+    Launching a Price Updater
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launching-a-synchronizer-node" class="md-nav__link">
+    Launching a Synchronizer Node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launching-a-second-coordinator-node" class="md-nav__link">
+    Launching a Second Coordinator Node
+  </a>
+  
+    <nav class="md-nav" aria-label="Launching a Second Coordinator Node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dependencies_2" class="md-nav__link">
+    Dependencies
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-coordinator-in-testnet" class="md-nav__link">
+    Start Coordinator in Testnet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bidding-process" class="md-nav__link">
+    Bidding Process
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/hermeznetwork/hermez-docs/edit/master/docs/Hermez_1.0/developers/coordinator.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="hermez-node">Hermez Node</h1>
+<p>This tutorial describes how to launch a Hermez node. It starts by explaining how to launch a Boot Coordinator in localhost.
+Next, it describes how to initialize a Proof Server and how to connect it to the Boot Coordinator.
+The next section describes how to spin up a second Hermez node in synchronizer mode to track the rollup status independently from the Boot Coordinator. This second node will be launched in Rinkeby testnet.
+The last part of the tutorial includes an explanation on how to add a second Coordinator node to Hermez testnet Rinkeby that bids for the right to forge batches.</p>
+<ol>
+<li><a href="#preparing-the-environment">Preparing the Environment</a> </li>
+<li><a href="#launching-the-boot-coordinator">Launching the Boot Coordinator</a></li>
+<li><a href="#launching-a-proof-server">Launching a Proof Server</a></li>
+<li><a href="#launching-a-price-updater">Launching a Price Updater</a></li>
+<li><a href="#launching-a-synchronizer-node">Launching a Synchronizer Node</a></li>
+<li><a href="#launching-a-second-coordinator-node">Launching a Second Coordinator</a></li>
+</ol>
+<h2 id="preparing-the-environment">Preparing the Environment</h2>
+<p>Hermez node requires a PostgreSQL database and connectivity to an Ethereum node. In this part, we describe how you can set this environment
+up using docker containers.</p>
+<h3 id="dependencies">Dependencies</h3>
+<ul>
+<li><a href="https://golang.org/doc/install">golang 1.16+</a> </li>
+<li><a href="https://golangci-lint.run/usage/install/">golangci-lint</a></li>
+<li><a href="https://github.com/gobuffalo/packr">packr utility</a> to bundle the database migrations. Make sure your <code>$PATH</code> contains <code>$GOPATH/bin</code>, otherwise the packr utility will not be found.</li>
+</ul>
+<pre><code class="language-shell">cd /tmp &amp;&amp; go get -u github.com/gobuffalo/packr/v2/packr2 &amp;&amp; cd -
+</code></pre>
+<ul>
+<li>docker and docker-compose without sudo permission (optional if you want to use the provided PostgreSQL and Geth containers)</li>
+<li><a href="https://docs.docker.com/engine/install/ubuntu/">docker</a></li>
+<li><a href="https://docs.docker.com/compose/install/">docker-compose</a></li>
+<li><a href="https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html">aws cli 2</a> (optional if you want to use the provided Geth container)</li>
+</ul>
+<h3 id="setup">Setup</h3>
+<ol>
+<li>Clone <a href="https://github.com/hermeznetwork/hermez-node.git">hermez-node</a> repository</li>
+</ol>
+<pre><code class="language-shell">git clone https://github.com/hermeznetwork/hermez-node.git
+</code></pre>
+<ol>
+<li>Build <code>hermez-node</code> executable</li>
+</ol>
+<pre><code class="language-shell">cd hermez-node
+make 
+</code></pre>
+<p>The executable can be found in <code>dist/heznode</code></p>
+<ol>
+<li>Deploy PostgreSQL database and Geth node containers. For this step we provide a docker-compose file example. Copy <a href="/coord-files/docker-compose.sandbox.md">file</a> to <code>docker-compose.sandbox.yaml</code>.</li>
+</ol>
+<p>Login to AWS public ECR to be able to download the Geth docker image:</p>
+<pre><code class="language-shell">export AWS_REGION=eu-west-3
+aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/r7d5k1t8
+</code></pre>
+<p>Ensure that port 5432 is not being used. Otherwise, PostgreSQL docker will fail.</p>
+<p>To start start database and Geth node containers:</p>
+<pre><code class="language-shell">DEV_PERIOD=3 docker-compose -f docker-compose.sandbox.yaml up -d
+</code></pre>
+<p>This command will start a Geth node mining a block every 3 seconds. 
+Database is available at port 5432. Geth node is available at port 8545.</p>
+<p>To stop containers:</p>
+<pre><code class="language-shell">docker-compose -f docker-compose.sandbox.yaml down
+</code></pre>
+<p>The Geth container comes with pre-deployed Hermez contracts and with 200 funded accounts.
+The relevant information about the contract deployment can be found below</p>
+<pre><code class="language-json"> &quot;hermezAuctionProtocolAddress&quot;: &quot;0x317113D2593e3efF1FfAE0ba2fF7A61861Df7ae5&quot;
+ &quot;hermezAddress&quot;: &quot;0x10465b16615ae36F350268eb951d7B0187141D3B&quot;
+ &quot;withdrawalDelayeAddress&quot;: &quot;0x8EEaea23686c319133a7cC110b840d1591d9AeE0&quot;
+ &quot;HEZTokenAddress&quot;: &quot;0x5E0816F0f8bC560cB2B9e9C87187BeCac8c2021F&quot;
+ &quot;hermezGovernanceIndex&quot;: 1
+ &quot;hermezGovernanceAddress&quot;: &quot;0x8401Eb5ff34cc943f096A32EF3d5113FEbE8D4Eb&quot;
+ &quot;emergencyCouncilIndex&quot;: 2
+ &quot;emergencyCouncilAddress&quot;: &quot;0x306469457266CBBe7c0505e8Aad358622235e768&quot;
+ &quot;donationIndex&quot;: 3
+ &quot;donationAddress&quot;: &quot;0xd873F6DC68e3057e4B7da74c6b304d0eF0B484C7&quot;
+ &quot;bootCoordinatorIndex&quot;: 4
+ &quot;mnemonic&quot;: &quot;explain tackle mirror kit van hammer degree position ginger unfair soup bonus&quot;
+ &quot;chainId&quot; : 1337
+}
+</code></pre>
+<ol>
+<li>Customize Hermez Node configuration file. For this example, we can use <a href="/coord-files/cfg.sandbox.boot-coordinator.md">this configuration file</a>. Just copy this file to <code>cmd/heznode/cfg.sandbox.boot.coordinator.toml</code></li>
+</ol>
+<p>For more information on the parameters in the configuration file, read the <a href="https://github.com/hermeznetwork/hermez-node/blob/master/config/config.go#L57">configuration parameters description</a>.</p>
+<ol>
+<li>Ensure correct permissions are granted to /var/hermez folder</li>
+</ol>
+<pre><code class="language-sh">sudo mkdir -p /var/hermez
+sudo chown $USER:$USER /var/hermez
+</code></pre>
+<h2 id="launching-the-boot-coordinator">Launching the Boot Coordinator</h2>
+<p>It is recommended to run the Coordinator node in a server with 8+ cores, 16 GB+ of RAM and 250GB of disk (AWS c5a.2xlarge or equivalent).</p>
+<ol>
+<li>Import the Coordinator and Fee Ethereum accounts private keys into the keystore. </li>
+</ol>
+<pre><code class="language-shell">./dist/heznode importkey --mode coord --cfg ./cmd/heznode/cfg.sandbox.boot-coordinator.toml --privatekey 0x705df2ae707e25fa37ca84461ac6eb83eb4921b653e98fdc594b60bea1bb4e52
+./dist/heznode importkey --mode coord --cfg ./cmd/heznode/cfg.sandbox.boot-coordinator.toml --privatekey 0xfdb75ceb9f3e0a6c1721e98b94ae451ecbcb9e8c09f9fc059938cb5ab8cc8a7c
+</code></pre>
+<p>The Coordinator account is used to pay the gas required to forge batches. The  Fee account is used to collect the fees paid by users submitting transactions to Hermez Network.
+You only need to import these keys once.</p>
+<ol>
+<li>Start a mock proof server. </li>
+</ol>
+<pre><code class="language-shell">cd test/proofserver/cmd
+go build -o proof-server
+./proof-server -d 15s -a 0.0.0.0:3000
+</code></pre>
+<p>The <code>hermez-node</code> repository provides a mock proof server that generates proofs every 15 seconds. The mock prover is launched at http://localhost:3000, and it exports two endpoints:
+- GET /api/status: Queries the prover's status.
+- POST /api/input: Starts the generation of a new proof.</p>
+<ol>
+<li>Wipe SQL database</li>
+</ol>
+<p>Before starting the Coordinator node, you may want to wipe the pre-existing SQL database. This command will wipe the pre-existing database if it exists, and it will force the Coordinator to resynchronize the full state.</p>
+<pre><code class="language-shell">./dist/heznode wipedbs --mode coord --cfg cmd/heznode/cfg.sandbox.boot-coordinator.toml 
+</code></pre>
+<ol>
+<li>Launch the Hermez Node</li>
+</ol>
+<pre><code class="language-shell">./dist/heznode run --mode coord --cfg cmd/heznode/cfg.sandbox.boot-coordinator.toml
+</code></pre>
+<p>Once the Hermez Node is launched, the API can be queried at <code>localhost:8086/v1</code>. You can find more information on the API <a href="http://localhost:3000/#/developers/api">here</a></p>
+<h2 id="launching-a-proof-server">Launching a Proof Server</h2>
+<p>We will use <a href="https://github.com/iden3/rapidsnark">rapidsnark</a> as the Hermez proof server. <code>rapidsnarks</code> is a zkSnark proof generator written in C++.
+It is recommended to run the proof server in servers with 48+ cores, 96 GB+ of RAM and 250GB of disk (AWS c5a.12xlarge or equivalent).</p>
+<blockquote>
+<p>rapidsnark requires a host CPU that supports ADX extensions. You can check this with <code>cat /proc/cpuinfo | grep adx</code></p>
+</blockquote>
+<h3 id="dependencies_1">Dependencies</h3>
+<ul>
+<li><a href="https://nodejs.org/en/download/">node v16+</a></li>
+<li>npm</li>
+</ul>
+<pre><code class="language-shell">apt install npm
+</code></pre>
+<ul>
+<li>npx</li>
+</ul>
+<pre><code class="language-shell">npm i -g npx
+</code></pre>
+<ul>
+<li>Install gcc, libsodium, gmp, cmake</li>
+</ul>
+<pre><code>sudo apt install build-essential
+sudo apt-get install libgmp-dev libsodium-dev nasm cmake
+</code></pre>
+<h3 id="circuit-files">Circuit Files</h3>
+<p>Download circuit and auxiliary files. These files are extremely large (20GB+), so make sure you have enough bandwidth and disk space.</p>
+<p>There are two Hermez circuits that have undergone the Trusted Setup Ceremony. 
+- circuit-2048-32-256-64 with 2048 transactions per batch (~2^27 constraints)
+- circuit-400-32-256-64 with 400 transactions per batch (~2^25 constraints)</p>
+<p>For each type of circuit, you will need the following files:
+- C++ source file (extension .cpp)
+- Data file (extension .dat)
+- Verification and Proving Key files (extension .zkey)</p>
+<p><a href="https://hermez.s3-eu-west-1.amazonaws.com/circuit-400-32-256-64.cpp">circuit-400-32-256-64.cpp</a></p>
+<p><a href="https://hermez.s3-eu-west-1.amazonaws.com/circuit-400-32-256-64.dat">circuit-400-32-256-64.dat</a></p>
+<p><a href="https://hermez.s3-eu-west-1.amazonaws.com/circuit-400-32-256-64_hez4_final.zkey">circuit-400-32-256-64_hez4_final.zkey</a></p>
+<p><a href="https://hermez.s3-eu-west-1.amazonaws.com/circuit-2048-32-256-64.cpp">circuit-2048-32-256-64.cpp</a></p>
+<p><a href="https://hermez.s3-eu-west-1.amazonaws.com/circuit-2048-32-256-64.dat">circuit-2048-32-256-64.dat</a></p>
+<p><a href="https://hermez.s3-eu-west-1.amazonaws.com/circuit-2048-32-256-64_hez4_final.zkey">circuit-2048-32-256-64_hez4_final.zkey</a></p>
+<p>More information on Trusted Setup can be found <a href="https://github.com/hermeznetwork/phase2ceremony_4">here</a>.</p>
+<h3 id="setup_1">Setup</h3>
+<ol>
+<li>Clone <a href="https://github.com/iden3/rapidsnark.git">rapidsnark</a> repository</li>
+</ol>
+<pre><code class="language-shell">git clone  https://github.com/iden3/rapidsnark.git
+</code></pre>
+<ol>
+<li>Compile the prover.</li>
+</ol>
+<p>In this example we are building the 400 transactions prover.</p>
+<pre><code class="language-shell">cd rapidsnark
+npm install
+git submodule init
+git submodule update
+npx task createFieldSources
+npx task buildPistche
+npx task buildProverServer ../circuit-400-32-256-64.cpp
+</code></pre>
+<ol>
+<li>Launch prover</li>
+</ol>
+<pre><code class="language-shell">cd ..
+./rapidsnark/build/proverServer circuit-400-32-256-64.dat circuit-400-32-256-64_hez4_final.zkey
+</code></pre>
+<p>Prover is deployed at port 9080.</p>
+<ol>
+<li>Check prover status</li>
+</ol>
+<pre><code class="language-shell">curl -i -H &quot;Accept: application/json&quot; -H &quot;Content-Type: application/json&quot; -X GET http://localhost:9080/status
+</code></pre>
+<h3 id="generate-a-prover-input-file">Generate a Prover Input File</h3>
+<ol>
+<li>Clone <a href="https://github.com/hermeznetwork/circuits.git">circuits</a> repository</li>
+</ol>
+<pre><code class="language-shell">git clone https://github.com/hermeznetwork/circuits.git
+</code></pre>
+<ol>
+<li>Install dependencies</li>
+</ol>
+<pre><code class="language-shell">cd circuits
+npm install
+cd tools
+</code></pre>
+<p>In this example we are working with <code>circuit-400-32-236-64_hez1.zkey</code>, which corresponds to a circuit with 400 transactions, 32 levels, 256 maxL1Tx and 64 maxFeeTx.</p>
+<ol>
+<li>Generate Input file</li>
+</ol>
+<p>To generate a new input file with empty transactions:</p>
+<pre><code class="language-shell">node build-circuit.js input 400 32 256 64
+</code></pre>
+<p>This command generates a new input file <code>rollup-400-32-256-64/input-400-32-256-64.json</code></p>
+<p>To generate a new input file with random transactions</p>
+<pre><code class="language-shell">node generate-input.js 256 144 400 32 256 64
+</code></pre>
+<p>This will create a new input file called <code>inputs-256.json</code> </p>
+<h3 id="generate-a-new-proof">Generate a New Proof</h3>
+<p>You can use curl to post any of the inputs generated in the previous step.</p>
+<pre><code class="language-shell">curl -X POST -d @inputs-256.json http://localhost:9080/input
+</code></pre>
+<p>or</p>
+<pre><code class="language-shell">curl -X POST -d @input-400-32-256-64.json http://localhost:9080/input
+</code></pre>
+<p>You check the status of the prover by querying the <code>/status</code> endpoint.</p>
+<pre><code class="language-shell">curl -i -H &quot;Accept: application/json&quot; -H &quot;Content-Type: application/json&quot; -X GET http://localhost:9080/status
+</code></pre>
+<p><code>/status</code> returns if the prover is ready to accept a new input as well as the proof result and input data of the previous iteration. An example is shown below.</p>
+<pre><code class="language-json">{&quot;proof&quot;:&quot;{\&quot;pi_a\&quot;:[\&quot;15669797899330531899539165505099185328127025552675136844487912123159422688332\&quot;,\&quot;4169184787514663864223014515796569609423571145125431603092380267213494033234\&quot;,\&quot;1\&quot;],\&quot;pi_b\&quot;:[[\&quot;15897268173694161686615535760524608158592057931378775361036549860571955196024\&quot;,\&quot;7259544064908843863227076126721939493856845778102643664527079112408898332246\&quot;],[\&quot;11114029940357001415257752309672127606595008143716611566922301064883221118673\&quot;,\&quot;11641375208941828855753998380661873329613421331584366604363069099895897057080\&quot;],[\&quot;1\&quot;,\&quot;0\&quot;]],\&quot;pi_c\&quot;:[\&quot;3069279014559805068186938831761517403137936718184152637949316506268770388068\&quot;,\&quot;17615095679439987436388060423042830905459966122501664486007177405315943656120\&quot;,\&quot;1\&quot;],\&quot;protocol\&quot;:\&quot;groth16\&quot;}&quot;,&quot;pubData&quot;:&quot;[\&quot;18704199975058268984020790304481139232906477725400223723702831520660895945049\&quot;]&quot;,&quot;status&quot;:&quot;success&quot;}
+</code></pre>
+<h3 id="connect-prover-to-coordinator-node">Connect Prover to Coordinator Node</h3>
+<p>Once you have verified the prover is working, you can connect it to the Hermez Coordinator by configuring the <code>cfg.sandbox.boot-coordinator.toml</code> configuration file.
+You need to substitute sections <code>ServerProofs</code> with the updated URLs where prover is deployed, and the <code>Circuit</code> section where the verifier smart contract is specified.</p>
+<pre><code>[Coordinator.ServerProofs]
+#TODO: Add Prover URL
+#URLs = [&quot;http://localhost:9080&quot;]
+</code></pre>
+<pre><code>[Coordinator.Circuit]
+MaxTx = 400
+NLevels = 32
+</code></pre>
+<p>At this point, you can stop the mock server if it is still running, and re-launch the coordinator as we saw in the previous section. The new prover will be running at http://localhost:9080 (or at the configured URL), and the two endpoints are <code>/status</code> and <code>/input</code></p>
+<h2 id="launching-a-price-updater">Launching a Price Updater</h2>
+<p>Price Updater service is used to consult and updater the tokens and fiat currency used by Hermez Node. Once Hermez Node has been deployed, the Price Updater service can be deployed. Follow these <a href="../price-updater/#price-updater">instructions</a> to set up the Price Updater service.</p>
+<h2 id="launching-a-synchronizer-node">Launching a Synchronizer Node</h2>
+<p>In synchronizer mode, the node is capable of keeping track of the rollup and consensus smart contracts, storing all the history of events, and keeping the rollup
+state updated, handling reorgs when they happen. This mode is intended for entities that want to gather all the rollup data by themselves and not rely on third party APIs.
+For this part of the tutorial, we are going to deploy the syncrhonizer node in testnet on Rinkeby.</p>
+<ol>
+<li>Stop Coordinator node launched in localhost in previous steps.</li>
+</ol>
+<p>Stop prover, coordinator node and containers from previous phases as you will be working in testnet with a real Boot Coordinator node.</p>
+<pre><code class="language-shell">docker-compose -f docker-compose.sandbox.yaml down
+</code></pre>
+<ol>
+<li>Launch PostgreSQL database.</li>
+</ol>
+<p>The Hermez node in synchronizer mode needs to run on a separate database</p>
+<pre><code class="language-shell">docker run --rm --name hermez-db -p 5432:5432 -e POSTGRES_DB=hermez -e POSTGRES_USER=hermez -e POSTGRES_PASSWORD=&quot;yourpasswordhere&quot; -d postgres
+</code></pre>
+<ol>
+<li>Start an Ethereum node in Rinkeby</li>
+</ol>
+<p>You will need to run your own Ethreum node on Rinkeby. We recommend using Geth.
+- Pre-built binaries for all platforms on our downloads page (https://geth.ethereum.org/downloads/).
+- Ubuntu packages in our Launchpad PPA repository (https://launchpad.net/~ethereum/+archive/ubuntu/ethereum).
+- OSX packages in our Homebrew Tap repository (https://github.com/ethereum/homebrew-ethereum).</p>
+<p>Sync this node with Rinkeby testnet where all of Hermez's smart contracts are deployed. </p>
+<ol>
+<li>Get contract addresses</li>
+</ol>
+<p>Query Testnet API for the addresses of the Hermez smart contracts. You can use a web browser or the command below.</p>
+<pre><code class="language-shell">curl -i -H &quot;Accept: application/json&quot; -H &quot;Content-Type: application/json&quot; -X GET api.testnet.hermez.io/v1/config
+</code></pre>
+<p>At this moment, Hermez Network is deployed in this address:</p>
+<pre><code>&quot;Rollup&quot;:&quot;0x679b11e0229959c1d3d27c9d20529e4c5df7997c&quot;
+</code></pre>
+<ol>
+<li>Copy configuration <a href="/coord-files/cfg.testnet.coord.md">file</a> to <code>hermez-node/cmd/heznode/cfg.testnet.sync.toml</code>. You will need to edit the following sections:</li>
+<li><strong>PostgreSQL</strong> Values provided are valid for docker postgreSQL container. You will need to supply the actual values for your database.  </li>
+<li><strong>Web3</strong> URL of your Rinkeby Ethereum node</li>
+<li>
+<p><strong>SmartContracts</strong> Double check that the address provided in the configuration file corresponds to the current Hermez Network contract deployed in Rinkeby</p>
+</li>
+<li>
+<p>Launch <code>hermez-node</code> in synchronizer mode</p>
+</li>
+</ol>
+<pre><code class="language-shell">./dist/heznode run --mode sync --cfg cmd/heznode/cfg.testnet.sync.toml
+</code></pre>
+<ol>
+<li>Kill and relaunch Price Updater service in testnet
+Follow <a href="../price-updater/">instructions</a> to set up the Price Updater service.</li>
+</ol>
+<p>Once the Hermez node is launched, the API can be queried at the location specified in the configuration file in <code>API.Address</code> section, as well as at https://api.testnet.hermez.io/v1/ serviced by the Boot Coordinator node.</p>
+<h2 id="launching-a-second-coordinator-node">Launching a Second Coordinator Node</h2>
+<p>In this part of the tutorial we will start a second Coordinator Node in testnet that will bid for the right to forge batches.</p>
+<h3 id="dependencies_2">Dependencies</h3>
+<ul>
+<li>node 14+</li>
+</ul>
+<h3 id="start-coordinator-in-testnet">Start Coordinator in Testnet</h3>
+<ol>
+<li>
+<p>Stop Synchronizer node and PostgreSQL container launched in previous steps.</p>
+</li>
+<li>
+<p>Launch PostgreSQL database</p>
+</li>
+</ol>
+<pre><code class="language-shell">docker run --rm --name hermez-db -p 5432:5432 -e POSTGRES_DB=hermez -e POSTGRES_USER=hermez -e POSTGRES_PASSWORD=&quot;yourpasswordhere&quot; -d postgres
+</code></pre>
+<ol>
+<li>
+<p>Launch Prover as shown <a href="#launching-a-proof-server">here</a></p>
+</li>
+<li>
+<p>Create two Ethereum accounts in Rinkeby using Metamask wallet. One account is the <code>forger</code> account (needs to pay for gas to forge batches in Ethereum and for bids in auction in HEZ), and the second is the <code>fee</code> account (receives the HEZ fees). The fees are collected in L2. You can convert from ETH to HEZ in <a href="https://app.uniswap.org/#/swap?use=V2">Uniswap</a></p>
+</li>
+<li>
+<p>Create a Wallet with <code>fee</code> account Ethereum Private Key. </p>
+</li>
+</ol>
+<p>This wallet is needed to generate a Baby JubJub address where fees will be collected. There is an example code in the <a href="https://github.com/hermeznetwork/hermezjs/blob/main/examples/create-wallet.js">SDK</a> that can be used. Simply substitute <code>EXAMPLES_WEB3_URL</code> by your Rinkeby Node URL and <code>EXAMPLES_PRIVATE_KEY1</code> by <code>fee</code> account private key.</p>
+<p>This script will generate a similar output:</p>
+<pre><code class="language-json">{
+  privateKey: &lt;Buffer 3e 12 35 91 e9 99 61 98 24 74 dc 9c 09 70 0a cb d1 a5 c9 6f 34 2f ab 35 ca 44 90 01 31 f4 dc 19&gt;,
+  publicKey: [
+    '554747587236068008597553797728983628103889817758448212785555888433332778905',
+    '5660923625742030187027289840534366342931920530664475168036204263114974152564'
+  ],
+  publicKeyHex: [
+    '139f9dba06599c54e09934b242161b80041cda4be9192360b997e4751b07799',
+    'c83f81f4fce3e2ccc78530099830e29bf69713fa11c546ad152bf5226cfc774'
+  ],
+  publicKeyCompressed: '5660923625742030187027289840534366342931920530664475168036204263114974152564',
+  publicKeyCompressedHex: '0c83f81f4fce3e2ccc78530099830e29bf69713fa11c546ad152bf5226cfc774',
+  publicKeyBase64: 'hez:dMfPJlK_UtFqVByhP3FpvykOg5kAU3jMLD7OTx_4gwzO',
+  hermezEthereumAddress: 'hez:0x74d5531A3400f9b9d63729bA9C0E5172Ab0FD0f6'
+}
+</code></pre>
+<p>The Baby JubJub address is <code>publicKeyCompressedHex</code>. In this case, <code>0x0c83f81f4fce3e2ccc78530099830e29bf69713fa11c546ad152bf5226cfc774</code>.</p>
+<ol>
+<li>Copy configuration <a href="/coord-files/cfg.testnet.coord.md">file</a> to <code>hermez-node/cmd/heznode/cfg.testnet.coord.toml</code>. You will need to edit the following sections:</li>
+<li><strong>PostgreSQL</strong> Values provided are valid for docker postgreSQL container. You will need to supply the actual values for your database.  </li>
+<li><strong>Web3</strong> URL of your Rinkeby Ethereum node</li>
+<li><strong>SmartContracts</strong> Double check that the address provided in the configuration file corresponds to the current Hermez Network contract deployed in Rinkeby</li>
+<li><strong>Coordinator.ForgerAddress</strong> Ethereum account in Ethereum Rinkeby. This account is used to bid during the slots auction and to pay the gas to forge batches in Ethereum</li>
+<li><strong>Coordinator.FeeAccount</strong> You need to supply the Fee account in Ethereum Rinkeby and the Baby JubJub address computed in previous step. This account is used to colled the fees paid by transactions.</li>
+<li><strong>Coordinator.ServerProofs</strong> Provide a valid URL for the proof server.</li>
+<li>
+<p><strong>Coordinator.Circuit</strong> Ensure the <code>MaxTx</code> parameters matches with the circuit size configed in the proof server.</p>
+</li>
+<li>
+<p>Import the <code>forger</code> and <code>fee</code> Ethereum private keys into the keystore. </p>
+</li>
+</ol>
+<pre><code class="language-shell">./dist/heznode importkey --mode coord --cfg cmd/heznode/cfg.coord.toml --privatekey &lt;FORGER ACCOUNT_PRIVATE KEY&gt;
+./dist/heznode importkey --mode coord --cfg cmd/heznode/cfg.coord.toml --privatekey &lt;FEE_ACCOUNT PRIVATE KEY&gt;
+</code></pre>
+<p>This private key corresponds to the new Coordinator node </p>
+<ol>
+<li>Launch New Coordinator Node</li>
+</ol>
+<pre><code class="language-shell">./dist/heznode run --mode coord --cfg cmd/heznode/cfg.testnet.coord.toml
+</code></pre>
+<p>The node will start synchronizing with the Hermez Network in testnet. This may take a while.</p>
+<ol>
+<li>Launch new Price Updater service and connect it to the newly launched Hermez node
+Follow <a href="../price-updater/">instructions</a> to set up the Price Updater service.</li>
+</ol>
+<h3 id="bidding-process">Bidding Process</h3>
+<p>Once the node is synchronized, you can start bidding for the right to forge a batch.</p>
+<ol>
+<li>Install cli-bidding</li>
+</ol>
+<p><code>cli-bidding</code> is a tool that allows to register a Coordinator in Hermez Network and place bids in the auction.</p>
+<pre><code class="language-shell">git clone https://github.com/hermeznetwork/cli-bidding.git
+</code></pre>
+<p>Once downloaded, follow the installation steps in the <a href="https://github.com/hermeznetwork/cli-bidding/blob/master/readme.md">README</a>.</p>
+<blockquote>
+<p>NOTE that <code>PRIVATE_KEY_CLI_BIDDING</code> corresponds to the <code>forger</code> private key.</p>
+</blockquote>
+<ol>
+<li>Approve HEZ transfers.</li>
+</ol>
+<p>Before the coordinator can start bidding, it needs to approve the use of HEZ tokens. To do this go to <a href="https://rinkeby.etherscan.io/token/0x2521bc90b4f5fb9a8d61278197e5ff5cdbc4fbf2">HEZ address in Etherscan</a>, select <code>Contract</code> -&gt; <code>Write Contract</code> -&gt; <code>Approve</code> and set <code>spender address</code> to Coordinator address and <code>value</code> to quantity you want to approve. The recommendation is to set this quantity value very high.</p>
+<ol>
+<li>Register Forger</li>
+</ol>
+<p>Using <code>cli-bidding</code>, you need to register the new Coordinator API URL. In our case, we have the Coordinator node running at <code>http://134.255.190.114:8086</code></p>
+<pre><code>node src/biddingCLI.js register --url http://134.255.190.114:8086
+</code></pre>
+<blockquote>
+<p>NOTE. In order for the wallet-ui to be able to forward transactions to this coordinator, the API needs to be accessible from a https domain.</p>
+</blockquote>
+<ol>
+<li>Get Current Slot and Minimum Bid in Hermez bid</li>
+</ol>
+<p>Take a look at the current slot being bid in Hermez. When bidding, you need to bid at least 2 slots after the curent slot</p>
+<pre><code class="language-shell">node src/biddingCLI.js slotinfo
+</code></pre>
+<p>In our case, minimum bidding is set to 11.0 HEZ, and first biddable slot is 4200.</p>
+<ol>
+<li>Bidding Process</li>
+</ol>
+<p>Send a simple bid of <span class="arithmatex">\(11 \times 10^{18}\)</span> HEZ for slot 4200. </p>
+<pre><code class="language-shell">node src/biddingCLI.js bid --amount 11 --slot 4200 --bidAmount 11
+</code></pre>
+<p>Parameter <code>amount</code> is the quantity to be transferred to the auction smart contract, and  <code>bidAmount</code> is the actual bid amount. </p>
+<p>If the bidding process is successful, an Etherscan URL with the transaction id is returned to verify transaction.</p>
+<p>You can check the allocated nextForgers using /v1/state endpoint</p>
+<p><code>cli-bidding</code> provides additional mechanisms to bid in multple slots at once. Check the <a href="https://github.com/hermeznetwork/cli-bidding">README file</a></p>
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://t.me/polygonhermez" target="_blank" rel="noopener" title="t.me" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M248 8C111.033 8 0 119.033 0 256s111.033 248 248 248 248-111.033 248-248S384.967 8 248 8Zm114.952 168.66c-3.732 39.215-19.881 134.378-28.1 178.3-3.476 18.584-10.322 24.816-16.948 25.425-14.4 1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25 5.342-39.5 3.652-3.793 67.107-61.51 68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608 69.142-14.845 10.194-26.894 9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7 18.45-13.7 108.446-47.248 144.628-62.3c68.872-28.647 83.183-33.623 92.511-33.789 2.052-.034 6.639.474 9.61 2.885a10.452 10.452 0 0 1 3.53 6.716 43.765 43.765 0 0 1 .417 9.769Z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/hermeznetwork/hermez-docs" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.tracking"], "search": "../../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.6c7ad80a.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

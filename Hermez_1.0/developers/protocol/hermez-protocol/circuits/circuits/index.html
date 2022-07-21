@@ -1,0 +1,5613 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.hermez.io/Hermez_1.0/developers/protocol/hermez-protocol/circuits/circuits/">
+      
+      <link rel="icon" href="../../../../../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
+    
+    
+      
+        <title>Circuits - Polygon zkEVM Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../../assets/stylesheets/main.1d29e8d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#7e56c2">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="deep-purple" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#circuits" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../../.." title="Polygon zkEVM Documentation" class="md-header__button md-logo" aria-label="Polygon zkEVM Documentation" data-md-component="logo">
+      
+  <img src="../../../../../../logo-white.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Polygon zkEVM Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Circuits
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hermeznetwork/hermez-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../../../zkEVM/Basic-Concepts/introduction/" class="md-tabs__link">
+        Polygon zkEVM
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../../about/scalability/" class="md-tabs__link md-tabs__link--active">
+        Polygon Hermez 1.0
+      </a>
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../../.." title="Polygon zkEVM Documentation" class="md-nav__button md-logo" aria-label="Polygon zkEVM Documentation" data-md-component="logo">
+      
+  <img src="../../../../../../logo-white.svg" alt="logo">
+
+    </a>
+    Polygon zkEVM Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hermeznetwork/hermez-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Polygon zkEVM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Polygon zkEVM" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Polygon zkEVM
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1" type="checkbox" id="__nav_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_1">
+          Basic Concepts
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Basic Concepts" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Basic Concepts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/Basic-Concepts/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/Basic-Concepts/fibonacci/" class="md-nav__link">
+        First Example: Fibonacci
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/Basic-Concepts/simple-state-machine/" class="md-nav__link">
+        Simple State Machine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/Basic-Concepts/modular-design/" class="md-nav__link">
+        Modular Design
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_2" type="checkbox" id="__nav_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_2">
+          Architecture
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Architecture" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Architecture
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/Architecture/zkProver/" class="md-nav__link">
+        zkProver
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3" type="checkbox" id="__nav_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_3">
+          zkASM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="zkASM" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          zkASM
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/zkASM/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/zkASM/basic-syntax/" class="md-nav__link">
+        Basic Syntax
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/zkASM/some-examples/" class="md-nav__link">
+        Some Examples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/zkASM/related-repos/" class="md-nav__link">
+        Related Repositories
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_4">
+          PIL
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PIL" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          PIL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/PIL/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/PIL/hello-world-examples/" class="md-nav__link">
+        Hello Word Examples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/PIL/components/" class="md-nav__link">
+        Components
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/PIL/cyclical-nature/" class="md-nav__link">
+        Cyclical Nature
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/PIL/modularity/" class="md-nav__link">
+        Modularity
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/PIL/advanced-features/" class="md-nav__link">
+        Advanced Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/PIL/related-repos/" class="md-nav__link">
+        Related Repositories
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5" type="checkbox" id="__nav_1_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_5">
+          State Machines
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="State Machines" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          State Machines
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/State-Machines/Arithmetic/Arithmetic-State-Machine-typ/" class="md-nav__link">
+        Arithmetic
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/State-Machines/Storage/Storage-State-Machine-typ/" class="md-nav__link">
+        Storage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/State-Machines/Hashing/Hashing-State-Machine-typ/" class="md-nav__link">
+        Hashing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/State-Machines/Binary/Binary-State-Machine-typ/" class="md-nav__link">
+        Binary
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/State-Machines/Memory/memory-state-machine/" class="md-nav__link">
+        Memory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/State-Machines/Memory-Align/memory-align-state-machine/" class="md-nav__link">
+        Memory Align
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/State-Machines/Complementary/complementary-state-machines/" class="md-nav__link">
+        Complementaries
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../zkEVM/State-Machines/Complementary/configuration-file/" class="md-nav__link">
+        Configuration File
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Polygon Hermez 1.0
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Polygon Hermez 1.0" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Polygon Hermez 1.0
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          About
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="About" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../about/scalability/" class="md-nav__link">
+        Ethereum Scalability and zk-Rollups
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../about/value-proposition/" class="md-nav__link">
+        Polygon Hermez Value Proposition
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../about/model/" class="md-nav__link">
+        Polygon Hermez Network Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../about/security/" class="md-nav__link">
+        Security
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Users
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Users" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Users
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../users/hermez-wallet/" class="md-nav__link">
+        Polygon Hermez Wallet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../users/mainnet/" class="md-nav__link">
+        Polygon Hermez Mainnet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../users/testnet/" class="md-nav__link">
+        Polygon Hermez Testnet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../users/exchanges/" class="md-nav__link">
+        Exchanges
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Developers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Developers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Developers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dev-guide/" class="md-nav__link">
+        Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_2" type="checkbox" id="__nav_2_3_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_2">
+          Protocol
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Protocol" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Protocol
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_2_1" type="checkbox" id="__nav_2_3_2_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_2_1">
+          Polygon Hermez zkRollup protocol
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Polygon Hermez zkRollup protocol" data-md-level="4">
+        <label class="md-nav__title" for="__nav_2_3_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Polygon Hermez zkRollup protocol
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../protocol/" class="md-nav__link">
+        Core protocol
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contracts/contracts/" class="md-nav__link">
+        Smart contracts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Circuits
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Circuits
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#circuits-organization" class="md-nav__link">
+    Circuits Organization
+  </a>
+  
+    <nav class="md-nav" aria-label="Circuits Organization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    Dependencies
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assumptions" class="md-nav__link">
+    Assumptions
+  </a>
+  
+    <nav class="md-nav" aria-label="Assumptions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#l1-transactions" class="md-nav__link">
+    L1 Transactions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#legend" class="md-nav__link">
+    Legend
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#library" class="md-nav__link">
+    Library
+  </a>
+  
+    <nav class="md-nav" aria-label="Library">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hash-state" class="md-nav__link">
+    hash-state
+  </a>
+  
+    <nav class="md-nav" aria-label="hash-state">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decode-float" class="md-nav__link">
+    decode-float
+  </a>
+  
+    <nav class="md-nav" aria-label="decode-float">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_1" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_1" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_1" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_1" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mux256" class="md-nav__link">
+    mux256
+  </a>
+  
+    <nav class="md-nav" aria-label="mux256">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_2" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_2" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_2" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_2" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utils-bjj" class="md-nav__link">
+    utils-bjj
+  </a>
+  
+    <nav class="md-nav" aria-label="utils-bjj">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_3" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_3" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input" class="md-nav__link">
+    Input
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ouput" class="md-nav__link">
+    Ouput
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#source" class="md-nav__link">
+    Source
+  </a>
+  
+    <nav class="md-nav" aria-label="Source">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decode-tx" class="md-nav__link">
+    decode-tx
+  </a>
+  
+    <nav class="md-nav" aria-label="decode-tx">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_4" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_4" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_3" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_3" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fee-accumulator" class="md-nav__link">
+    fee-accumulator
+  </a>
+  
+    <nav class="md-nav" aria-label="fee-accumulator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_5" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_5" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_4" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_4" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rq-tx-verifier" class="md-nav__link">
+    rq-tx-verifier
+  </a>
+  
+    <nav class="md-nav" aria-label="rq-tx-verifier">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_6" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_6" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input_1" class="md-nav__link">
+    Input
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    Output
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hash-inputs" class="md-nav__link">
+    hash-inputs
+  </a>
+  
+    <nav class="md-nav" aria-label="hash-inputs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_7" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_7" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_5" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ouputs" class="md-nav__link">
+    Ouputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fee-tx" class="md-nav__link">
+    fee-tx
+  </a>
+  
+    <nav class="md-nav" aria-label="fee-tx">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_8" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_8" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_6" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_5" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compute-fee" class="md-nav__link">
+    compute-fee
+  </a>
+  
+    <nav class="md-nav" aria-label="compute-fee">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_9" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_9" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_7" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_6" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#balance-updater" class="md-nav__link">
+    balance-updater
+  </a>
+  
+    <nav class="md-nav" aria-label="balance-updater">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_10" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_10" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_8" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_7" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rollup-tx-states" class="md-nav__link">
+    rollup-tx-states
+  </a>
+  
+    <nav class="md-nav" aria-label="rollup-tx-states">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_11" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_11" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_9" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_8" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rollup-tx" class="md-nav__link">
+    rollup-tx
+  </a>
+  
+    <nav class="md-nav" aria-label="rollup-tx">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_12" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_12" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_10" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ouputs_1" class="md-nav__link">
+    Ouputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rollup-main" class="md-nav__link">
+    rollup-main
+  </a>
+  
+    <nav class="md-nav" aria-label="rollup-main">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_13" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_13" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_11" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_9" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#withdraw" class="md-nav__link">
+    withdraw
+  </a>
+  
+    <nav class="md-nav" aria-label="withdraw">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_14" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_14" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_12" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_10" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../consensus/consensus/" class="md-nav__link">
+        Forging consensus protocol
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../withdrawal-delayer/withdrawal-delayer/" class="md-nav__link">
+        Withdrawal delayer protocol
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../sdk/" class="md-nav__link">
+        Examples/SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../batch-explorer/" class="md-nav__link">
+        Batch Explorer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../price-updater/" class="md-nav__link">
+        Polygon Hermez NodePrice Updater
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../glossary/" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          FAQ
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="FAQ" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          FAQ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../faq/end-users/" class="md-nav__link">
+        End-Users
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../faq/integrators/" class="md-nav__link">
+        Integrators
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../faq/coordinators/" class="md-nav__link">
+        Coordinators
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../faq/pod/" class="md-nav__link">
+        Proof of Donation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../faq/other/" class="md-nav__link">
+        Other
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#circuits-organization" class="md-nav__link">
+    Circuits Organization
+  </a>
+  
+    <nav class="md-nav" aria-label="Circuits Organization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    Dependencies
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assumptions" class="md-nav__link">
+    Assumptions
+  </a>
+  
+    <nav class="md-nav" aria-label="Assumptions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#l1-transactions" class="md-nav__link">
+    L1 Transactions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#legend" class="md-nav__link">
+    Legend
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#library" class="md-nav__link">
+    Library
+  </a>
+  
+    <nav class="md-nav" aria-label="Library">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hash-state" class="md-nav__link">
+    hash-state
+  </a>
+  
+    <nav class="md-nav" aria-label="hash-state">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decode-float" class="md-nav__link">
+    decode-float
+  </a>
+  
+    <nav class="md-nav" aria-label="decode-float">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_1" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_1" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_1" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_1" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mux256" class="md-nav__link">
+    mux256
+  </a>
+  
+    <nav class="md-nav" aria-label="mux256">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_2" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_2" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_2" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_2" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utils-bjj" class="md-nav__link">
+    utils-bjj
+  </a>
+  
+    <nav class="md-nav" aria-label="utils-bjj">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_3" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_3" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input" class="md-nav__link">
+    Input
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ouput" class="md-nav__link">
+    Ouput
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#source" class="md-nav__link">
+    Source
+  </a>
+  
+    <nav class="md-nav" aria-label="Source">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decode-tx" class="md-nav__link">
+    decode-tx
+  </a>
+  
+    <nav class="md-nav" aria-label="decode-tx">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_4" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_4" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_3" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_3" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fee-accumulator" class="md-nav__link">
+    fee-accumulator
+  </a>
+  
+    <nav class="md-nav" aria-label="fee-accumulator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_5" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_5" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_4" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_4" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rq-tx-verifier" class="md-nav__link">
+    rq-tx-verifier
+  </a>
+  
+    <nav class="md-nav" aria-label="rq-tx-verifier">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_6" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_6" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input_1" class="md-nav__link">
+    Input
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    Output
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hash-inputs" class="md-nav__link">
+    hash-inputs
+  </a>
+  
+    <nav class="md-nav" aria-label="hash-inputs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_7" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_7" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_5" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ouputs" class="md-nav__link">
+    Ouputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fee-tx" class="md-nav__link">
+    fee-tx
+  </a>
+  
+    <nav class="md-nav" aria-label="fee-tx">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_8" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_8" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_6" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_5" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compute-fee" class="md-nav__link">
+    compute-fee
+  </a>
+  
+    <nav class="md-nav" aria-label="compute-fee">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_9" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_9" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_7" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_6" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#balance-updater" class="md-nav__link">
+    balance-updater
+  </a>
+  
+    <nav class="md-nav" aria-label="balance-updater">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_10" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_10" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_8" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_7" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rollup-tx-states" class="md-nav__link">
+    rollup-tx-states
+  </a>
+  
+    <nav class="md-nav" aria-label="rollup-tx-states">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_11" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_11" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_9" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_8" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rollup-tx" class="md-nav__link">
+    rollup-tx
+  </a>
+  
+    <nav class="md-nav" aria-label="rollup-tx">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_12" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_12" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_10" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ouputs_1" class="md-nav__link">
+    Ouputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rollup-main" class="md-nav__link">
+    rollup-main
+  </a>
+  
+    <nav class="md-nav" aria-label="rollup-main">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_13" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_13" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_11" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_9" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#withdraw" class="md-nav__link">
+    withdraw
+  </a>
+  
+    <nav class="md-nav" aria-label="withdraw">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_14" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schematic_14" class="md-nav__link">
+    Schematic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs_12" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_10" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/hermeznetwork/hermez-docs/edit/master/docs/Hermez_1.0/developers/protocol/hermez-protocol/circuits/circuits.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="circuits">Circuits</h1>
+<style>
+img[alt~="center"] {
+  display: block;
+  margin: 0 auto;
+}
+</style>
+<h2 id="overview">Overview</h2>
+<p>All of the rules a transaction must follow in order to be valid are designed and coded in the circuits. Those rules could be seen as constraints that a transaction must accomplish in order to be able to modify the state tree or the exit tree.</p>
+<p>Circuits are built from the bottom up. Hence, small circuits are first introduced and are referenced in advanced ones for the sake of clarity.</p>
+<p>Circuits would be split into three modules:</p>
+<ul>
+<li>library: basic Hermez circuits and structs commonly used across the rest of the circuits</li>
+<li>withdraw: specific circuit to allow a user to withdraw funds from Hermez contract</li>
+<li>rollup-main: main circuit that contains all the logic described in <a href="../../protocol">ZK-Rollup protocol</a></li>
+</ul>
+<blockquote>
+<p>withdraw: user could perform a withdrawal by submitting a ZK Proof or a Merkle tree proof. Both methods are equivalent in terms of functionality.</p>
+</blockquote>
+<p>Global variables:</p>
+<ul>
+<li><code>nTx</code>: absolute maximum of L1 or L2 transactions allowed</li>
+<li><code>nLevels</code>: Merkle tree depth</li>
+<li><code>maxL1Tx</code>: absolute maximum of L1 transaction allowed</li>
+<li><code>maxFeeTx</code>: absolute maximum of fee transactions allowed</li>
+</ul>
+<h3 id="circuits-organization">Circuits Organization</h3>
+<ul>
+<li>Library:<ul>
+<li><a href="#hash-state">hash-state</a></li>
+<li><a href="#decode-float">decode-float</a></li>
+<li><a href="#mux256">mux256</a></li>
+<li><a href="#utils-bjj">utils-bjj</a></li>
+</ul>
+</li>
+<li>Source:<ul>
+<li><a href="#decode-tx">decode-tx</a></li>
+<li><a href="#fee-accumulator">fee-accumulator</a></li>
+<li><a href="#rq-tx-verifier">rq-tx-verifier</a></li>
+<li><a href="#hash-inputs">hash-inputs</a></li>
+<li><a href="#fee-tx">fee-tx</a></li>
+<li><a href="#compute-fee">compute-fee</a></li>
+<li><a href="#balance-updater">balance-updater</a></li>
+<li><a href="#rollup-tx-states">rollup-tx-states</a></li>
+<li><a href="#rollup-tx">rollup-tx</a></li>
+<li><a href="#rollup-main">rollup-main</a></li>
+<li><a href="#withdraw">withdraw</a></li>
+</ul>
+</li>
+</ul>
+<h4 id="dependencies">Dependencies</h4>
+<p><img alt="center" src="../circuit-dependencies.png" /></p>
+<h2 id="assumptions">Assumptions</h2>
+<h3 id="l1-transactions">L1 Transactions</h3>
+<p>Some assumptions must be taken into account in L1 transactions. They are performed by users which interact with the smart contract. Hence, the smart contract performs checks and forces some parameters that are assumed in the circuit implementation:</p>
+<ul>
+<li><code>tokenID</code> must exist</li>
+<li><code>loadAmount</code> &lt; 2^128</li>
+<li><code>amount</code> &lt; 2^192</li>
+<li>if <code>toIdx == 0</code> then <code>amount == 0</code></li>
+<li>if <code>fromIdx == 0</code> then <code>fromBjj-compressed != 0</code></li>
+<li>if <code>fromIdx &gt; INITIAL_IDX</code> then <code>fromBjj-compressed == 0</code></li>
+</ul>
+<p>A summary is shown in the next table with all the L1 transactions assumptions:</p>
+<ul>
+<li><code>UP</code>: user parameter</li>
+<li><code>ME</code>: must exist</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center"><strong>Transaction type</strong></th>
+<th align="center">toIdx</th>
+<th align="center">tokenID</th>
+<th align="center">amountF</th>
+<th align="center">loadAmountF</th>
+<th align="center">fromIdx</th>
+<th align="center">fromBjj-compressed</th>
+<th align="center">fromEthAddr</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">createAccount</td>
+<td align="center">0</td>
+<td align="center">UP, ME</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">UP (!=0)</td>
+<td align="center">msg.sender</td>
+</tr>
+<tr>
+<td align="center">createAccountDeposit</td>
+<td align="center">0</td>
+<td align="center">UP, ME</td>
+<td align="center">0</td>
+<td align="center">UP &lt; 2^128</td>
+<td align="center">0</td>
+<td align="center">UP (!=0)</td>
+<td align="center">msg.sender</td>
+</tr>
+<tr>
+<td align="center">createAccountDepositTransfer</td>
+<td align="center">UP, ME</td>
+<td align="center">UP, ME</td>
+<td align="center">UP &lt; 2^192</td>
+<td align="center">UP &lt; 2^128</td>
+<td align="center">0</td>
+<td align="center">UP (!=0)</td>
+<td align="center">msg.sender</td>
+</tr>
+<tr>
+<td align="center">deposit</td>
+<td align="center">0</td>
+<td align="center">UP, ME</td>
+<td align="center">0</td>
+<td align="center">UP &lt; 2^128</td>
+<td align="center">UP, ME</td>
+<td align="center">0</td>
+<td align="center">msg.sender</td>
+</tr>
+<tr>
+<td align="center">depositTransfer</td>
+<td align="center">UP, ME</td>
+<td align="center">UP, ME</td>
+<td align="center">UP &lt; 2^192</td>
+<td align="center">UP &lt; 2^128</td>
+<td align="center">UP, ME</td>
+<td align="center">0</td>
+<td align="center">msg.sender</td>
+</tr>
+<tr>
+<td align="center">forceTransfer</td>
+<td align="center">UP, ME</td>
+<td align="center">UP, ME</td>
+<td align="center">UP &lt; 2^192</td>
+<td align="center">0</td>
+<td align="center">UP, ME</td>
+<td align="center">0</td>
+<td align="center">msg.sender</td>
+</tr>
+<tr>
+<td align="center">forceExit</td>
+<td align="center">1</td>
+<td align="center">UP, ME</td>
+<td align="center">UP &lt; 2^192</td>
+<td align="center">0</td>
+<td align="center">UP, ME</td>
+<td align="center">0</td>
+<td align="center">msg.sender</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>All L1 transactions are further explained <a href="../../protocol#l1-user-transactions">here</a></p>
+</blockquote>
+<h2 id="legend">Legend</h2>
+<p><img alt="center" src="../legend.png" /></p>
+<p>It should be note that <code>public</code> and <code>private</code> signals will be highlighted only in top layer circuits:</p>
+<ul>
+<li><a href="#withdraw">withdraw</a></li>
+<li><a href="#rollup-main">rollup-main</a></li>
+</ul>
+<h2 id="library">Library</h2>
+<h3 id="hash-state">hash-state</h3>
+<h4 id="description">Description</h4>
+<p>Gets the inputs of the state and computes its hash as described <a href="../../protocol#state-tree">here</a></p>
+<h4 id="schematic">Schematic</h4>
+<p><img alt="center" src="../hash-state.png" /></p>
+<h4 id="inputs">Inputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Input</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">tokenID</td>
+<td align="center">uint32</td>
+<td align="center">token identifier</td>
+</tr>
+<tr>
+<td align="center">nonce</td>
+<td align="center">uint40</td>
+<td align="center">nonce</td>
+</tr>
+<tr>
+<td align="center">sign</td>
+<td align="center">boolean</td>
+<td align="center">babyjubjub sign</td>
+</tr>
+<tr>
+<td align="center">balance</td>
+<td align="center">uint192</td>
+<td align="center">amount available</td>
+</tr>
+<tr>
+<td align="center">ay</td>
+<td align="center">field</td>
+<td align="center">babyjubjub y coordinate</td>
+</tr>
+<tr>
+<td align="center">ethAddr</td>
+<td align="center">uint160</td>
+<td align="center">ethereum address</td>
+</tr>
+</tbody>
+</table>
+<h4 id="outputs">Outputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Output</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">out</td>
+<td align="center">field</td>
+<td align="center">state hash</td>
+</tr>
+</tbody>
+</table>
+<h3 id="decode-float">decode-float</h3>
+<h4 id="description_1">Description</h4>
+<p>Gets an input representing a <code>float40</code> format and decode it to a large integer value as described <a href="../../protocol#floating-point-format-float40">here</a></p>
+<ul>
+<li>Steps:</li>
+<li>get the 40 less significant bits</li>
+<li>compute exponent</li>
+<li>compute mantissa</li>
+<li>compute final large integer</li>
+</ul>
+<h4 id="schematic_1">Schematic</h4>
+<p><img alt="center" src="../decode-float.png" /></p>
+<h4 id="inputs_1">Inputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Input</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">in</td>
+<td align="center">uint40</td>
+<td align="center">float40 encode</td>
+</tr>
+</tbody>
+</table>
+<h4 id="outputs_1">Outputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Output</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">out</td>
+<td align="center">field</td>
+<td align="center">float40 decode</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mux256">mux256</h3>
+<h4 id="description_2">Description</h4>
+<p>Multiplexer with 256 inputs</p>
+<h4 id="schematic_2">Schematic</h4>
+<p><img alt="center" src="../mux256.png" /></p>
+<h4 id="inputs_2">Inputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Input</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">s[8]</td>
+<td align="center">boolean array</td>
+<td align="center">mux selectors</td>
+</tr>
+<tr>
+<td align="center">in[256]</td>
+<td align="center">field array</td>
+<td align="center">mux inputs</td>
+</tr>
+</tbody>
+</table>
+<h4 id="outputs_2">Outputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Output</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">out</td>
+<td align="center">field</td>
+<td align="center">selected input</td>
+</tr>
+</tbody>
+</table>
+<h3 id="utils-bjj">utils-bjj</h3>
+<h4 id="description_3">Description</h4>
+<p>Implements two functionalities to be used for further circuits:</p>
+<ul>
+<li>BitsCompressed2AySign<ul>
+<li>gets the <code>bjjCompressed[256]</code> in bits and retrieve <code>ay</code> and <code>sign</code> to be inserted into the account state</li>
+</ul>
+</li>
+<li>AySign2Ax<ul>
+<li>gets the <code>ay</code> and <code>sign</code> and computes de <code>ax</code> coordinate</li>
+</ul>
+</li>
+</ul>
+<h4 id="schematic_3">Schematic</h4>
+<p><img alt="center" src="../utils-bjj.png" /></p>
+<h4 id="input">Input</h4>
+<ul>
+<li>BitsCompressed2AySign</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">Input</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">bjjCompressed[256]</td>
+<td align="center">boolean array</td>
+<td align="center">babyjubjub point compressed</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>AySign2Ax</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">Input</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">ay</td>
+<td align="center">field</td>
+<td align="center">babyjubjub y coordinate</td>
+</tr>
+<tr>
+<td align="center">sign</td>
+<td align="center">boolean</td>
+<td align="center">babyjubjub sign</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ouput">Ouput</h4>
+<ul>
+<li>BitsCompressed2AySign</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">Output</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">ay</td>
+<td align="center">field</td>
+<td align="center">babyjubjub y coordinate</td>
+</tr>
+<tr>
+<td align="center">sign</td>
+<td align="center">boolean</td>
+<td align="center">babyjubjub sign</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>AySign2Ax</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">Output</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">ax</td>
+<td align="center">field</td>
+<td align="center">babyjubjub x coordinate</td>
+</tr>
+</tbody>
+</table>
+<h2 id="source">Source</h2>
+<h3 id="decode-tx">decode-tx</h3>
+<h4 id="description_4">Description</h4>
+<p>Takes the transaction data, decodes it and builds data structures to be used in further circuits. Additionally, it performs checks on transactions fields. Listed below is all the built data and all the checks that this circuit performs.</p>
+<ul>
+<li>Decoders/Build<ul>
+<li>decodes <code>txCompressedData</code> as specified <a href="../../protocol#l2">here</a></li>
+<li>builds <code>txCompressedDataV2</code> as specified <a href="../../protocol#l2">here</a></li>
+<li>builds L1-L2 data availability <code>L1L2TxData</code> as specificied <a href="../../protocol#l1-l2-transactions">here</a></li>
+<li>builds message to sign by L2 transactions <code>sigL2Hash</code> as specified <a href="../../protocol#l2">here</a></li>
+<li>build L1 full data <code>L1TxFullData</code> as specified <a href="../../protocol#l1-user-transactions">here</a></li>
+</ul>
+</li>
+<li>Checks<ul>
+<li>L1 transactions must be processed before L2 transactions</li>
+<li>only switching from L1 to L2 is allowed</li>
+<li>checks <code>newAccount</code> is set to true only when it is an L1 transaction and <code>fromIdx</code> is 0</li>
+<li><code>idx</code> to be assigned to a new account creation is incremented and checked only if the transaction involves an account creation</li>
+<li>checks <code>chainID</code> transaction field matches <code>globalChainID</code> forced by the smart contract</li>
+<li>checks <code>signatureConstant</code> transaction field matches the hardcoded value <code>CONST_SIG</code> set in the circuit</li>
+<li>checks <code>maxNumBatch</code> signed in the transaction is greater or equal to <code>currentNumBatch</code> only if <code>maxNumBatch != 0</code></li>
+</ul>
+</li>
+<li>Global variables:<ul>
+<li><code>nLevels</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="schematic_4">Schematic</h4>
+<p><img alt="center" src="../decode-tx.png" /></p>
+<h4 id="inputs_3">Inputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Input</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">previousOnChain</td>
+<td align="center">bool</td>
+<td align="center">determines if previous transaction is L1</td>
+</tr>
+<tr>
+<td align="center">txCompressedData</td>
+<td align="center">uint241</td>
+<td align="center">encode transaction fields together</td>
+</tr>
+<tr>
+<td align="center">maxNumBatch</td>
+<td align="center">uint32</td>
+<td align="center">maximum allowed batch number when the transaction can be processed</td>
+</tr>
+<tr>
+<td align="center">amountF</td>
+<td align="center">uint40</td>
+<td align="center">amount to transfer from L2 to L2 encoded as float40</td>
+</tr>
+<tr>
+<td align="center">toEthAddr</td>
+<td align="center">uint160</td>
+<td align="center">ethereum address receiver</td>
+</tr>
+<tr>
+<td align="center">toBjjAy</td>
+<td align="center">field</td>
+<td align="center">babyjubjub y coordinate receiver</td>
+</tr>
+<tr>
+<td align="center">rqTxCompressedDataV2</td>
+<td align="center">uint193</td>
+<td align="center">requested encode transaction fields together version 2</td>
+</tr>
+<tr>
+<td align="center">rqToEthAddr</td>
+<td align="center">uint160</td>
+<td align="center">requested ethereum address receiver</td>
+</tr>
+<tr>
+<td align="center">rqToBjjAy</td>
+<td align="center">field</td>
+<td align="center">requested babyjubjub y coordinate</td>
+</tr>
+<tr>
+<td align="center">fromEthAddr</td>
+<td align="center">uint160</td>
+<td align="center">ethereum address sender</td>
+</tr>
+<tr>
+<td align="center">fromBjjCompressed[256]</td>
+<td align="center">boolean array</td>
+<td align="center">babyjubjub compressed sender</td>
+</tr>
+<tr>
+<td align="center">loadAmountF</td>
+<td align="center">uint40</td>
+<td align="center">amount to deposit from L1 to L2 encoded as float40</td>
+</tr>
+<tr>
+<td align="center">globalChainID</td>
+<td align="center">uint16</td>
+<td align="center">global chain identifier</td>
+</tr>
+<tr>
+<td align="center">currentNumBatch</td>
+<td align="center">uint32</td>
+<td align="center">current batch number</td>
+</tr>
+<tr>
+<td align="center">onChain</td>
+<td align="center">bool</td>
+<td align="center">determines if the transaction is L1 or L2</td>
+</tr>
+<tr>
+<td align="center">newAccount</td>
+<td align="center">bool</td>
+<td align="center">determines if transaction creates a new account</td>
+</tr>
+<tr>
+<td align="center">auxFromIdx</td>
+<td align="center">uint48</td>
+<td align="center">auxiliary index to create accounts</td>
+</tr>
+<tr>
+<td align="center">auxToIdx</td>
+<td align="center">uint48</td>
+<td align="center">auxiliary index when signed index receiver is set to null</td>
+</tr>
+<tr>
+<td align="center">inIdx</td>
+<td align="center">uint48</td>
+<td align="center">old last index assigned</td>
+</tr>
+</tbody>
+</table>
+<h4 id="outputs_3">Outputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Output</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">L1L2TxData</td>
+<td align="center">array boolean</td>
+<td align="center">L1-L2 data availability</td>
+</tr>
+<tr>
+<td align="center">txCompressedDataV2</td>
+<td align="center">uint193</td>
+<td align="center">encode transaction fields together version 2</td>
+</tr>
+<tr>
+<td align="center">L1TxFullData</td>
+<td align="center">array boolean</td>
+<td align="center">L1 full data</td>
+</tr>
+<tr>
+<td align="center">outIdx</td>
+<td align="center">uint48</td>
+<td align="center">old last index assigned</td>
+</tr>
+<tr>
+<td align="center">fromIdx</td>
+<td align="center">uint48</td>
+<td align="center">index sender</td>
+</tr>
+<tr>
+<td align="center">toIdx</td>
+<td align="center">uint48</td>
+<td align="center">index receiver</td>
+</tr>
+<tr>
+<td align="center">amount</td>
+<td align="center">uint192</td>
+<td align="center">amount to transfer from L2 to L2</td>
+</tr>
+<tr>
+<td align="center">tokenID</td>
+<td align="center">uint32</td>
+<td align="center">token identifier</td>
+</tr>
+<tr>
+<td align="center">nonce</td>
+<td align="center">uint40</td>
+<td align="center">nonce</td>
+</tr>
+<tr>
+<td align="center">userFee</td>
+<td align="center">uint8</td>
+<td align="center">user fee selector</td>
+</tr>
+<tr>
+<td align="center">toBjjSign</td>
+<td align="center">boolean</td>
+<td align="center">babyjubjub sign receiver</td>
+</tr>
+<tr>
+<td align="center">sigL2Hash</td>
+<td align="center">field</td>
+<td align="center">hash L2 data to sign</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fee-accumulator">fee-accumulator</h3>
+<h4 id="description_5">Description</h4>
+<p>Updates the fees accumulated by each transaction given its fee.</p>
+<ul>
+<li>Definitions:<ul>
+<li><code>tokenID</code>: token to update</li>
+<li><code>feePlanTokenID[numTokens]</code>: array of all the tokenID that fees will be accumulated</li>
+<li><code>accFeeIn[numTokens]</code>: initial array of all fees accumulated</li>
+<li><code>fee2Charge</code>: effective fee charged in a transaction</li>
+<li><code>accFeeOut[numTokens]</code>: final array of all fees accumulated</li>
+</ul>
+</li>
+<li>Steps:<ul>
+<li>find the position on the array <code>feePlanTokenID[numTokens]</code> where its element matches the current transaction <code>tokenID</code><ul>
+<li>if no match found, no fee would be accumulated and <code>accFeeIn[0..numTokens] == accFeeOut[0..numTokens]</code></li>
+</ul>
+</li>
+<li>if a match is found:<ul>
+<li>accumulate the fee <code>fee2Charge</code> inside its position <code>i</code> on <code>accFeeOut[i]</code></li>
+<li>avoid accumulate fees once the match is found</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Global variables:<ul>
+<li><code>maxFeeTx</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="schematic_5">Schematic</h4>
+<p><img alt="center" src="../fee-accumulator.png" /></p>
+<h4 id="inputs_4">Inputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Input</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">tokenID</td>
+<td align="center">uint32</td>
+<td align="center">tokenID transaction</td>
+</tr>
+<tr>
+<td align="center">fee2Charge</td>
+<td align="center">uint192</td>
+<td align="center">fee charged</td>
+</tr>
+<tr>
+<td align="center">feePlanTokenID[maxFeeTx]</td>
+<td align="center">uint32 array</td>
+<td align="center">all tokens eligible to accumulate fees</td>
+</tr>
+<tr>
+<td align="center">accFeeIn[maxFeeTx]</td>
+<td align="center">uint192 array</td>
+<td align="center">initial fees accumulated</td>
+</tr>
+</tbody>
+</table>
+<h4 id="outputs_4">Outputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Output</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">accFeeOut[maxFeeTx]</td>
+<td align="center">uint192 array</td>
+<td align="center">final fees accumulated</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rq-tx-verifier">rq-tx-verifier</h3>
+<h4 id="description_6">Description</h4>
+<p>Required transaction offset <code>rqTxOffset</code> is the relative index of the transaction that would be linked. This implementation adds atomics swaps support since one transaction is linked to another by this relative index meaning that a transaction can only be processed if the linked transaction is processed too.</p>
+<p>The next circuit aims to check the past and future data transactions to match the required data signed.</p>
+<p>Data to be signed in order to link transactions can be found <a href="../../protocol#transaction-fields">here</a></p>
+<table>
+<thead>
+<tr>
+<th align="center">rqTxOffset</th>
+<th align="center">relativeIndex</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">0</td>
+<td align="center">no linked transaction</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">3</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">-4</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">-3</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">-2</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">-1</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Note that setting <code>rqTxOffset</code> to 0 means that no transaction is linked</p>
+</blockquote>
+<ul>
+<li>Steps:<ul>
+<li>get data of future/past transactions</li>
+<li>get relative index and current required data</li>
+<li>check required data matched the future/past transaction</li>
+</ul>
+</li>
+</ul>
+<h4 id="schematic_6">Schematic</h4>
+<p><img alt="center" src="../rq-tx-verifier.png" /></p>
+<h4 id="input_1">Input</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Input</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">futureTxCompressedDataV2[3]</td>
+<td align="center">uint192 array</td>
+<td align="center">future transactions txCompressedDataV2</td>
+</tr>
+<tr>
+<td align="center">pastTxCompressedDataV2[4]</td>
+<td align="center">uint192 array</td>
+<td align="center">past transactions txCompressedDataV2</td>
+</tr>
+<tr>
+<td align="center">futureToEthAddr[3]</td>
+<td align="center">uint160 array</td>
+<td align="center">future transactions toEthAddr</td>
+</tr>
+<tr>
+<td align="center">pastToEthAddr[4]</td>
+<td align="center">uint160 array</td>
+<td align="center">past transactions toEthAddr</td>
+</tr>
+<tr>
+<td align="center">futureToBjjAy[3]</td>
+<td align="center">field array</td>
+<td align="center">future transactions toBjjAy</td>
+</tr>
+<tr>
+<td align="center">pastToBjjAy[4]</td>
+<td align="center">field array</td>
+<td align="center">past transactions toBjjAy</td>
+</tr>
+<tr>
+<td align="center">rqTxCompressedDataV2</td>
+<td align="center">uint192</td>
+<td align="center">requested encode transaction fields together version 2</td>
+</tr>
+<tr>
+<td align="center">rqToEthAddr</td>
+<td align="center">uint160</td>
+<td align="center">requested ethereum address receiver</td>
+</tr>
+<tr>
+<td align="center">rqToBjjAy</td>
+<td align="center">field</td>
+<td align="center">requested babyjubjub y coordinate</td>
+</tr>
+<tr>
+<td align="center">rqTxOffset</td>
+<td align="center">uint3</td>
+<td align="center">relative linked transaction</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output">Output</h4>
+<p>None</p>
+<h3 id="hash-inputs">hash-inputs</h3>
+<h4 id="description_7">Description</h4>
+<p>Take all the intended public inputs and hash them all together to build a single public input for the circuit. The intended public inputs will turn into private inputs of the circuit.</p>
+<p>Note that this single input will be built by the smart contract. Therefore, proof must match all the data hashed in the <code>input hash</code> which is built inside the circuit from private signals.</p>
+<blockquote>
+<p>checkout <a href="../../protocol#circuit">here</a> definition of global settings</p>
+</blockquote>
+<p>Specification for computing <code>hashInputs</code> can be found <a href="../../protocol#forging">here</a></p>
+<ul>
+<li>Global variables:<ul>
+<li><code>nLevels</code></li>
+<li><code>nTx</code></li>
+<li><code>maxL1Tx</code></li>
+<li><code>maxFeeTx</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="schematic_7">Schematic</h4>
+<p><img alt="center" src="../hash-inputs.png" /></p>
+<h4 id="inputs_5">Inputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Input</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">oldLastIdx</td>
+<td align="center">uint48</td>
+<td align="center">old last merkle tree index created</td>
+</tr>
+<tr>
+<td align="center">newLastIdx</td>
+<td align="center">uint48</td>
+<td align="center">new last merkle tree index created</td>
+</tr>
+<tr>
+<td align="center">oldStateRoot</td>
+<td align="center">field</td>
+<td align="center">old state root</td>
+</tr>
+<tr>
+<td align="center">newStateRoot</td>
+<td align="center">field</td>
+<td align="center">new state root</td>
+</tr>
+<tr>
+<td align="center">newExitRoot</td>
+<td align="center">field</td>
+<td align="center">new exit root</td>
+</tr>
+<tr>
+<td align="center">L1TxsFullData[maxL1Tx * (2*nLevels + 32 + 40 + 40 + 256 + 160)]</td>
+<td align="center">boolean array</td>
+<td align="center">bits L1 full data</td>
+</tr>
+<tr>
+<td align="center">L1L2TxsData[nTx * (2*nLevels + 40 + 8)]</td>
+<td align="center">boolean array</td>
+<td align="center">bits L1-L2 transaction data-availability</td>
+</tr>
+<tr>
+<td align="center">feeTxsData[maxFeeTx]</td>
+<td align="center">uint48 array</td>
+<td align="center">all index accounts to  receive accumulated fees</td>
+</tr>
+<tr>
+<td align="center">globalChainID</td>
+<td align="center">uint16</td>
+<td align="center">global chain identifier</td>
+</tr>
+<tr>
+<td align="center">currentNumBatch</td>
+<td align="center">uint32</td>
+<td align="center">current batch number processed</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ouputs">Ouputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Output</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">hashInputsOut</td>
+<td align="center">field</td>
+<td align="center">sha256 hash of intended public inputs</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fee-tx">fee-tx</h3>
+<h4 id="description_8">Description</h4>
+<p>This circuit handles each fee transaction. Fee transaction takes the accumulate fees for a given <code>tokenID</code> and updates the recipient where the fees are wanted to be paid. It checks account existence with the old state root, process the account update and compute the new state root.</p>
+<p><code>TokenID</code> must match between fee accumulated and recipient account in order to not update wrong recipients.</p>
+<p>Besides, if coordinator does not fulfill all the possible recipient to receive fees, fee transaction could be a NOP transaction by setting the recipient to the null index (<code>IDX 0</code>)</p>
+<ul>
+<li>Steps:<ul>
+<li>check if <code>idxFee</code> is zero</li>
+<li><code>NOP</code> transaction if <code>idxFee</code> is zero. Otherwise:<ul>
+<li>check match <code>planTokenID</code> and <code>tokenID</code> for updating the state</li>
+<li>compute merkle tree processor function (<code>UPDATE</code> or <code>NOP</code>)</li>
+<li>compute old state value (old account balance)</li>
+<li>compute new state value (old account balance + accumulate fee)</li>
+<li>merkle tree processor to compute account update and get new state root</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Global variables:<ul>
+<li><code>nLevels</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="schematic_8">Schematic</h4>
+<p><img alt="center" src="../fee-tx.png" /></p>
+<h4 id="inputs_6">Inputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Input</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">oldStateRoot</td>
+<td align="center">field</td>
+<td align="center">old state root</td>
+</tr>
+<tr>
+<td align="center">feePlanToken</td>
+<td align="center">uint32</td>
+<td align="center">token identifier of fees accumulated</td>
+</tr>
+<tr>
+<td align="center">feeIdx</td>
+<td align="center">uint48</td>
+<td align="center">merkle tree index to receive fees</td>
+</tr>
+<tr>
+<td align="center">accFee</td>
+<td align="center">uint192</td>
+<td align="center">accumulated fees to transfer</td>
+</tr>
+<tr>
+<td align="center">tokenID</td>
+<td align="center">uint32</td>
+<td align="center">tokenID of leaf feeIdx</td>
+</tr>
+<tr>
+<td align="center">nonce</td>
+<td align="center">uint40</td>
+<td align="center">nonce of leaf feeIdx</td>
+</tr>
+<tr>
+<td align="center">sign</td>
+<td align="center">bool</td>
+<td align="center">sign of leaf feeIdx</td>
+</tr>
+<tr>
+<td align="center">balance</td>
+<td align="center">uint192</td>
+<td align="center">balance of leaf feeIdx</td>
+</tr>
+<tr>
+<td align="center">ay</td>
+<td align="center">field</td>
+<td align="center">ay of leaf feeIdx</td>
+</tr>
+<tr>
+<td align="center">ethAddr</td>
+<td align="center">uint160</td>
+<td align="center">ethAddr of leaf feeIdx</td>
+</tr>
+<tr>
+<td align="center">siblings[nLevels + 1]</td>
+<td align="center">field array</td>
+<td align="center">siblings merkle proof</td>
+</tr>
+</tbody>
+</table>
+<h4 id="outputs_5">Outputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Output</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">newStateRoot</td>
+<td align="center">field</td>
+<td align="center">new state root</td>
+</tr>
+</tbody>
+</table>
+<h3 id="compute-fee">compute-fee</h3>
+<h4 id="description_9">Description</h4>
+<p>Computes the final amount of fee to apply given the fee selector</p>
+<ul>
+<li>Steps:<ul>
+<li>selects fee factor, <code>feeOut</code>, to apply given <code>feeSel</code> and <code>applyFee</code></li>
+<li>compute <code>feeOutNotShifted = amount * feeOut</code> and convert it into bits in <code>feeOutBits[253]</code></li>
+<li>compute <code>applyShift</code> to decide if shift has to be applied to <code>feeOutNotShifted</code></li>
+<li>select bits on <code>feeOutBits[253]</code> depending on <code>applyShift</code> flag</li>
+<li>assert <code>feeOut</code> is <span class="arithmatex">\(&lt; 2^{128}\)</span></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>It should be noted that <code>feeShiftTable[x]</code> are values hardcoded in the circuit that will match the <a href="../../fee-table#feefactor-left-shifted">fee factor shifted</a></p>
+<p>60 bits has been chosen in order to optimize precision at the time to compute fees. 60 bits is the minimum bits to achieve enough precision according <a href="../../fee-table#transaction-fee-table">fee table values</a></p>
+</blockquote>
+<h4 id="schematic_9">Schematic</h4>
+<p><img alt="center" src="../compute-fee.png" /></p>
+<h4 id="inputs_7">Inputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Input</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">feeSel</td>
+<td align="center">Uint8</td>
+<td align="center">fee selector</td>
+</tr>
+<tr>
+<td align="center">amount</td>
+<td align="center">Uint128</td>
+<td align="center">amount to apply the fee factor</td>
+</tr>
+<tr>
+<td align="center">applyFee</td>
+<td align="center">boolean</td>
+<td align="center">determines if fee needs to be computed or if it is 0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="outputs_6">Outputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Output</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">feeOut</td>
+<td align="center">Uint128</td>
+<td align="center">amount * feeFactor</td>
+</tr>
+</tbody>
+</table>
+<h3 id="balance-updater">balance-updater</h3>
+<h4 id="description_10">Description</h4>
+<p>This circuit checks if there is enough balance in the sender account to do the transfer to the receiver account.</p>
+<p>It computes the new balances for the sender and the receiver. Besides, returns the fee that will be charged and if the amount to transfer is 0 (<code>isP2Nop</code> signal). These signals will be used in further circuits.</p>
+<p>It should be noted that in L1 tx, no errors are allowed but the circuit needs to process them. Hence, in case it is not enough balance on the sender account, it will process the transaction as a 0 amount transfer. Hence, signal <code>isAmountNullified</code> will notify if a L1 transaction has been nullified if it is invalid. This <code>isAmountNullified</code> will be used to compute data-availability where the amount used would not be inserted in <a href="../../protocol#l1-l2-transactions"><code>L1L2TxsData</code></a> since L1Tx is not valid or triggers underflow.
+In case of an L2 tx, the protocol does not allow to do a transaction if there is not enough balance in the sender account.</p>
+<ul>
+<li>The following assumptions have been taken:<ul>
+<li>smart contract filters <code>loadAmount</code> above 2^128</li>
+<li>smart contract filters <code>amount</code> above 2^192</li>
+<li>circuit reserves 192 bits for the balance of an account</li>
+<li>overflow applies only if more than 2^64 transactions are done</li>
+<li>assume overflow is not feasible</li>
+</ul>
+</li>
+<li>Steps:<ul>
+<li>compute fee to be applied(<code>fee2Charge</code>)</li>
+<li>compute effective amount (<code>effectiveAmount1</code> and <code>effectiveAmount2</code>)</li>
+<li>check underflow (<code>txOk</code>)</li>
+<li>compute new balances from sender and receiver (<code>newStBalanceSender</code> and <code>newStBalanceReceiver</code>)</li>
+</ul>
+</li>
+</ul>
+<h4 id="schematic_10">Schematic</h4>
+<p><img alt="center" src="../balance-updater.png" /></p>
+<h4 id="inputs_8">Inputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Input</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">oldStBalanceSender</td>
+<td align="center">field</td>
+<td align="center">initial sender balance</td>
+</tr>
+<tr>
+<td align="center">oldStBalanceReceiver</td>
+<td align="center">field</td>
+<td align="center">initial receiver balance</td>
+</tr>
+<tr>
+<td align="center">amount</td>
+<td align="center">uint192</td>
+<td align="center">amount to transfer from L2 to L2</td>
+</tr>
+<tr>
+<td align="center">loadAmount</td>
+<td align="center">uint192</td>
+<td align="center">amount to deposit from L1 to L2</td>
+</tr>
+<tr>
+<td align="center">feeSelector</td>
+<td align="center">uint8</td>
+<td align="center">user selector fee</td>
+</tr>
+<tr>
+<td align="center">onChain</td>
+<td align="center">bool</td>
+<td align="center">determines if the transaction is L1 or L2</td>
+</tr>
+<tr>
+<td align="center">nop</td>
+<td align="center">bool</td>
+<td align="center">determines if the transfer amount and fees are considered 0</td>
+</tr>
+<tr>
+<td align="center">nullifyLoadAmount</td>
+<td align="center">bool</td>
+<td align="center">determines if loadAmount is considered to be 0</td>
+</tr>
+<tr>
+<td align="center">nullifyAmount</td>
+<td align="center">bool</td>
+<td align="center">determines if amount is considered to be 0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="outputs_7">Outputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Output</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">newStBalanceSender</td>
+<td align="center">uint192</td>
+<td align="center">final balance sender</td>
+</tr>
+<tr>
+<td align="center">newStBalanceReceiver</td>
+<td align="center">uint192</td>
+<td align="center">final balance receiver</td>
+</tr>
+<tr>
+<td align="center">isP2Nop</td>
+<td align="center">bool</td>
+<td align="center">determines if processor 2 performs a NOP transaction</td>
+</tr>
+<tr>
+<td align="center">fee2Charge</td>
+<td align="center">uint192</td>
+<td align="center">effective transaction fee</td>
+</tr>
+<tr>
+<td align="center">isAmountNullified</td>
+<td align="center">uint32</td>
+<td align="center">determines if the amount is nullified</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rollup-tx-states">rollup-tx-states</h3>
+<h4 id="description_11">Description</h4>
+<p>This circuit is a subset of the <code>rollup-tx</code> circuit. It has been split for clarity.</p>
+<p>Transaction states are computed depending on transaction's type. All transaction types can be found <a href="../../protocol#transaction-types">here</a></p>
+<blockquote>
+<p>Note that L1 coordinator transactions are treated as L1 user <code>createAccountDeposit</code> inside the circuit. Circuit does not differentiate transactions taking into account its source, either launched by user or by coordinator.</p>
+</blockquote>
+<p>Sender and receiver accounts have their own Merkle tree processors inside the circuit in order to perform actions on their leaves:</p>
+<ul>
+<li>sender: processor 1</li>
+<li>receiver: processor 2</li>
+</ul>
+<p>The following table summarizes all the processor actions:</p>
+<table>
+<thead>
+<tr>
+<th align="center">func[0]</th>
+<th align="center">func[1]</th>
+<th align="center">Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">NOP</td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">UPDATE</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">INSERT</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">DELETE</td>
+</tr>
+</tbody>
+</table>
+<p>Therefore, given the transaction type, it is needed to specify certain signals that would be used in <code>rollup-tx</code> circuit:</p>
+<ul>
+<li><code>isP1Insert</code>: determines if processor 1 performs an INSERT function (sender)</li>
+<li><code>isP2Insert</code>: determines if processor 2 performs an INSERT function (receiver)</li>
+<li><code>key1</code>: set key to be used in processor 1</li>
+<li><code>key2</code>: set key to be used in processor 2</li>
+<li><code>P1_fnc0</code> and <code>P1_fnc1</code>: selectors for processor 1</li>
+<li><code>P2_fnc0</code> and <code>P2_fnc1</code>: selectors for processor 2</li>
+<li><code>isExit</code>: determines if the transaction is an exit type</li>
+<li><code>verifySignEnable</code>: enable babyjubjub signature checker</li>
+<li><code>nop</code>: transaction is processed as a NOP transaction</li>
+<li><code>checkToEthAddr</code>: enable <code>toEthAddr</code> check</li>
+<li><code>checkToBjj</code>: enable <code>toBjjAy</code> and <code>toBjjSign</code> check</li>
+</ul>
+<p>Following truth table determines how to set the above signals depending on transaction inputs:</p>
+<blockquote>
+<p>Note that italics make reference to outputs, regular makes reference to inputs</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center"><strong>Transaction type</strong></th>
+<th align="center">fromIdx</th>
+<th align="center">auxFromIdx</th>
+<th align="center">toIdx</th>
+<th align="center">auxToIdx</th>
+<th align="center">toEthAddr</th>
+<th align="center">onChain</th>
+<th align="center">newAccount</th>
+<th align="center">loadAmount</th>
+<th align="center">amount</th>
+<th align="center">newExit</th>
+<th align="center"><em>isP1Insert</em></th>
+<th align="center"><em>isP2Insert</em></th>
+<th align="center"><em>processor 1</em></th>
+<th align="center"><em>processor 2</em></th>
+<th align="center"><em>isExit</em></th>
+<th align="center"><em>verifySignEnable</em></th>
+<th align="center"><em>nop</em></th>
+<th align="center"><em>checkToEthAddr</em></th>
+<th align="center"><em>checkToBjj</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">createAccount</td>
+<td align="center">0</td>
+<td align="center">key1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">INSERT</td>
+<td align="center">UPDATE</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">createAccountDeposit</td>
+<td align="center">0</td>
+<td align="center">key1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">X</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">INSERT</td>
+<td align="center">UPDATE</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">createAccountDepositTransfer</td>
+<td align="center">0</td>
+<td align="center">key1</td>
+<td align="center">key2</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">INSERT</td>
+<td align="center">UPDATE</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">deposit</td>
+<td align="center">key1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">X</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">UPDATE</td>
+<td align="center">UPDATE</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">depositTransfer</td>
+<td align="center">key1</td>
+<td align="center">0</td>
+<td align="center">key2</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">UPDATE</td>
+<td align="center">UPDATE</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">forceTransfer</td>
+<td align="center">key1</td>
+<td align="center">0</td>
+<td align="center">key2</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">X</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">UPDATE</td>
+<td align="center">UPDATE</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">forceExit</td>
+<td align="center">key1 - key2</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">X</td>
+<td align="center">0: UPDATE, 1: INSERT</td>
+<td align="center">0</td>
+<td align="center">X: UPDATE, 0: INSERT</td>
+<td align="center">UPDATE</td>
+<td align="center">EXIT INSERT - UPDATE</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">transfer</td>
+<td align="center">key1</td>
+<td align="center">0</td>
+<td align="center">key2</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">X</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">UPDATE</td>
+<td align="center">UPDATE</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">exit</td>
+<td align="center">key1 - key2</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">X</td>
+<td align="center">0: UPDATE, 1: INSERT</td>
+<td align="center">0</td>
+<td align="center">X: UPDATE, 0: INSERT</td>
+<td align="center">UPDATE</td>
+<td align="center">EXIT INSERT - UPDATE</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">transferToEthAddr</td>
+<td align="center">key1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">key2</td>
+<td align="center">ANY_ETH_ADDR != 0xF..F</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">X</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">UPDATE</td>
+<td align="center">UPDATE</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">transferToBjj</td>
+<td align="center">key1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">key2</td>
+<td align="center">ANY_ETH_ADDR == 0xF..F</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">X</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">UPDATE</td>
+<td align="center">UPDATE</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">nop</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">NOP</td>
+<td align="center">NOP</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<p>L1 invalid transactions should not be allowed but the circuit needs to process them even if they are not valid. In order to do so, the circuit performs a zero <code>loadAmount</code> \ <code>amount</code> update if L1 transaction is not valid. Therefore, circuit nullifies <code>loadAmount</code> \ <code>amount</code> if L1 invalid transaction is detected.</p>
+<p>Next table sets when to apply <code>nullifyLoadAmount</code> \ <code>nullifyAmount</code> depending L1 transaction type:</p>
+<blockquote>
+<p>Note that <code>nullifyLoadAmount</code> \ <code>nullifyAmount</code> fields are set to 1 only if <code>checks</code> are not successful and L1 transfers are only allowed if <code>tokenID == tokenID1 == tokenID2</code> as a sanity check</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center"><strong>Transaction type</strong></th>
+<th align="center">newAccount</th>
+<th align="center">isLoadAmount</th>
+<th align="center">isAmount</th>
+<th align="center">checkEthAddr</th>
+<th align="center">checkTokenID1</th>
+<th align="center">checkTokenID2</th>
+<th align="center"><em>nullifyLoadAmount</em></th>
+<th align="center"><em>nullifyAmount</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">createAccount</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">createAccountDeposit</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">createAccountDepositTransfer</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">deposit</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">depositTransfer</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">forceTransfer</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">forceExit</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1 if newExit = 0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+<h4 id="schematic_11">Schematic</h4>
+<p><img alt="center" src="../rollup-tx-states.png" /></p>
+<h4 id="inputs_9">Inputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Input</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">fromIdx</td>
+<td align="center">uint48</td>
+<td align="center">index sender</td>
+</tr>
+<tr>
+<td align="center">toIdx</td>
+<td align="center">uint48</td>
+<td align="center">index receiver</td>
+</tr>
+<tr>
+<td align="center">toEthAddr</td>
+<td align="center">uint160</td>
+<td align="center">ethereum address receiver</td>
+</tr>
+<tr>
+<td align="center">auxFromIdx</td>
+<td align="center">uint48</td>
+<td align="center">auxiliary index to create accounts</td>
+</tr>
+<tr>
+<td align="center">auxToIdx</td>
+<td align="center">uint48</td>
+<td align="center">auxiliary index when signed index receiver is set to null</td>
+</tr>
+<tr>
+<td align="center">amount</td>
+<td align="center">uint192</td>
+<td align="center">amount to transfer from L2 to L2</td>
+</tr>
+<tr>
+<td align="center">newExit</td>
+<td align="center">bool</td>
+<td align="center">determines if the transaction create a new account in the exit tree</td>
+</tr>
+<tr>
+<td align="center">loadAmount</td>
+<td align="center">uint192</td>
+<td align="center">amount to deposit from L1 to L2</td>
+</tr>
+<tr>
+<td align="center">newAccount</td>
+<td align="center">bool</td>
+<td align="center">determines if transaction creates a new account</td>
+</tr>
+<tr>
+<td align="center">onChain</td>
+<td align="center">bool</td>
+<td align="center">determines if the transaction is L1 or L2</td>
+</tr>
+<tr>
+<td align="center">fromEthAddr</td>
+<td align="center">uint160</td>
+<td align="center">ethereum address sender</td>
+</tr>
+<tr>
+<td align="center">ethAddr1</td>
+<td align="center">uint160</td>
+<td align="center">ethereum address of sender leaf</td>
+</tr>
+<tr>
+<td align="center">tokenID</td>
+<td align="center">uint32</td>
+<td align="center">tokenID signed in the transaction</td>
+</tr>
+<tr>
+<td align="center">tokenID1</td>
+<td align="center">uint32</td>
+<td align="center">tokenID of the sender leaf</td>
+</tr>
+<tr>
+<td align="center">tokenID2</td>
+<td align="center">uint32</td>
+<td align="center">tokenID of the receiver leaf</td>
+</tr>
+</tbody>
+</table>
+<h4 id="outputs_8">Outputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Output</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">isP1Insert</td>
+<td align="center">bool</td>
+<td align="center">determines if processor 1 performs an INSERT function (sender)</td>
+</tr>
+<tr>
+<td align="center">isP2Insert</td>
+<td align="center">bool</td>
+<td align="center">determines if processor 2 performs an INSERT function (receiver)</td>
+</tr>
+<tr>
+<td align="center">key1</td>
+<td align="center">uint48</td>
+<td align="center">processor 1 key</td>
+</tr>
+<tr>
+<td align="center">key2</td>
+<td align="center">uint48</td>
+<td align="center">processor 2 key</td>
+</tr>
+<tr>
+<td align="center">P1_fnc0</td>
+<td align="center">bool</td>
+<td align="center">processor 1 bit 0 functionality</td>
+</tr>
+<tr>
+<td align="center">P1_fnc1</td>
+<td align="center">bool</td>
+<td align="center">processor 1 bit 1 functionality</td>
+</tr>
+<tr>
+<td align="center">P2_fnc0</td>
+<td align="center">bool</td>
+<td align="center">processor 2 bit 0 functionality</td>
+</tr>
+<tr>
+<td align="center">P2_fnc1</td>
+<td align="center">bool</td>
+<td align="center">processor 2 bit 1 functionality</td>
+</tr>
+<tr>
+<td align="center">isExit</td>
+<td align="center">bool</td>
+<td align="center">determines if the transaction is an exit</td>
+</tr>
+<tr>
+<td align="center">verifySignEnabled</td>
+<td align="center">bool</td>
+<td align="center">determines if the eddsa signature needs to be verified</td>
+</tr>
+<tr>
+<td align="center">nop</td>
+<td align="center">bool</td>
+<td align="center">determines if the transaction should be considered as a NOP transaction</td>
+</tr>
+<tr>
+<td align="center">checkToEthAddr</td>
+<td align="center">bool</td>
+<td align="center">determines if receiver ethereum address needs to be checked</td>
+</tr>
+<tr>
+<td align="center">checkToBjj</td>
+<td align="center">bool</td>
+<td align="center">determines if receiver babyjubjub needs to be checked</td>
+</tr>
+<tr>
+<td align="center">nullifyLoadAmount</td>
+<td align="center">bool</td>
+<td align="center">determines if loadAmount is considered to be 0</td>
+</tr>
+<tr>
+<td align="center">nullifyAmount</td>
+<td align="center">bool</td>
+<td align="center">determines if amount is considered to be 0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rollup-tx">rollup-tx</h3>
+<h4 id="description_12">Description</h4>
+<p>This circuit includes all the rules given a transaction. Hence, <code>rollup-tx</code> includes the previous specified circuits:</p>
+<ul>
+<li><code>rollup-tx-states</code></li>
+<li><code>rq-tx-verifier</code></li>
+<li><code>balance-updater</code></li>
+<li><code>fee-accumulator</code></li>
+</ul>
+<p>For the sake of clarity, this circuit could be split internally into phases:</p>
+<ul>
+<li>A: compute transaction states</li>
+<li>B: check request transaction</li>
+<li>C: checks state fields</li>
+<li>D: compute hash old states</li>
+<li>E: signal processor selectors</li>
+<li>F: verify eddsa signature</li>
+<li>G: update balances</li>
+<li>H: accumulate fess</li>
+<li>I: compute hash new states</li>
+<li>J: smt processors</li>
+<li>K: select output roots</li>
+</ul>
+<p>Global variables:</p>
+<ul>
+<li><code>nLevels</code></li>
+<li><code>maxFeeTx</code></li>
+</ul>
+<h4 id="schematic_12">Schematic</h4>
+<p><img alt="center" src="../rollup-tx.png" /></p>
+<h4 id="inputs_10">Inputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Input</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">feePlanTokens[maxFeeTx]</td>
+<td align="center">uint32 array</td>
+<td align="center">all tokens eligible to accumulate fees</td>
+</tr>
+<tr>
+<td align="center">accFeeIn[maxFeeTx]</td>
+<td align="center">uint192 array</td>
+<td align="center">initial fees accumulated</td>
+</tr>
+<tr>
+<td align="center">futureTxCompressedDataV2[3]</td>
+<td align="center">uint193 array</td>
+<td align="center">future transactions txCompressedDataV2</td>
+</tr>
+<tr>
+<td align="center">pastTxCompressedDataV2[4]</td>
+<td align="center">uint193 array</td>
+<td align="center">past transactions toEthAddr</td>
+</tr>
+<tr>
+<td align="center">futureToEthAddr[3]</td>
+<td align="center">uint160 array</td>
+<td align="center">future transactions toEthAddr</td>
+</tr>
+<tr>
+<td align="center">pastToEthAddr[4]</td>
+<td align="center">uint160 array</td>
+<td align="center">past transactions toEthAddr</td>
+</tr>
+<tr>
+<td align="center">futureToBjjAy[3]</td>
+<td align="center">field array</td>
+<td align="center">future transactions toBjjAy</td>
+</tr>
+<tr>
+<td align="center">pastToBjjAy[4]</td>
+<td align="center">field array</td>
+<td align="center">past transactions toBjjAy</td>
+</tr>
+<tr>
+<td align="center">fromIdx</td>
+<td align="center">uint48</td>
+<td align="center">index sender</td>
+</tr>
+<tr>
+<td align="center">auxFromIdx</td>
+<td align="center">uint48</td>
+<td align="center">auxiliary index to create accounts</td>
+</tr>
+<tr>
+<td align="center">toIdx</td>
+<td align="center">uint48</td>
+<td align="center">index receiver</td>
+</tr>
+<tr>
+<td align="center">auxToIdx</td>
+<td align="center">uint48</td>
+<td align="center">auxiliary index when signed index receiver is set to null</td>
+</tr>
+<tr>
+<td align="center">toBjjAy</td>
+<td align="center">field</td>
+<td align="center">babyjubjub y coordinate receiver</td>
+</tr>
+<tr>
+<td align="center">toBjjSign</td>
+<td align="center">bool</td>
+<td align="center">babyjubjub sign receiver</td>
+</tr>
+<tr>
+<td align="center">toEthAddr</td>
+<td align="center">uint160</td>
+<td align="center">ethereum address receiver</td>
+</tr>
+<tr>
+<td align="center">amount</td>
+<td align="center">uint192</td>
+<td align="center">amount to transfer from L2 to L2</td>
+</tr>
+<tr>
+<td align="center">tokenID</td>
+<td align="center">uint32</td>
+<td align="center">tokenID signed in the transaction</td>
+</tr>
+<tr>
+<td align="center">nonce</td>
+<td align="center">uint40</td>
+<td align="center">nonce signed in the transaction</td>
+</tr>
+<tr>
+<td align="center">userFee</td>
+<td align="center">uint16</td>
+<td align="center">user fee selector</td>
+</tr>
+<tr>
+<td align="center">rqOffset</td>
+<td align="center">uint3</td>
+<td align="center">relative linked transaction</td>
+</tr>
+<tr>
+<td align="center">onChain</td>
+<td align="center">bool</td>
+<td align="center">determines if the transaction is L1 or L2</td>
+</tr>
+<tr>
+<td align="center">newAccount</td>
+<td align="center">bool</td>
+<td align="center">determines if transaction creates a new account</td>
+</tr>
+<tr>
+<td align="center">rqTxCompressedDataV2</td>
+<td align="center">uint193</td>
+<td align="center">requested encode transaction fields together version 2</td>
+</tr>
+<tr>
+<td align="center">rqToEthAddr</td>
+<td align="center">uint160</td>
+<td align="center">requested ethereum address receiver</td>
+</tr>
+<tr>
+<td align="center">rqToBjjAy</td>
+<td align="center">field</td>
+<td align="center">requested babyjubjub y coordinate</td>
+</tr>
+<tr>
+<td align="center">sigL2Hash</td>
+<td align="center">field</td>
+<td align="center">hash L2 data to sign</td>
+</tr>
+<tr>
+<td align="center">s</td>
+<td align="center">field</td>
+<td align="center">eddsa signature field</td>
+</tr>
+<tr>
+<td align="center">r8x</td>
+<td align="center">field</td>
+<td align="center">eddsa signature field</td>
+</tr>
+<tr>
+<td align="center">r8y</td>
+<td align="center">field</td>
+<td align="center">eddsa signature field</td>
+</tr>
+<tr>
+<td align="center">fromEthAddr</td>
+<td align="center">uint160</td>
+<td align="center">ethereum address sender</td>
+</tr>
+<tr>
+<td align="center">fromBjjCompressed[256]</td>
+<td align="center">boolean array</td>
+<td align="center">babyjubjub compressed sender</td>
+</tr>
+<tr>
+<td align="center">loadAmountF</td>
+<td align="center">uint40</td>
+<td align="center">amount to deposit from L1 to L2 encoded as float40</td>
+</tr>
+<tr>
+<td align="center">tokenID1</td>
+<td align="center">uint32</td>
+<td align="center">tokenID of the sender leaf</td>
+</tr>
+<tr>
+<td align="center">nonce1</td>
+<td align="center">uint40</td>
+<td align="center">nonce of the sender leaf</td>
+</tr>
+<tr>
+<td align="center">sign1</td>
+<td align="center">bool</td>
+<td align="center">sign of the sender leaf</td>
+</tr>
+<tr>
+<td align="center">balance1</td>
+<td align="center">uint192</td>
+<td align="center">balance of the sender leaf</td>
+</tr>
+<tr>
+<td align="center">ay1</td>
+<td align="center">field</td>
+<td align="center">ay of the sender leaf</td>
+</tr>
+<tr>
+<td align="center">ethAddr1</td>
+<td align="center">uint160</td>
+<td align="center">ethAddr of the sender leaf</td>
+</tr>
+<tr>
+<td align="center">siblings1[nLevels + 1]</td>
+<td align="center">field array</td>
+<td align="center">siblings merkle proof of the sender leaf</td>
+</tr>
+<tr>
+<td align="center">isOld0_1</td>
+<td align="center">bool</td>
+<td align="center">flag to require old key - value</td>
+</tr>
+<tr>
+<td align="center">oldKey1</td>
+<td align="center">uint48</td>
+<td align="center">old key of the sender leaf</td>
+</tr>
+<tr>
+<td align="center">oldValue1</td>
+<td align="center">field</td>
+<td align="center">old value of the sender leaf</td>
+</tr>
+<tr>
+<td align="center">tokenID2</td>
+<td align="center">uint32</td>
+<td align="center">tokenID of the receiver leaf</td>
+</tr>
+<tr>
+<td align="center">nonce2</td>
+<td align="center">uint40</td>
+<td align="center">nonce of the receiver leaf</td>
+</tr>
+<tr>
+<td align="center">sign2</td>
+<td align="center">bool</td>
+<td align="center">sign of the receiver leaf</td>
+</tr>
+<tr>
+<td align="center">balance2</td>
+<td align="center">uint192</td>
+<td align="center">balance of the receiver leaf</td>
+</tr>
+<tr>
+<td align="center">ay2</td>
+<td align="center">field</td>
+<td align="center">ay of the receiver leaf</td>
+</tr>
+<tr>
+<td align="center">ethAddr2</td>
+<td align="center">uint160</td>
+<td align="center">ethAddr of the receiver leaf</td>
+</tr>
+<tr>
+<td align="center">siblings2[nLevels + 1]</td>
+<td align="center">field array</td>
+<td align="center">siblings merkle proof of the receiver leaf</td>
+</tr>
+<tr>
+<td align="center">isOld0_2</td>
+<td align="center">bool</td>
+<td align="center">flag to require old key - value</td>
+</tr>
+<tr>
+<td align="center">oldKey2</td>
+<td align="center">uint48</td>
+<td align="center">old key of the receiver leaf</td>
+</tr>
+<tr>
+<td align="center">oldValue2</td>
+<td align="center">field</td>
+<td align="center">old value of the receiver leaf</td>
+</tr>
+<tr>
+<td align="center">oldStateRoot</td>
+<td align="center">field</td>
+<td align="center">initial state root</td>
+</tr>
+<tr>
+<td align="center">oldExitRoot</td>
+<td align="center">field</td>
+<td align="center">initial exit root</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ouputs_1">Ouputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Output</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">isAmountNullified</td>
+<td align="center">bool</td>
+<td align="center">determines if the amount is nullified</td>
+</tr>
+<tr>
+<td align="center">accFeeOut[maxFeeTx]</td>
+<td align="center">uint192 array</td>
+<td align="center">final fees accumulated</td>
+</tr>
+<tr>
+<td align="center">newStateRoot</td>
+<td align="center">field</td>
+<td align="center">final state root</td>
+</tr>
+<tr>
+<td align="center">newExitRoot</td>
+<td align="center">field</td>
+<td align="center">final exit root</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rollup-main">rollup-main</h3>
+<h4 id="description_13">Description</h4>
+<p>Join all transactions and process them. This includes, decode all possible transactions, process them and distribute all the fees through fee transactions.</p>
+<p>It is important to note that the templates included in this main circuit are intended to be computed in parallel. Meaning that the output of the very first transaction could be computed as it output is not necessary to compute the next transaction. Then, all transactions could be computed in parallel. In order to achieve that, it is needed to supply intermediate signals to allow modules parallelization.</p>
+<p>All signals prefixed with <code>im</code> are intermediary signals. Note that in circuit phases, there are specific phases to check integrity of intermediary signals. This adds constraints to the circuit, since it is needed to provided transactions output in advance, but it allows high parallelization at the time to compute the witness.</p>
+<p>Note that there is only one public input, <code>hashGlobalInputs</code>, which is a sha256 hash of all the intended public inputs of the circuit. This is done in order to save gas in the contract by just passing one public input.</p>
+<ul>
+<li>Global variables:<ul>
+<li><code>nTx</code></li>
+<li><code>nLevels</code></li>
+<li><code>maxL1Tx</code></li>
+<li><code>maxFeeTx</code></li>
+</ul>
+</li>
+</ul>
+<p>Main circuit could be split in the following phases:</p>
+<ul>
+<li>A: decode transactions</li>
+<li>B: check binary signals</li>
+<li>C: check integrity decode intermediary signals</li>
+<li>D: process transactions</li>
+<li>E: check integrity transactions intermediary signals</li>
+<li>F: process fee transactions</li>
+<li>G: check integrity fee transactions intermediary signals</li>
+<li>H: compute global hash input</li>
+</ul>
+<p>In section H, only bits associated to <code>amountF</code> in <code>L1L2TxsData</code> are multiplied by <code>isAmountNullififed</code>. Note that this only applies for invalid L1 transactions.</p>
+<h4 id="schematic_13">Schematic</h4>
+<p><img alt="center" src="../rollup-main.png" /></p>
+<h4 id="inputs_11">Inputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Input</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">oldLastIdx</td>
+<td align="center">uint48</td>
+<td align="center">old last index assigned</td>
+</tr>
+<tr>
+<td align="center">oldStateRoot</td>
+<td align="center">field</td>
+<td align="center">initial state root</td>
+</tr>
+<tr>
+<td align="center">globalChainID</td>
+<td align="center">uint16</td>
+<td align="center">global chain identifier</td>
+</tr>
+<tr>
+<td align="center">currentNumBatch</td>
+<td align="center">uint32</td>
+<td align="center">current batch number processed</td>
+</tr>
+<tr>
+<td align="center">feeIdxs[maxFeeTx]</td>
+<td align="center">uint48 array</td>
+<td align="center">merkle tree indexes to receive fees</td>
+</tr>
+<tr>
+<td align="center">feePlanTokens[maxFeeTx]</td>
+<td align="center">uint32 array</td>
+<td align="center">tokens identifiers of fees accumulated</td>
+</tr>
+<tr>
+<td align="center">imOnChain[nTx-1]</td>
+<td align="center">boolean array</td>
+<td align="center">intermediary signals: decode transaction output onChain flag</td>
+</tr>
+<tr>
+<td align="center">imOutIdx[nTx-1]</td>
+<td align="center">uint48 array</td>
+<td align="center">intermediary signals: decode transaction final index assigned</td>
+</tr>
+<tr>
+<td align="center">imStateRoot[nTx-1]</td>
+<td align="center">field array</td>
+<td align="center">intermediary signals: transaction final state root</td>
+</tr>
+<tr>
+<td align="center">imExitRoot[nTx-1]</td>
+<td align="center">field array</td>
+<td align="center">intermediary signals: transaction final exit root</td>
+</tr>
+<tr>
+<td align="center">imAccFeeOut[nTx-1][maxFeeTx]</td>
+<td align="center">uint192 array array</td>
+<td align="center">intermediary signals: transaction final accumulated fees</td>
+</tr>
+<tr>
+<td align="center">imStateRootFee[maxFeeTx - 1]</td>
+<td align="center">field array</td>
+<td align="center">intermediary signals: transaction fee final state root</td>
+</tr>
+<tr>
+<td align="center">imInitStateRootFee</td>
+<td align="center">field</td>
+<td align="center">intermediary signals: final state root of all rollup transactions</td>
+</tr>
+<tr>
+<td align="center">imFinalAccFee[maxFeeTx]</td>
+<td align="center">field array</td>
+<td align="center">intermediary signals: final fees accumulated of all rollup transactions</td>
+</tr>
+<tr>
+<td align="center">txCompressedData[nTx]</td>
+<td align="center">uint241 array</td>
+<td align="center">encode transaction fields together</td>
+</tr>
+<tr>
+<td align="center">amountF[nTx]</td>
+<td align="center">uint40 array</td>
+<td align="center">amount to transfer from L2 to L2 encoded as float40</td>
+</tr>
+<tr>
+<td align="center">txCompressedDataV2[nTx]</td>
+<td align="center">uint193 array</td>
+<td align="center">encode transaction fields together version 2</td>
+</tr>
+<tr>
+<td align="center">fromIdx[nTx]</td>
+<td align="center">uint48 array</td>
+<td align="center">index sender</td>
+</tr>
+<tr>
+<td align="center">auxFromIdx[nTx]</td>
+<td align="center">uint48 array</td>
+<td align="center">auxiliary index to create accounts</td>
+</tr>
+<tr>
+<td align="center">toIdx[nTx]</td>
+<td align="center">uint48 array</td>
+<td align="center">index receiver</td>
+</tr>
+<tr>
+<td align="center">auxToIdx[nTx]</td>
+<td align="center">uint48 array</td>
+<td align="center">auxiliary index when signed index receiver is set to null</td>
+</tr>
+<tr>
+<td align="center">toBjjAy[nTx]</td>
+<td align="center">field array</td>
+<td align="center">babyjubjub y coordinate receiver</td>
+</tr>
+<tr>
+<td align="center">toEthAddr[nTx]</td>
+<td align="center">uint160 array</td>
+<td align="center">ethereum address receiver</td>
+</tr>
+<tr>
+<td align="center">maxNumBatch[nTx]</td>
+<td align="center">uint32 array</td>
+<td align="center">maximum allowed batch number when the transaction can be processed</td>
+</tr>
+<tr>
+<td align="center">onChain[nTx]</td>
+<td align="center">bool array</td>
+<td align="center">determines if the transaction is L1 or L2</td>
+</tr>
+<tr>
+<td align="center">newAccount[nTx]</td>
+<td align="center">bool array</td>
+<td align="center">determines if transaction creates a new account</td>
+</tr>
+<tr>
+<td align="center">rqTxCompressedDataV2[nTx]</td>
+<td align="center">uint193 array</td>
+<td align="center">requested encode transaction fields together version 2</td>
+</tr>
+<tr>
+<td align="center">rqToEthAddr[nTx]</td>
+<td align="center">uint160 array</td>
+<td align="center">requested ethereum address receiver</td>
+</tr>
+<tr>
+<td align="center">rqToBjjAy[nTx]</td>
+<td align="center">field array</td>
+<td align="center">requested babyjubjub y coordinate</td>
+</tr>
+<tr>
+<td align="center">s[nTx]</td>
+<td align="center">field array</td>
+<td align="center">eddsa signature field</td>
+</tr>
+<tr>
+<td align="center">r8x[nTx]</td>
+<td align="center">field array</td>
+<td align="center">eddsa signature field</td>
+</tr>
+<tr>
+<td align="center">r8y[nTx]</td>
+<td align="center">field array</td>
+<td align="center">eddsa signature field</td>
+</tr>
+<tr>
+<td align="center">loadAmountF[nTx]</td>
+<td align="center">uint40 array</td>
+<td align="center">amount to deposit from L1 to L2 encoded as float40</td>
+</tr>
+<tr>
+<td align="center">fromEthAddr[nTx]</td>
+<td align="center">uint160 array</td>
+<td align="center">ethereum address sender</td>
+</tr>
+<tr>
+<td align="center">fromBjjCompressed[nTx][256]</td>
+<td align="center">boolean array array</td>
+<td align="center">babyjubjub compressed sender</td>
+</tr>
+<tr>
+<td align="center">tokenID1[nTx]</td>
+<td align="center">uint32 array</td>
+<td align="center">tokenID of the sender leaf</td>
+</tr>
+<tr>
+<td align="center">nonce1[nTx]</td>
+<td align="center">uint40 array</td>
+<td align="center">nonce of the sender leaf</td>
+</tr>
+<tr>
+<td align="center">sign1[nTx]</td>
+<td align="center">bool array</td>
+<td align="center">sign of the sender leaf</td>
+</tr>
+<tr>
+<td align="center">balance1[nTx]</td>
+<td align="center">uint192 array</td>
+<td align="center">balance of the sender leaf</td>
+</tr>
+<tr>
+<td align="center">ay1[nTx]</td>
+<td align="center">field array</td>
+<td align="center">ay of the sender leaf</td>
+</tr>
+<tr>
+<td align="center">ethAddr1[nTx]</td>
+<td align="center">uint160 array</td>
+<td align="center">ethAddr of the sender leaf</td>
+</tr>
+<tr>
+<td align="center">siblings1[nTx][nLevels + 1]</td>
+<td align="center">field array array</td>
+<td align="center">siblings merkle proof of the sender leaf</td>
+</tr>
+<tr>
+<td align="center">isOld0_1[nTx]</td>
+<td align="center">bool array</td>
+<td align="center">flag to require old key - value</td>
+</tr>
+<tr>
+<td align="center">oldKey1[nTx]</td>
+<td align="center">uint48 array</td>
+<td align="center">old key of the sender leaf</td>
+</tr>
+<tr>
+<td align="center">oldValue1[nTx]</td>
+<td align="center">field array</td>
+<td align="center">old value of the sender leaf</td>
+</tr>
+<tr>
+<td align="center">tokenID2[nTx]</td>
+<td align="center">uint32 array</td>
+<td align="center">tokenID of the receiver leaf</td>
+</tr>
+<tr>
+<td align="center">nonce2[nTx]</td>
+<td align="center">uint40 array</td>
+<td align="center">nonce of the receiver leaf</td>
+</tr>
+<tr>
+<td align="center">sign2[nTx]</td>
+<td align="center">bool array</td>
+<td align="center">sign of the receiver leaf</td>
+</tr>
+<tr>
+<td align="center">balance2[nTx]</td>
+<td align="center">uint192 array</td>
+<td align="center">balance of the receiver leaf</td>
+</tr>
+<tr>
+<td align="center">ay2[nTx]</td>
+<td align="center">field array</td>
+<td align="center">ay of the receiver leaf</td>
+</tr>
+<tr>
+<td align="center">ethAddr2[nTx]</td>
+<td align="center">uint160 array</td>
+<td align="center">ethAddr of the receiver leaf</td>
+</tr>
+<tr>
+<td align="center">siblings2[nTx][nLevels + 1]</td>
+<td align="center">field array array</td>
+<td align="center">siblings merkle proof of the receiver leaf</td>
+</tr>
+<tr>
+<td align="center">isOld0_2[nTx]</td>
+<td align="center">bool array</td>
+<td align="center">flag to require old key - value</td>
+</tr>
+<tr>
+<td align="center">oldKey2[nTx]</td>
+<td align="center">uint48 array</td>
+<td align="center">old key of the sender leaf</td>
+</tr>
+<tr>
+<td align="center">oldValue2[nTx]</td>
+<td align="center">field array</td>
+<td align="center">old value of the sender leaf</td>
+</tr>
+<tr>
+<td align="center">tokenID3[maxFeeTx]</td>
+<td align="center">uint32 array</td>
+<td align="center">tokenID of leafs feeIdxs</td>
+</tr>
+<tr>
+<td align="center">nonce3[maxFeeTx]</td>
+<td align="center">uint40 array</td>
+<td align="center">nonce of leafs feeIdxs</td>
+</tr>
+<tr>
+<td align="center">sign3[maxFeeTx]</td>
+<td align="center">bool array</td>
+<td align="center">sign of leafs feeIdxs</td>
+</tr>
+<tr>
+<td align="center">balance3[maxFeeTx]</td>
+<td align="center">uint192 array</td>
+<td align="center">balance of leafs feeIdxs</td>
+</tr>
+<tr>
+<td align="center">ay3[maxFeeTx]</td>
+<td align="center">field array</td>
+<td align="center">ay of leafs feeIdxs</td>
+</tr>
+<tr>
+<td align="center">ethAddr3[maxFeeTx]</td>
+<td align="center">uint160 array</td>
+<td align="center">ethAddr of leafs feeIdxs</td>
+</tr>
+<tr>
+<td align="center">siblings3[maxFeeTx][nLevels + 1]</td>
+<td align="center">field array array</td>
+<td align="center">siblings merkle proof of leafs Idxs</td>
+</tr>
+</tbody>
+</table>
+<h4 id="outputs_9">Outputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Output</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">hashGlobalInputs</td>
+<td align="center">field</td>
+<td align="center">hash of all intended input signals</td>
+</tr>
+</tbody>
+</table>
+<h3 id="withdraw">withdraw</h3>
+<h4 id="description_14">Description</h4>
+<p>This circuit is used to prove that a leaf exist on the exit tree. If its existence is proved, user will be able to withdraw funds from the Hermez contract.
+All intended public inputs are hashed together as described <a href="../../protocol#hermezwithdraw">here</a>.</p>
+<ul>
+<li>Steps:<ul>
+<li>compute hash-state</li>
+<li>verify state exist in the exit tree root given the siblings</li>
+<li>compute <code>hashGlobalInputs</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>It should be noted that this circuit is heavily attached to the <a href="../../contracts/contracts#hermez-smart-contracts">hermez smart contract</a></p>
+</blockquote>
+<ul>
+<li>Global variables<ul>
+<li><code>nLevels</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="schematic_14">Schematic</h4>
+<p><img alt="center" src="../withdraw.png" /></p>
+<h4 id="inputs_12">Inputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Input</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">root exit</td>
+<td align="center">field</td>
+<td align="center">exit tree root</td>
+</tr>
+<tr>
+<td align="center">ethAddr</td>
+<td align="center">uint160</td>
+<td align="center">ethereum address</td>
+</tr>
+<tr>
+<td align="center">tokenID</td>
+<td align="center">uint32</td>
+<td align="center">token identifier</td>
+</tr>
+<tr>
+<td align="center">balance</td>
+<td align="center">uint192</td>
+<td align="center">balance</td>
+</tr>
+<tr>
+<td align="center">idx</td>
+<td align="center">uint48</td>
+<td align="center">merkle tree index</td>
+</tr>
+<tr>
+<td align="center">sign</td>
+<td align="center">boolean</td>
+<td align="center">babyjubjub sign</td>
+</tr>
+<tr>
+<td align="center">ay</td>
+<td align="center">field</td>
+<td align="center">babyjubjub y coordinate</td>
+</tr>
+<tr>
+<td align="center">siblingsState[nLevels +  1]</td>
+<td align="center">field array</td>
+<td align="center">siblings merkle proof</td>
+</tr>
+</tbody>
+</table>
+<h4 id="outputs_10">Outputs</h4>
+<table>
+<thead>
+<tr>
+<th align="center">Output</th>
+<th align="center">type</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">hashGlobalInputs</td>
+<td align="center">field</td>
+<td align="center">hash of all intended input signals</td>
+</tr>
+</tbody>
+</table>
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../../contracts/contracts/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Smart contracts" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Smart contracts
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../../consensus/consensus/" class="md-footer__link md-footer__link--next" aria-label="Next: Forging consensus protocol" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Forging consensus protocol
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://t.me/polygonhermez" target="_blank" rel="noopener" title="t.me" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M248 8C111.033 8 0 119.033 0 256s111.033 248 248 248 248-111.033 248-248S384.967 8 248 8Zm114.952 168.66c-3.732 39.215-19.881 134.378-28.1 178.3-3.476 18.584-10.322 24.816-16.948 25.425-14.4 1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25 5.342-39.5 3.652-3.793 67.107-61.51 68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608 69.142-14.845 10.194-26.894 9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7 18.45-13.7 108.446-47.248 144.628-62.3c68.872-28.647 83.183-33.623 92.511-33.789 2.052-.034 6.639.474 9.61 2.885a10.452 10.452 0 0 1 3.53 6.716 43.765 43.765 0 0 1 .417 9.769Z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/hermeznetwork/hermez-docs" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.tracking"], "search": "../../../../../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../../../../assets/javascripts/bundle.6c7ad80a.min.js"></script>
+      
+        <script src="../../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

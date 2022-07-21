@@ -1,0 +1,2243 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.hermez.io/Hermez_1.0/developers/sdk/">
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
+    
+    
+      
+        <title>Examples/SDK - Polygon zkEVM Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.1d29e8d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#7e56c2">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="deep-purple" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#examples" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Polygon zkEVM Documentation" class="md-header__button md-logo" aria-label="Polygon zkEVM Documentation" data-md-component="logo">
+      
+  <img src="../../../logo-white.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Polygon zkEVM Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Examples/SDK
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hermeznetwork/hermez-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../zkEVM/Basic-Concepts/introduction/" class="md-tabs__link">
+        Polygon zkEVM
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../about/scalability/" class="md-tabs__link md-tabs__link--active">
+        Polygon Hermez 1.0
+      </a>
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Polygon zkEVM Documentation" class="md-nav__button md-logo" aria-label="Polygon zkEVM Documentation" data-md-component="logo">
+      
+  <img src="../../../logo-white.svg" alt="logo">
+
+    </a>
+    Polygon zkEVM Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hermeznetwork/hermez-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Polygon zkEVM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Polygon zkEVM" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Polygon zkEVM
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1" type="checkbox" id="__nav_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_1">
+          Basic Concepts
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Basic Concepts" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Basic Concepts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/Basic-Concepts/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/Basic-Concepts/fibonacci/" class="md-nav__link">
+        First Example: Fibonacci
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/Basic-Concepts/simple-state-machine/" class="md-nav__link">
+        Simple State Machine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/Basic-Concepts/modular-design/" class="md-nav__link">
+        Modular Design
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_2" type="checkbox" id="__nav_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_2">
+          Architecture
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Architecture" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Architecture
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/Architecture/zkProver/" class="md-nav__link">
+        zkProver
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3" type="checkbox" id="__nav_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_3">
+          zkASM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="zkASM" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          zkASM
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/zkASM/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/zkASM/basic-syntax/" class="md-nav__link">
+        Basic Syntax
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/zkASM/some-examples/" class="md-nav__link">
+        Some Examples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/zkASM/related-repos/" class="md-nav__link">
+        Related Repositories
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_4">
+          PIL
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PIL" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          PIL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/PIL/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/PIL/hello-world-examples/" class="md-nav__link">
+        Hello Word Examples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/PIL/components/" class="md-nav__link">
+        Components
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/PIL/cyclical-nature/" class="md-nav__link">
+        Cyclical Nature
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/PIL/modularity/" class="md-nav__link">
+        Modularity
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/PIL/advanced-features/" class="md-nav__link">
+        Advanced Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/PIL/related-repos/" class="md-nav__link">
+        Related Repositories
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5" type="checkbox" id="__nav_1_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_5">
+          State Machines
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="State Machines" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          State Machines
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Arithmetic/Arithmetic-State-Machine-typ/" class="md-nav__link">
+        Arithmetic
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Storage/Storage-State-Machine-typ/" class="md-nav__link">
+        Storage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Hashing/Hashing-State-Machine-typ/" class="md-nav__link">
+        Hashing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Binary/Binary-State-Machine-typ/" class="md-nav__link">
+        Binary
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Memory/memory-state-machine/" class="md-nav__link">
+        Memory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Memory-Align/memory-align-state-machine/" class="md-nav__link">
+        Memory Align
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Complementary/complementary-state-machines/" class="md-nav__link">
+        Complementaries
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zkEVM/State-Machines/Complementary/configuration-file/" class="md-nav__link">
+        Configuration File
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Polygon Hermez 1.0
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Polygon Hermez 1.0" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Polygon Hermez 1.0
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          About
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="About" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/scalability/" class="md-nav__link">
+        Ethereum Scalability and zk-Rollups
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/value-proposition/" class="md-nav__link">
+        Polygon Hermez Value Proposition
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/model/" class="md-nav__link">
+        Polygon Hermez Network Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/security/" class="md-nav__link">
+        Security
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Users
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Users" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Users
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../users/hermez-wallet/" class="md-nav__link">
+        Polygon Hermez Wallet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../users/mainnet/" class="md-nav__link">
+        Polygon Hermez Mainnet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../users/testnet/" class="md-nav__link">
+        Polygon Hermez Testnet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../users/exchanges/" class="md-nav__link">
+        Exchanges
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Developers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Developers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Developers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dev-guide/" class="md-nav__link">
+        Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_2" type="checkbox" id="__nav_2_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_2">
+          Protocol
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Protocol" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Protocol
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_2_1" type="checkbox" id="__nav_2_3_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_2_1">
+          Polygon Hermez zkRollup protocol
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Polygon Hermez zkRollup protocol" data-md-level="4">
+        <label class="md-nav__title" for="__nav_2_3_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Polygon Hermez zkRollup protocol
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protocol/hermez-protocol/protocol/" class="md-nav__link">
+        Core protocol
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protocol/hermez-protocol/contracts/contracts/" class="md-nav__link">
+        Smart contracts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protocol/hermez-protocol/circuits/circuits/" class="md-nav__link">
+        Circuits
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protocol/consensus/consensus/" class="md-nav__link">
+        Forging consensus protocol
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protocol/withdrawal-delayer/withdrawal-delayer/" class="md-nav__link">
+        Withdrawal delayer protocol
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Examples/SDK
+      </a>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../batch-explorer/" class="md-nav__link">
+        Batch Explorer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../price-updater/" class="md-nav__link">
+        Polygon Hermez NodePrice Updater
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          FAQ
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="FAQ" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          FAQ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/end-users/" class="md-nav__link">
+        End-Users
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/integrators/" class="md-nav__link">
+        Integrators
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/coordinators/" class="md-nav__link">
+        Coordinators
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/pod/" class="md-nav__link">
+        Proof of Donation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/other/" class="md-nav__link">
+        Other
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/hermeznetwork/hermez-docs/edit/master/docs/Hermez_1.0/developers/sdk.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="examples">Examples</h1>
+<p>Some Golang and Javascript integration examples are provided as a reference. They can be found at:
+- <a href="https://github.com/hermeznetwork/hermez-go-sdk/tree/main/examples">Hermez Golang examples</a>
+- <a href="https://github.com/hermeznetwork/hermezjs/tree/main/examples">Hermez Javascript examples</a></p>
+<p>Additionally, <a href="https://github.com/hermeznetwork/hermez_flutter_sdk/tree/main/example">Hermez Mobile SDK example</a> provides an example of how to import and use the Mobile SDK.</p>
+<h1 id="sdk">SDK</h1>
+<p>A full Javascript SDK and a Flutter Plugin for Hermez Mobile SDK are provided as part of the tools for integration with Hermez Network.</p>
+<p>HermezJS is an open-source SDK to interact with Hermez Rollup network.  It can be downloaded as an <a href="https://www.npmjs.com/package/@hermeznetwork/hermezjs">npm package</a>, or via <a href="https://github.com/hermeznetwork/hermezjs">github</a>.</p>
+<p><a href="https://github.com/hermeznetwork/hermez_flutter_sdk">Hermez Flutter SDK</a> is a Flutter Plugin for Hermez Mobile SDK, and provides a cross-platform tool (iOS, Android) to communicate with the Hermez API and network. </p>
+<p>There is an additional <a href="https://github.com/hermeznetwork/hermez-go-sdk">Golang SDK</a> to interact with Hermez using Golang.</p>
+<h2 id="sdk-how-to-javascript">SDK How-To (Javascript)</h2>
+<p>In this tutorial we will walk through the process of using the SDK to:
+1. <a href="#install-hermezjs">Installing Hermezjs</a>
+2. <a href="#initialization">Initializing Hermezjs</a>
+3. <a href="#check-token-exists-in-hermez-network">Check registered tokens</a>
+4. <a href="#create-a-wallet">Creating a wallet</a>
+5. <a href="#deposit-tokens-from-ethereum-into-hermez-network">Making a deposit from Ethereum into the Hermez Network</a>
+6. <a href="#verify-balance">Verifying the balance in a Hermez account</a>
+7. <a href="#withdrawing">Withdrawing funds back to Ethereum network</a>
+8. <a href="#transfers">Making transfers</a>
+9. <a href="#verifying-transaction-status">Verifying transaction status</a>
+10. <a href="#create-account-authorization">Authorizing the creation of Hermez accounts</a>
+11. <a href="#create-internal-accounts">Internal accounts</a></p>
+<h2 id="install-hermezjs">Install Hermezjs</h2>
+<pre><code class="language-bash">npm i @hermeznetwork/hermezjs
+</code></pre>
+<h2 id="import-modules">Import modules</h2>
+<p>Load Hermezjs library</p>
+<pre><code class="language-js">const hermez = require('@hermeznetwork/hermezjs')
+</code></pre>
+<h2 id="initialization">Initialization</h2>
+<h3 id="create-transaction-pool">Create Transaction Pool</h3>
+<p>Initialize the storage where user transactions are stored. This needs to be initialized at the start of your application.</p>
+<pre><code class="language-js">  hermez.TxPool.initializeTransactionPool()
+</code></pre>
+<h3 id="configure-hermez-environment">Configure Hermez Environment</h3>
+<p>In these examples, we are going to connect to <code>Hermez Testnet</code> which is deployed in Rinkeby Ethereum Network. To configure <code>Hermezjs</code> to work with the Testnet, we need to configure a Rinkeby Ethereum node, the Hermez API URL, and the addresses of the Hermez and Withdrawal Delayer smart contracts.</p>
+<p>Hermez Testnet API URL is deployed at https://api.testnet.hermez.io/v1. </p>
+<blockquote>
+<p><strong>NOTE:</strong> In order to interact with Hermez Testnet, you will need to supply your own Rinkeby Ethereum node. You can check these links to help you set up a Rinkeby node (https://blog.infura.io/getting-started-with-infura-28e41844cc89, https://blog.infura.io/getting-started-with-infuras-ethereum-api).</p>
+</blockquote>
+<p>Currently, Testnet Hermez smart contract is deployed at address <code>0x14a3b6f3328766c7421034e14472f5c14c5ba090</code> and Withdrawal Delayer contract is deployed at address <code>0x6ea0abf3ef52d24427043cad3ec26aa4f2c8e8fd</code>. These addresses could change in the future, so please check these addresses with a query of the <a href="https://api.testnet.hermez.io/v1/config">API</a> using the browser.</p>
+<p>For the remainder of the examples, we will configure the basic Hermezjs parameters</p>
+<pre><code class="language-js">const EXAMPLES_WEB3_URL = 'https://rinkeby.infura.io/v3/80496a41d0a134ccbc6e856ffd034696'
+const EXAMPLES_HERMEZ_API_URL = 'https://api.testnet.hermez.io'
+const EXAMPLES_HERMEZ_ROLLUP_ADDRESS = '0x14a3b6f3328766c7421034e14472f5c14c5ba090'
+const EXAMPLES_HERMEZ_WDELAYER_ADDRESS = '0x6ea0abf3ef52d24427043cad3ec26aa4f2c8e8fd'
+
+hermez.Providers.setProvider(EXAMPLES_WEB3_URL)
+hermez.Environment.setEnvironment({
+        baseApiUrl: EXAMPLES_HERMEZ_API_URL,
+        contractAddresses: {
+          [hermez.Constants.ContractNames.Hermez]: EXAMPLES_HERMEZ_ROLLUP_ADDRESS,
+          [hermez.Constants.ContractNames.WithdrawalDelayer]: EXAMPLES_HERMEZ_WDELAYER_ADDRESS
+        }
+})
+
+</code></pre>
+<h2 id="check-token-exists-in-hermez-network">Check token exists in Hermez Network</h2>
+<p>Before being able to operate on the Hermez Network, we must ensure that the token we want to operate with is listed. For that we make a call to the Hermez Coordinator API that will list all available tokens. All tokens in Hermez Network must be ERC20.</p>
+<p>We can see there are 2 tokens registered. <code>ETH</code> will always be configured at index 0. The second token is <code>HEZ</code>. For the rest of the examples we will work with <code>ETH</code>. In the future, more tokens will be included in Hermez.</p>
+<pre><code class="language-js">  const token = await hermez.CoordinatorAPI.getTokens()
+  const tokenERC20 = token.tokens[0]
+  console.log(token)
+
+&gt;&gt;&gt;&gt;
+{
+  tokens: [
+    {
+      itemId: 1,
+      id: 0,
+      ethereumBlockNum: 0,
+      ethereumAddress: '0x0000000000000000000000000000000000000000',
+      name: 'Ether',
+      symbol: 'ETH',
+      decimals: 18,
+      USD: 1787,
+      fiatUpdate: '2021-02-28T18:55:17.372008Z'
+    },
+    {
+      itemId: 2,
+      id: 1,
+      ethereumBlockNum: 8153596,
+      ethereumAddress: '0x2521bc90b4f5fb9a8d61278197e5ff5cdbc4fbf2',
+      name: 'Hermez Network Token',
+      symbol: 'HEZ',
+      decimals: 18,
+      USD: 5.365,
+      fiatUpdate: '2021-02-28T18:55:17.386805Z'
+    }
+  ],
+  pendingItems: 0
+
+</code></pre>
+<h2 id="create-a-wallet">Create a Wallet</h2>
+<p>We can create a new Hermez wallet by providing the Ethereum private key of an Ethereum account. This wallet will store the Ethereum and Baby JubJub keys for the Hermez account. The Ethereum address is used to authorize L1 transactions, and the Baby JubJub key is used to authorize L2 transactions. We will create two wallets.</p>
+<blockquote>
+<p><strong>NOTE</strong> You will need to supply two Rinkeby private keys to initialize both accounts. The keys provided here are invalid and are shown as an example.</p>
+</blockquote>
+<pre><code class="language-js">  const EXAMPLES_PRIVATE_KEY1 = 0x705d123e707e25fa37ca84461ac6eb83eb4921b65680cfdc594b60bea1bb4e52
+  const EXAMPLES_PRIVATE_KEY2 = 0x3a9270c05ac169097808da4b02e8f9146be0f8a38cfad3dcfc0b398076381fdd
+
+  // load first account
+  const wallet = await hermez.HermezWallet.createWalletFromEtherAccount(EXAMPLES_WEB3_URL, { type: 'WALLET', privateKey: EXAMPLES_PRIVATE_KEY1 })
+  const hermezWallet = wallet.hermezWallet
+  const hermezEthereumAddress = wallet.hermezEthereumAddress
+
+  // load second account
+  const wallet2 = await hermez.HermezWallet.createWalletFromEtherAccount(EXAMPLES_WEB3_URL, { type: 'WALLET', privateKey: EXAMPLES_PRIVATE_KEY2 })
+  const hermezWallet2 = wallet2.hermezWallet
+  const hermezEthereumAddress2 = wallet2.hermezEthereumAddress
+
+</code></pre>
+<h2 id="deposit-tokens-from-ethereum-into-hermez-network">Deposit Tokens from Ethereum into Hermez Network</h2>
+<p>Creating a Hermez account and depositing tokens is done simultaneously as an L1 transaction.  In this example we are going to deposit 1 <code>ETH</code> tokens into the newly created Hermez accounts. </p>
+<pre><code class="language-js">  // set amount to deposit
+  const amountDepositString = '1.0'
+  const amountDeposit = hermez.Utils.getTokenAmountBigInt(amountDepositString, 18)
+  const compressedDepositAmount = hermez.HermezCompressedAmount.compressAmount(amountDeposit)
+
+  // perform deposit account 1
+  await hermez.Tx.deposit(
+    compressedDepositAmount,
+    hermezEthereumAddress,
+    tokenERC20,
+    hermezWallet.publicKeyCompressedHex,
+    { type: 'WALLET', privateKey: EXAMPLES_PRIVATE_KEY1 }
+  )
+
+  // perform deposit account 2
+  await hermez.Tx.deposit(
+    compressedDepositAmount,
+    hermezEthereumAddress2,
+    tokenERC20,
+    hermezWallet2.publicKeyCompressedHex,
+    { type: 'WALLET', privateKey: EXAMPLES_PRIVATE_KEY2 }
+  )
+
+</code></pre>
+<p>Internally, the deposit funcion calls the Hermez smart contract to add the L1 transaction.</p>
+<h2 id="verify-balance">Verify Balance</h2>
+<p>A token balance can be obtained by querying the API and passing the <code>hermezEthereumAddress</code> of the Hermez account.</p>
+<pre><code class="language-js">    // get sender account information
+    const infoAccountSender = (await hermez.CoordinatorAPI.getAccounts(hermezEthereumAddress, [tokenERC20.id]))
+      .accounts[0]
+
+    // get receiver account information
+    const infoAccountReceiver = (await hermez.CoordinatorAPI.getAccounts(hermezEthereumAddress2, [tokenERC20.id]))
+      .accounts[0]
+
+    console.log(infoAccountSender)
+    console.log(infoAccountReceiver)
+
+&gt;&gt;&gt;&gt;&gt;
+{
+  accountIndex: 'hez:ETH:4253',
+  balance: '1099600000000000000',
+  bjj: 'hez:dMfPJlK_UtFqVByhP3FpvykOg5kAU3jMLD7OTx_4gwzO',
+  hezEthereumAddress: 'hez:0x74d5531A3400f9b9d63729bA9C0E5172Ab0FD0f6',
+  itemId: 4342,
+  nonce: 1,
+  token: {
+    USD: 1789,
+    decimals: 18,
+    ethereumAddress: '0x0000000000000000000000000000000000000000',
+    ethereumBlockNum: 0,
+    fiatUpdate: '2021-02-28T18:55:17.372008Z',
+    id: 0,
+    itemId: 1,
+    name: 'Ether',
+    symbol: 'ETH'
+  }
+}
+{
+  accountIndex: 'hez:ETH:4254',
+  balance: '1097100000000000000',
+  bjj: 'hez:HESLP_6Kp_nn5ANmSGiOnhhYvF3wF5Davf7xGi6lwh3U',
+  hezEthereumAddress: 'hez:0x12FfCe7D5d6d09564768d0FFC0774218458162d4',
+  itemId: 4343,
+  nonce: 6,
+  token: {
+    USD: 1789,
+    decimals: 18,
+    ethereumAddress: '0x0000000000000000000000000000000000000000',
+    ethereumBlockNum: 0,
+    fiatUpdate: '2021-02-28T18:55:17.372008Z',
+    id: 0,
+    itemId: 1,
+    name: 'Ether',
+    symbol: 'ETH'
+  }
+}
+
+</code></pre>
+<p>We can see that the field <code>accountIndex</code> is formed by the token symbol it holds and an index. A Hermez account can only hold one type of token.
+Account indexes start at 256. Indexes 0-255 are reserved for internal use.
+Note that the balances do not match with the ammount deposited of 1 <code>ETH</code> because accounts already existed in Hermez Network before the deposit, so we performed a <code>deposit on top</code> instead.</p>
+<p>Alternatively, an account query can be filtered using the assigned <code>accountIndex</code></p>
+<pre><code class="language-js">    const account1ByIdx = await hermez.CoordinatorAPI.getAccount(infoAccountSender.accountIndex)
+    const account2ByIdx = await hermez.CoordinatorAPI.getAccount(infoAccountReceiver.accountIndex)
+
+    console.log(account1ByIdx)
+    console.log(account2ByIdx)
+
+&gt;&gt;&gt;&gt;&gt;
+
+{
+  accountIndex: 'hez:ETH:4253',
+  balance: '1099600000000000000',
+  bjj: 'hez:dMfPJlK_UtFqVByhP3FpvykOg5kAU3jMLD7OTx_4gwzO',
+  hezEthereumAddress: 'hez:0x74d5531A3400f9b9d63729bA9C0E5172Ab0FD0f6',
+  itemId: 4342,
+  nonce: 1,
+  token: {
+    USD: 1789,
+    decimals: 18,
+    ethereumAddress: '0x0000000000000000000000000000000000000000',
+    ethereumBlockNum: 0,
+    fiatUpdate: '2021-02-28T18:55:17.372008Z',
+    id: 0,
+    itemId: 1,
+    name: 'Ether',
+    symbol: 'ETH'
+  }
+}
+{
+  accountIndex: 'hez:ETH:4254',
+  balance: '1097100000000000000',
+  bjj: 'hez:HESLP_6Kp_nn5ANmSGiOnhhYvF3wF5Davf7xGi6lwh3U',
+  hezEthereumAddress: 'hez:0x12FfCe7D5d6d09564768d0FFC0774218458162d4',
+  itemId: 4343,
+  nonce: 6,
+  token: {
+    USD: 1789,
+    decimals: 18,
+    ethereumAddress: '0x0000000000000000000000000000000000000000',
+    ethereumBlockNum: 0,
+    fiatUpdate: '2021-02-28T18:55:17.372008Z',
+    id: 0,
+    itemId: 1,
+    name: 'Ether',
+    symbol: 'ETH'
+  }
+}
+
+</code></pre>
+<h2 id="withdrawing">Withdrawing</h2>
+<p>Withdrawing funds is a two step process:
+1. Exit
+2. Withdrawal</p>
+<h3 id="exit">Exit</h3>
+<p>The <code>Exit</code> transaction is used as a first step to retrieve the funds from <code>Hermez Network</code> back to Ethereum.
+There are two types of <code>Exit</code> transactions:
+- Normal Exit, referred as <code>Exit</code> from now on. This is a L2 transaction type.
+- <code>Force Exit</code>, an L1 transaction type which has extended guarantees that will be processed by the Coordinator. We will
+talk more about <code>Force Exit</code> <a href="#force-exit">here</a></p>
+<p>The <code>Exit</code> is requested as follows:</p>
+<pre><code class="language-js">  // set amount to exit
+  const amountExit = hermez.HermezCompressedAmount.compressAmount(hermez.Utils.getTokenAmountBigInt('1.0', 18))
+
+  // set fee in transaction
+  const state = await hermez.CoordinatorAPI.getState()
+  const userFee = state.recommendedFee.existingAccount
+
+  // generate L2 transaction
+  const l2ExitTx = {
+    type: 'Exit',
+    from: infoAccountSender.accountIndex,
+    amount: amountExit,
+    fee: userFee
+  }
+
+  const exitResponse = await hermez.Tx.generateAndSendL2Tx(l2ExitTx, hermezWallet, infoAccountSender.token)
+  console.log(exitResponse)
+
+&gt;&gt;&gt;&gt;
+{
+  status: 200,
+  id: '0x0257305cdc43060a754a5c2ea6b0e0f6e28735ea8e75d841ca4a7377aa099d91b7',
+  nonce: 2
+}
+
+</code></pre>
+<p>After submitting our <code>Exit</code> request to the Coordinator, we can check the status of the transaction by calling
+the Coordinator's Transaction Pool. The Coordinator's transaction pool stores all those transactions 
+that are waiting to be forged.</p>
+<pre><code class="language-js">  const txPool = await hermez.CoordinatorAPI.getPoolTransaction(exitResponse.id)
+  console.log(txPool)
+
+&gt;&gt;&gt;&gt;&gt;
+{
+  amount: '1000000000000000000',
+  fee: 204,
+  fromAccountIndex: 'hez:ETH:4253',
+  fromBJJ: 'hez:dMfPJlK_UtFqVByhP3FpvykOg5kAU3jMLD7OTx_4gwzO',
+  fromHezEthereumAddress: 'hez:0x74d5531A3400f9b9d63729bA9C0E5172Ab0FD0f6',
+  id: '0x0257305cdc43060a754a5c2ea6b0e0f6e28735ea8e75d841ca4a7377aa099d91b7',
+  info: null,
+  nonce: 2,
+  requestAmount: null,
+  requestFee: null,
+  requestFromAccountIndex: null,
+  requestNonce: null,
+  requestToAccountIndex: null,
+  requestToBJJ: null,
+  requestToHezEthereumAddress: null,
+  requestTokenId: null,
+  signature: '38f23d06826be8ea5a0893ee67f4ede885a831523c0c626c102edb05e1cf890e418b5820e3e6d4b530386d0bc84b3c3933d655527993ad77a55bb735d5a67c03',
+  state: 'pend',
+  timestamp: '2021-03-16T12:31:50.407428Z',
+  toAccountIndex: 'hez:ETH:1',
+  toBjj: null,
+  toHezEthereumAddress: null,
+  token: {
+    USD: 1781.9,
+    decimals: 18,
+    ethereumAddress: '0x0000000000000000000000000000000000000000',
+    ethereumBlockNum: 0,
+    fiatUpdate: '2021-02-28T18:55:17.372008Z',
+    id: 0,
+    itemId: 1,
+    name: 'Ether',
+    symbol: 'ETH'
+  },
+  type: 'Exit'
+}
+
+
+</code></pre>
+<p>We can see the <code>state</code> field is set to <code>pend</code> (meaning pending). There are 4 possible states: 
+1. <strong>pend</strong> : Pending
+2. <strong>fging</strong> : Forging
+3. <strong>fged</strong> : Forged
+4. <strong>invl</strong> : Invalid</p>
+<p>If we continue polling the Coordinator about the status of the transaction, the state will eventually be set to <code>fged</code>.</p>
+<p>We can also query the Coordinator to check whether or not our transaction has been forged. <code>getHistoryTransaction</code> reports those transactions
+that have been forged by the Coordinator.</p>
+<pre><code class="language-js">  const txExitConf = await hermez.CoordinatorAPI.getHistoryTransaction(txExitPool.id)
+  console.log(txExitConf)
+
+</code></pre>
+<p>And we can confirm our account status and check that the correct amount has been transfered out of the account.</p>
+<pre><code class="language-js">  console.log((await hermez.CoordinatorAPI.getAccounts(hermezEthereumAddress, [tokenERC20.id]))
+    .accounts[0])
+
+</code></pre>
+<h3 id="withdrawing-funds-from-hermez">Withdrawing Funds from Hermez</h3>
+<p>After doing any type of <code>Exit</code> transaction, which moves the user's funds from their token account to a specific Exit Merkle tree, one needs to do a <code>Withdraw</code> of those funds to an Ethereum L1 account.
+To do a <code>Withdraw</code> we need to indicate the <code>accountIndex</code> that includes the Ethereum address where the funds will be transferred, the amount and type of tokens, and some information
+to verify the ownership of those tokens. Additionally, there is one boolean flag. If set to true, the <code>Withdraw</code> will be instantaneous.</p>
+<pre><code class="language-js">    const exitInfoN = (await hermez.CoordinatorAPI.getExits(infoAccountSender.hezEthereumAddress, true)).exits
+    const exitInfo = exitInfoN[exitInfoN.length - 1]
+    // set to perform instant withdraw
+    const isInstant = true
+
+    // perform withdraw
+    await hermez.Tx.withdraw(
+      exitInfo.balance,
+      exitInfo.accountIndex,
+      exitInfo.token,
+      hermezWallet.publicKeyCompressedHex,
+      exitInfo.batchNum,
+      exitInfo.merkleProof.siblings,
+      isInstant,
+      { type: 'WALLET', privateKey: EXAMPLES_PRIVATE_KEY1 }
+    )
+
+</code></pre>
+<p>The funds should now appear in the Ethereum account that made the withdrawal.</p>
+<h3 id="force-exit">Force Exit</h3>
+<p>This is the L1 equivalent of an Exit. With this option, the smart contract forces Coordinators to pick up L1 transactions before they pick up L2 transactions to ensure that L1 transactions will eventually be picked up.</p>
+<p>This is a security measure. We don't expect users to need to make a Force Exit.</p>
+<pre><code class="language-js">  // set amount to force-exit
+  const amountForceExit = hermez.HermezCompressedAmount.compressAmount(hermez.Utils.getTokenAmountBigInt('1.0', 18))
+
+  // perform force-exit
+  await hermez.Tx.forceExit(
+    amountForceExit,
+    infoAccountSender.accountIndex,
+    tokenERC20,
+    { type: 'WALLET', privateKey: EXAMPLES_PRIVATE_KEY1 }
+  )
+</code></pre>
+<p>The last step to recover the funds will be to send a new <code>Withdraw</code> request to the smart contract as we did after the regular <code>Exit</code> request.</p>
+<pre><code class="language-js">  ```js
+    const exitInfoN = (await hermez.CoordinatorAPI.getExits(infoAccountSender.hezEthereumAddress, true)).exits
+    const exitInfo = exitInfoN[exitInfoN.length - 1]
+    // set to perform instant withdraw
+    const isInstant = true
+
+    // perform withdraw
+    await hermez.Tx.withdraw(
+      exitInfo.balance,
+      exitInfo.accountIndex,
+      exitInfo.token,
+      hermezWallet.publicKeyCompressedHex,
+      exitInfo.batchNum,
+      exitInfo.merkleProof.siblings,
+      isInstant,
+      { type: 'WALLET', privateKey: EXAMPLES_PRIVATE_KEY1 }
+    )
+
+</code></pre>
+<h2 id="transfers">Transfers</h2>
+<p>First, we compute the fees for the transaction. For this we consult the recommended fees from the Coordinator.</p>
+<pre><code class="language-js">  // fee computation
+  const state = await hermez.CoordinatorAPI.getState()
+  console.log(state.recommendedFee)
+
+&gt;&gt;&gt;&gt;
+{
+  existingAccount: 96.34567219671051,
+  createAccount: 192.69134439342102,
+  createAccountInternal: 240.86418049177627
+}
+
+</code></pre>
+<p>The returned fees are the suggested fees for different transactions:
+- <strong>existingAccount</strong> : Make a transfer to an existing account
+- <strong>createAccount</strong>   : Make a transfer to a non-existent account, and create a regular account
+- <strong>createAccountInternal</strong> : Make a transfer to an non-existent account and create internal account</p>
+<p>The fee amounts are given in USD. However, fees are payed in the token of the transaction. So, we need to do a conversion.</p>
+<pre><code class="language-js">  const usdTokenExchangeRate = tokenERC20.USD
+  const fee = fees.existingAccount / usdTokenExchangeRate
+</code></pre>
+<p>Finally we make the final transfer transaction.</p>
+<pre><code class="language-js">  // set amount to transfer
+  const amountTransfer = hermez.HermezCompressedAmount.compressAmount(hermez.Utils.getTokenAmountBigInt('1.0', 18))
+  // generate L2 transaction
+  const l2TxTransfer = {
+    from: infoAccountSender.accountIndex,
+    to: infoAccountReceiver.accountIndex,
+    amount: amountTransfer,
+    fee: fee
+  }
+  const transferResponse = await hermez.Tx.generateAndSendL2Tx(l2TxTransfer, hermezWallet, infoAccountSender.token)
+  console.log(transferResponse)
+
+&gt;&gt;&gt;&gt;&gt;
+{
+  status: 200,
+  id: '0x02e7c2c293173f21249058b1d71afd5b1f3c0de4f1a173bac9b9aa4a2d149483a2',
+  nonce: 3
+}
+
+</code></pre>
+<p>The result status 200 shows that transaction has been correctly received. Additionally, we receive the nonce matching the transaction we sent,
+and an id that we can use to verify the status of the transaction either using <code>hermez.CoordinatorAPI.getHistoryTransaction()</code> or <code>hermez.CoordinatorAPI.getPoolTransaction()</code>.</p>
+<p>As we saw with the <code>Exit</code> transaction, every transaction includes a ´nonce´. This <code>nonce</code> is a protection mechanism to avoid replay attacks. Every L2 transaction will increase the nonce by 1.</p>
+<h2 id="verifying-transaction-status">Verifying Transaction Status</h2>
+<p>Transactions received by the Coordinator will be stored in its transaction pool while they haven't been processed. To check a transaction in the transaction pool we make a query to the Coordinator node.</p>
+<pre><code class="language-js">  const txXferPool = await hermez.CoordinatorAPI.getPoolTransaction(transferResponse.id)
+  console.log(txXferPool)
+
+&gt;&gt;&gt;&gt;&gt;
+{
+  amount: '100000000000000',
+  fee: 202,
+  fromAccountIndex: 'hez:ETH:4253',
+  fromBJJ: 'hez:dMfPJlK_UtFqVByhP3FpvykOg5kAU3jMLD7OTx_4gwzO',
+  fromHezEthereumAddress: 'hez:0x74d5531A3400f9b9d63729bA9C0E5172Ab0FD0f6',
+  id: '0x02e7c2c293173f21249058b1d71afd5b1f3c0de4f1a173bac9b9aa4a2d149483a2',
+  info: null,
+  nonce: 3,
+  requestAmount: null,
+  requestFee: null,
+  requestFromAccountIndex: null,
+  requestNonce: null,
+  requestToAccountIndex: null,
+  requestToBJJ: null,
+  requestToHezEthereumAddress: null,
+  requestTokenId: null,
+  signature: 'c9e1a61ce2c3c728c6ec970ae646b444a7ab9d30aa6015eb10fb729078c1302978fe9fb0419b4d944d4f11d83582043a48546dff7dda22de7c1e1da004cd5401',
+  state: 'pend',
+  timestamp: '2021-03-16T13:20:33.336469Z',
+  toAccountIndex: 'hez:ETH:4254',
+  toBjj: 'hez:HESLP_6Kp_nn5ANmSGiOnhhYvF3wF5Davf7xGi6lwh3U',
+  toHezEthereumAddress: 'hez:0x12FfCe7D5d6d09564768d0FFC0774218458162d4',
+  token: {
+    USD: 1786,
+    decimals: 18,
+    ethereumAddress: '0x0000000000000000000000000000000000000000',
+    ethereumBlockNum: 0,
+    fiatUpdate: '2021-02-28T18:55:17.372008Z',
+    id: 0,
+    itemId: 1,
+    name: 'Ether',
+    symbol: 'ETH'
+  },
+  type: 'Transfer'
+}
+
+
+</code></pre>
+<p>We can also check directly with the Coordinator in the database of forged transactions.</p>
+<pre><code class="language-js">  const transferConf = await hermez.CoordinatorAPI.getHistoryTransaction(transferResponse.id)
+  console.log(transferConf)
+
+&gt;&gt;&gt;&gt;&gt;
+{
+  L1Info: null,
+  L1orL2: 'L2',
+  L2Info: { fee: 202, historicFeeUSD: 182.8352, nonce: 3 },
+  amount: '100000000000000',
+  batchNum: 4724,
+  fromAccountIndex: 'hez:ETH:4253',
+  fromBJJ: 'hez:dMfPJlK_UtFqVByhP3FpvykOg5kAU3jMLD7OTx_4gwzO',
+  fromHezEthereumAddress: 'hez:0x74d5531A3400f9b9d63729bA9C0E5172Ab0FD0f6',
+  historicUSD: 0.17855,
+  id: '0x02e7c2c293173f21249058b1d71afd5b1f3c0de4f1a173bac9b9aa4a2d149483a2',
+  itemId: 14590,
+  position: 1,
+  timestamp: '2021-03-16T13:24:48Z',
+  toAccountIndex: 'hez:ETH:4254',
+  toBJJ: 'hez:HESLP_6Kp_nn5ANmSGiOnhhYvF3wF5Davf7xGi6lwh3U',
+  toHezEthereumAddress: 'hez:0x12FfCe7D5d6d09564768d0FFC0774218458162d4',
+  token: {
+    USD: 1787.2,
+    decimals: 18,
+    ethereumAddress: '0x0000000000000000000000000000000000000000',
+    ethereumBlockNum: 0,
+    fiatUpdate: '2021-02-28T18:55:17.372008Z',
+    id: 0,
+    itemId: 1,
+    name: 'Ether',
+    symbol: 'ETH'
+  },
+  type: 'Transfer'
+}
+
+</code></pre>
+<p>At this point, the balances in both accounts will be updated with the result of the transfer</p>
+<pre><code class="language-js">  // check balances
+  console.log((await hermez.CoordinatorAPI.getAccounts(wallet.hermezEthereumAddress, [tokenERC20.id])).accounts[0])
+  console.log((await hermez.CoordinatorAPI.getAccounts(wallet2.hermezEthereumAddress2, [tokenERC20.id])).accounts[0])
+&gt;&gt;&gt;&gt;&gt;
+
+{
+  accountIndex: 'hez:ETH:4253',
+  balance: '477700000000000000',
+  bjj: 'hez:dMfPJlK_UtFqVByhP3FpvykOg5kAU3jMLD7OTx_4gwzO',
+  hezEthereumAddress: 'hez:0x74d5531A3400f9b9d63729bA9C0E5172Ab0FD0f6',
+  itemId: 4342,
+  nonce: 4,
+  token: {
+    USD: 1793,
+    decimals: 18,
+    ethereumAddress: '0x0000000000000000000000000000000000000000',
+    ethereumBlockNum: 0,
+    fiatUpdate: '2021-02-28T18:55:17.372008Z',
+    id: 0,
+    itemId: 1,
+    name: 'Ether',
+    symbol: 'ETH'
+  }
+}
+{
+  accountIndex: 'hez:ETH:256',
+  balance: '1874280899837791518',
+  bjj: 'hez:YN2DmRh0QgDrxz3NLDqH947W5oNys7YWqkxsQmFVeI_m',
+  hezEthereumAddress: 'hez:0x9F255048EC1141831A28019e497F3f76e559356E',
+  itemId: 1,
+  nonce: 2,
+  token: {
+    USD: 1793,
+    decimals: 18,
+    ethereumAddress: '0x0000000000000000000000000000000000000000',
+    ethereumBlockNum: 0,
+    fiatUpdate: '2021-02-28T18:55:17.372008Z',
+    id: 0,
+    itemId: 1,
+    name: 'Ether',
+    symbol: 'ETH'
+  }
+}
+
+</code></pre>
+<h2 id="create-account-authorization">Create Account Authorization</h2>
+<p>Imagine that Bob wants to send a transfer of Ether to Mary using Hermez, but Mary only has an Ethereum account but no Hermez account. To complete this transfer, Mary could open a Hermez account and proceed as the previous transfer example.
+Alternatively, Mary could authorize the Coordinator to create a Hermez account on her behalf so that she can receive Bob's transfer. </p>
+<p>First we create a wallet for Mary:</p>
+<pre><code class="language-js">  // load second account
+  const wallet3 = await hermez.HermezWallet.createWalletFromEtherAccount(EXAMPLES_WEB3_URL, { type: 'WALLET', privateKey: EXAMPLES_PRIVATE_KEY3 })
+  const hermezWallet3 = wallet3.hermezWallet
+  const hermezEthereumAddress3 = wallet3.hermezEthereumAddress
+</code></pre>
+<p>The authorization for the creation of a Hermez account is done using the private key stored in the newly created Hermez wallet. </p>
+<blockquote>
+<p>Note that the account is not created at this moment. The account will be created when Bob performs the transfer. Also, it is Bob  that pays for the fees associated with the account creation.</p>
+</blockquote>
+<pre><code class="language-js">  const EXAMPLES_PRIVATE_KEY3 = '0x3d228fed4dc371f56b8f82f66ff17cd6bf1da7806d7eabb21810313dee819a53'
+  const signature = await hermezWallet3.signCreateAccountAuthorization(EXAMPLES_WEB3_URL, { type: 'WALLET', privateKey: EXAMPLES_PRIVATE_KEY3 })
+  const res = await hermez.CoordinatorAPI.postCreateAccountAuthorization(
+    hermezWallet3.hermezEthereumAddress,
+    hermezWallet3.publicKeyBase64,
+    signature
+  )
+</code></pre>
+<p>We can find out if the Coordinator has been authorized to create a Hermez account on behalf of a user by:</p>
+<pre><code class="language-js">  const authResponse = await hermez.CoordinatorAPI.getCreateAccountAuthorization(wallet3.hermezEthereumAddress)
+  console.log(authResponse)
+
+&gt;&gt;&gt;&gt;
+
+{
+  hezEthereumAddress: 'hez:0xd3B6DcfCA7Eb3207905Be27Ddfa69453625ffbf9',
+  bjj: 'hez:ct0ml6FjdUN6uGUHZ70qOq5-58cZ19SJDeldMH021oOk',
+  signature: '0x22ffc6f8d569a92c48a4e784a11a9e57b840fac21eaa7fedc9dc040c4a45d502744a35eeb0ab173234c0f687b252bd0364647bff8db270ffcdf1830257de28e41c',
+  timestamp: '2021-03-16T14:56:05.295946Z'
+}
+
+</code></pre>
+<p>Once we verify the receiving Ethereum account has authorized the creation of a Hermez account, we can proceed with the transfer from Bob's account to Mary's account. For this, we set the destination address to Mary's Ethereum address and set the fee using  the <code>createAccount</code> value.</p>
+<pre><code class="language-js">  // set amount to transfer
+  const amountTransferAuth = hermez.HermezCompressedAmount.compressAmount(hermez.Utils.getTokenAmountBigInt('1.0', 18))
+  // generate L2 transaction
+  const l2AuthTxTransfer = {
+    from: infoAccountSender.accountIndex,
+    to: hermezWallet3.hermezEthereumAddress
+    amount: amountTransferAuth,
+    fee: state.recommendedFee.createAccount / usdTokenExchangeRate
+  }
+  const accountAuthTransferResponse = await hermez.Tx.generateAndSendL2Tx(l2AuthTxTransfer, hermezWallet, infoAccountSender.token)
+  console.log(accountAuthTransferResponse)
+
+&gt;&gt;&gt;&gt;&gt;
+{
+  status: 200,
+  id: '0x025398af5b69f132d8c2c5b7b225df1436baf7d1774a6b017a233bf273b4675c8f',
+  nonce: 0
+}
+
+</code></pre>
+<p>After the transfer has been forged, we can check Mary's account on Hermez</p>
+<pre><code class="language-js">    // get receiver account information
+    const infoAccountAuth = (await hermez.CoordinatorAPI.getAccounts(hermezWallet3.hermezEthereumAddress, [tokenERC20.id]))
+      .accounts[0]
+    console.log(infoAccountAuth)
+
+&gt;&gt;&gt;&gt;&gt;
+
+{
+  accountIndex: 'hez:ETH:265',
+  balance: '1000000000000000',
+  bjj: 'hez:ct0ml6FjdUN6uGUHZ70qOq5-58cZ19SJDeldMH021oOk',
+  hezEthereumAddress: 'hez:0xd3B6DcfCA7Eb3207905Be27Ddfa69453625ffbf9',
+  itemId: 10,
+  nonce: 0,
+  token: {
+    USD: 1795.94,
+    decimals: 18,
+    ethereumAddress: '0x0000000000000000000000000000000000000000',
+    ethereumBlockNum: 0,
+    fiatUpdate: '2021-03-16T14:56:57.460862Z',
+    id: 0,
+    itemId: 1,
+    name: 'Ether',
+    symbol: 'ETH'
+  }
+}
+</code></pre>
+<h2 id="create-internal-accounts">Create Internal Accounts</h2>
+<p>Until now we have seen that accounts have an Ethereum address and a Baby JubJub key. This is the case for normal accounts. However, there is a second type of account that only requires a Baby JubJub key. These accounts are called <code>internal accounts</code>.</p>
+<p>The advantage of these accounts is that they are much more inexpensive to create than a <code>normal account</code>, since these accounts only exist on Hermez. The downside is that one cannot perform deposits or withdrawals from this type of account. However, there are some scenarios where these accounts are useful. For example, in those scenarios where one requires a temporary account. (for example, Exchanges could use these accounts to receive a transfer from users).</p>
+<pre><code class="language-js">  // Create Internal Account
+  // create new bjj private key to receive user transactions
+  const pvtBjjKey = Buffer.allocUnsafe(32).fill('1')
+
+  // create rollup internal account from bjj private key
+  const wallet4 = await hermez.HermezWallet.createWalletFromBjjPvtKey(pvtBjjKey)
+  const hermezWallet4 = wallet4.hermezWallet
+
+  // set amount to transfer
+  const amountTransferInternal = hermez.HermezCompressedAmount.compressAmount(hermez.Utils.getTokenAmountBigInt('1.0', 18))
+  // generate L2 transaction
+  const transferToInternal = {
+    from: infoAccountSender.accountIndex,
+    to: hermezWallet4.publicKeyBase64,
+    amount: amountTransferInternal,
+    fee: state.recommendedFee.createAccountInternal / usdTokenExchangeRate
+  }
+  const internalAccountResponse = await hermez.Tx.generateAndSendL2Tx(transferToInternal, hermezWallet, tokenERC20)
+  console.log(internalAccountResponse)
+
+
+&gt;&gt;&gt;&gt;&gt;
+
+{
+  status: 200,
+  id: '0x02ac000f39eee60b198c85348443002991753de912337720b9ef85d48e9dcfe83e',
+  nonce: 0
+}
+</code></pre>
+<p>Once the transaction is forged, we can check the account information</p>
+<pre><code class="language-js">    // get internal account information
+    const infoAccountInternal = (await hermez.CoordinatorAPI.getAccounts(hermezWallet4.publicKeyBase64, [tokenERC20.id]))
+      .accounts[0]
+    console.log(infoAccountInternal)
+
+
+&gt;&gt;&gt;&gt;&gt;&gt;
+
+{
+  accountIndex: 'hez:ETH:259',
+  balance: '1000000000000000000',
+  bjj: 'hez:KmbnR34pOUhSaaPOkeWbaeZVjMqojfyYy8sYIHRSlaKx',
+  hezEthereumAddress: 'hez:0xFFfFfFffFFfffFFfFFfFFFFFffFFFffffFfFFFfF',
+  itemId: 4,
+  nonce: 0,
+  token: {
+    USD: 1798.51,
+    decimals: 18,
+    ethereumAddress: '0x0000000000000000000000000000000000000000',
+    ethereumBlockNum: 0,
+    fiatUpdate: '2021-03-16T15:44:08.33507Z',
+    id: 0,
+    itemId: 1,
+    name: 'Ether',
+    symbol: 'ETH'
+  }
+}
+
+
+</code></pre>
+<p>We can verify it is in fact an <code>internal account</code> because the associated <code>hezEthereumAddress</code> is <code>hez:0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF</code>.</p>
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../protocol/withdrawal-delayer/withdrawal-delayer/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Withdrawal delayer protocol" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Withdrawal delayer protocol
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../api/" class="md-footer__link md-footer__link--next" aria-label="Next: API" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              API
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://t.me/polygonhermez" target="_blank" rel="noopener" title="t.me" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M248 8C111.033 8 0 119.033 0 256s111.033 248 248 248 248-111.033 248-248S384.967 8 248 8Zm114.952 168.66c-3.732 39.215-19.881 134.378-28.1 178.3-3.476 18.584-10.322 24.816-16.948 25.425-14.4 1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25 5.342-39.5 3.652-3.793 67.107-61.51 68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608 69.142-14.845 10.194-26.894 9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7 18.45-13.7 108.446-47.248 144.628-62.3c68.872-28.647 83.183-33.623 92.511-33.789 2.052-.034 6.639.474 9.61 2.885a10.452 10.452 0 0 1 3.53 6.716 43.765 43.765 0 0 1 .417 9.769Z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/hermeznetwork/hermez-docs" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.tracking"], "search": "../../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.6c7ad80a.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
