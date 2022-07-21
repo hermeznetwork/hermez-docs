@@ -24,8 +24,8 @@ extra:
       link: https://t.me/polygonhermez
     - icon: fontawesome/brands/github
       link: https://github.com/hermeznetwork/hermez-docs
-    - icon: octicons/browser-24
-      link: https://hermez.io/
+    # - icon: octicons/browser-24
+    #   link: https://hermez.io/
 
 nav:
   - Polygon zkEVM:
