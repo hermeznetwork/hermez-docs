@@ -1,4 +1,20 @@
-## Memory Align SM
+# Memory Align SM
+
+## Introduction 
+
+As a secondary state machine, the Memory Align State Machine has the executor part (the Memory Align SM Executor) and an internal Memory Align PIL (program) which is a set of verification rules, written in the PIL language. The Memory Align SM Executor is written in two versions; Javascript and C/C++.
+
+
+
+The Polygon Hermez Repo is here  [https://github.com/0xPolygonHermez](https://github.com/0xPolygonHermez)
+
+**Memory Align SM Executor**: [sm_mem_align.js](https://github.com/0xPolygonHermez/zkevm-proverjs/tree/main/src/sm/sm_mem_align.js)
+
+**Memory Align SM PIL**: [mem_align.pil](https://github.com/0xPolygonHermez/zkevm-proverjs/blob/main/pil/mem_align.pil) 
+
+
+## Purpose of the State Machine
+
 
 The Memory SM checks memory reads and writes using a 32-byte word access, while the EVM can read and write 32-byte words with offsets at a byte level.
 

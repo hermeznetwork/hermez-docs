@@ -19,11 +19,11 @@ operating on a fixed number $b$ of bits. Here $b$ is called the **width**. The a
 
 Let us describe how the sponge construction works:
 
-* (*Init Phase*) First of all, the input string is padded with a reversible **padding rule**, in order to achieve a length divisible by $r$. Subsequently, it is cut into blocks of $r$ bits. We also initialize the $b$ bits of the state to zero. 
+- (*Init Phase*) First of all, the input string is padded with a reversible **padding rule**, in order to achieve a length divisible by $r$. Subsequently, it is cut into blocks of $r$ bits. We also initialize the $b$ bits of the state to zero. 
 
-* (*Absorbing Phase*) In this phase, the $r$-bit input blocks are XORed into the first $r$ bits of the state, interleaved with applications of the function $f$. We proceed until processing all blocks of $r$-bits. Observe that the last $c$ bits corresponding to the capacity value does not absorb any input from the outside. 
+- (*Absorbing Phase*) In this phase, the $r$-bit input blocks are XORed into the first $r$ bits of the state, interleaved with applications of the function $f$. We proceed until processing all blocks of $r$-bits. Observe that the last $c$ bits corresponding to the capacity value does not absorb any input from the outside. 
 
-* (*Squeezing Phase*) In this phase, the first $r$ bits of the state are returned as output blocks, interleaved with applications of the function $f$. The number of output blocks is chosen at will by the user. Observe that the last $c$ bits corresponding to the capacity value are never output during this phase. Actually, if the output exceeds the specified length, we will just truncate it in order to fit. 
+- (*Squeezing Phase*) In this phase, the first $r$ bits of the state are returned as output blocks, interleaved with applications of the function $f$. The number of output blocks is chosen at will by the user. Observe that the last $c$ bits corresponding to the capacity value are never output during this phase. Actually, if the output exceeds the specified length, we will just truncate it in order to fit. 
 
 We depict an schema of the sponge construction in the Figure 1 below:
 

@@ -28,48 +28,36 @@ There are many ways in which values can be stored into registers:
 
 1. Assign a constant into one or more registers is made using the arrow operator "=>".
 
-```
-0 => A,B
-```
+        0 => A,B
 
 2. Similarly, we can store the value of a register into other registers.
 
-```
-A => B,C
-```
+        A => B,C
 
-More generally, we can store the value of a function $f$ of registers.
+    More generally, we can store the value of a function $f$ of registers.
 
-```
-f(A,B) => C,D
-```
+        f(A,B) => C,D
 
 3. We can also store a global variable into some register.
 
-```
-%GLOBAL_VAR => A,B
-```
+        %GLOBAL_VAR => A,B
 
 4. The result of executing an executor method can also be stored into one or more registers. The indication of such an execution is done with the dollar "$" sign, which should be treated as a free input.
 
-```
-${ExecutorMethod(params)} => A,B
-```
 
-Notice that the method `ExecutorMethod` does not necessarily depends on the registers. An good example of such a method is `SHA256`.
+        ${ExecutorMethod(params)} => A,B
+
+
+    Notice that the method `ExecutorMethod` does not necessarily depends on the registers. An good example of such a method is `SHA256`.
 
 5. If a method gets executed (with the dollar sign) by its own, its main purpose is generating log information.
 
-```
-${ExecutorMethod(params)}
-```
+        ${ExecutorMethod(params)}
 
 6. Apart from executor methods, one can also use inline functions. This functions, which are also instantiated by the executor, are simply "short" and non-reused executor methods.
 
-```
-${A >> 2} => B
-${A & 0x03} => C
-```
+        ${A >> 2} => B
+        ${A & 0x03} => C
 
 ## Introducing Opcodes
 

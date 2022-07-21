@@ -1,3 +1,17 @@
+# Memory State Machine
+
+As a secondary state machine, the Memory State Machine has the executor part (the Memory SM Executor) and an internal Memory PIL (program) which is a set of verification rules, written in the PIL language. The Memory SM Executor is written in two versions; Javascript and C/C++.
+
+
+
+The Polygon Hermez Repo is here  [https://github.com/0xPolygonHermez](https://github.com/0xPolygonHermez)
+
+**Memory SM Executor**: [sm_mem.js](https://github.com/0xPolygonHermez/zkevm-proverjs/tree/main/src/sm/sm_mem.js)
+
+**Memory SM PIL**: [mem.pil](https://github.com/0xPolygonHermez/zkevm-proverjs/blob/main/pil/mem.pil) 
+
+
+
 ## EVM Memory
 
 The memory of the EVM (Ethereum Virtual Machine) is a volatile read-write memory, and it is used to store temporary data during the execution of transactions of smart contract functions. That is, data in memory is populated during transaction's execution but it does not persist between transactions. The memory is an array of $256$-bit ($32$ bytes) words that can be accessed through _addresses at byte level_, that is to say, each byte in the memory has a different address.
