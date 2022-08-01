@@ -25,4 +25,4 @@
 
 # Polygon Hermez 1.0 docs
 
-This docmentation relates to Polygon Hermez 1.0. If you are looking for documentation regarding Polygon zkEVM head to [https://github.com/0xPolygonHermez/zkevm-doc] (https://github.com/0xPolygonHermez/zkevm-doc) or [https://docs.hermez.io] (https://docs.hermez.io).
+This docmentation relates to Polygon Hermez 1.0. If you are looking for documentation regarding Polygon zkEVM head to [https://github.com/0xPolygonHermez/zkevm-doc](https://github.com/0xPolygonHermez/zkevm-doc) or [https://docs.hermez.io](https://docs.hermez.io).
