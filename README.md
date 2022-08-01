@@ -1,5 +1,5 @@
-# zkevm-docs
-Polygon zkEVM documentation
+# hermez-docs
+Polygon Hermez 1.0 documentation
 
 # How to run this documentation (locally)
 ## Install mkdocs
